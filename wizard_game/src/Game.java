@@ -35,8 +35,8 @@ public class Game extends Canvas implements Runnable{
 
         //now to load the image
         BufferedImageLoader loader = new BufferedImageLoader();
-        level = loader.loadImage("res/wizard_level.png");
-        sprite_sheet = loader.loadImage("res/sprite_sheet.png");
+        level = loader.loadImage("/wizard_level.png");
+        sprite_sheet = loader.loadImage("/wizard_images.png");
 
         ss = new SpriteSheet(sprite_sheet);
         floor = ss.grabImage(4,2,32,32);
