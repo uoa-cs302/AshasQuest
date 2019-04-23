@@ -1,6 +1,7 @@
 
 import java.awt.*;
 
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.io.File;
 
@@ -15,6 +16,8 @@ public class Game extends Canvas implements Runnable {
     private World world;
 
     public String title;
+
+    private boolean exit_menu_active = false;
 
 
 
@@ -138,6 +141,11 @@ public class Game extends Canvas implements Runnable {
         //Below checks if we currently have a State that actually exists.
         if (States == STATE.GAME) {
             world.tick();
+
+            //if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_E))
+
+            //    exit_menu_active = !exit_menu_active;
+
             //}
             //  if(State.getState() != null)
             //This calls the tick() method in whatever State we're currently in.
@@ -146,6 +154,13 @@ public class Game extends Canvas implements Runnable {
 
         }
     }
+
+//    public boolean isExit_menu_active(){
+//        while (handler.getKeyManager().keyJustPressed(KeyEvent.VK_E)){
+//            return true;
+//        }
+//        return false;
+//    }
 
 
 
@@ -199,6 +214,27 @@ public class Game extends Canvas implements Runnable {
 
             g.setColor(Color.black);
             g.drawRect(25, 10, 200, 20);
+
+
+////            if (exit_menu_active){
+////
+////
+////              //  g.drawString("Press Q: Exit game", 100, 90);
+////               // g.drawString("Press M: Return to Menu screen",150, 90);
+////
+////                g.setColor(Color.LIGHT_GRAY);
+////                g.fillRect(305, 307,400, 200);
+////
+////                g.setColor(Color.black);
+////                g.drawRect(305, 307, 400, 200);
+////
+////                Font fnt3 = new Font("arial",Font.BOLD,15);
+////                g.setFont(fnt3);
+////                g.setColor(Color.black);
+////                g.drawString("Exit Menu: " , 465, 327);
+//
+//
+//            }
         } else if (States==STATE.MENU){
             menu.paintComponent(g);
 
@@ -344,6 +380,12 @@ public class Game extends Canvas implements Runnable {
         return height;
 
     }
+
+//    public boolean isExit_menu_active() {
+//
+//        return exit_menu_active;
+//
+//    }
 
 
 

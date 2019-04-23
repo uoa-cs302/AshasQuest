@@ -21,6 +21,8 @@ public class Player extends Creature {
     // Inventory
 
     private Inventory inventory;
+    //private Game game;
+    private CommandList commandList;
 
 
 
@@ -57,6 +59,8 @@ public class Player extends Creature {
 
 
         inventory = new Inventory(handler);
+     //  game = new Game("Ashas Quest", 1024, 768);
+        commandList = new CommandList(handler);
 
     }
 
@@ -92,6 +96,9 @@ public class Player extends Creature {
 
         inventory.tick();
 
+        //Command List
+        commandList.tick();
+
     }
 
 
@@ -112,7 +119,7 @@ public class Player extends Creature {
 
 
 
-        if(inventory.isActive())
+        if(inventory.isActive() || commandList.isExit_menu_active())
 
             return;
 
@@ -224,7 +231,7 @@ public class Player extends Creature {
 
 
 
-        if(inventory.isActive())
+        if(inventory.isActive()||commandList.isExit_menu_active())
 
             return;
 
@@ -263,6 +270,7 @@ public class Player extends Creature {
     public void postRender(Graphics g){
 
         inventory.render(g);
+        commandList.render(g);
 
     }
 
@@ -298,12 +306,20 @@ public class Player extends Creature {
 
     }
 
+    public CommandList getCommandList(){
+        return commandList;
+    }
+
 
 
     public void setInventory(Inventory inventory) {
 
         this.inventory = inventory;
 
+    }
+
+    public void setCommandList(CommandList commandList){
+        this.commandList = commandList;
     }
 
 
