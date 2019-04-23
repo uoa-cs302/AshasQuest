@@ -34,6 +34,8 @@ public class Game extends Canvas implements Runnable {
 
     private Graphics g;
 
+    private Player player;
+
 
 
     //Input
@@ -76,6 +78,8 @@ public class Game extends Canvas implements Runnable {
         mouseInput = new MouseInput();
 
         menu = new Menu();
+
+        player = new Player(handler,0,0);
 
 
     }
@@ -185,6 +189,14 @@ public class Game extends Canvas implements Runnable {
               //  State.getState().render(g);
         if (States==STATE.GAME) {
             world.render(g);
+            g.setColor(Color.white);
+            g.drawString("HP: " , 5, 25);
+
+            g.setColor(Color.green);
+            g.fillRect(25, 10,player.getHealth()* 16, 20);
+
+            g.setColor(Color.black);
+            g.drawRect(25, 10, 200, 20);
         } else if (States==STATE.MENU){
             menu.paintComponent(g);
 
