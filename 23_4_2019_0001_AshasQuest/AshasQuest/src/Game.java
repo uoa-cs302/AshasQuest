@@ -113,7 +113,7 @@ public class Game extends Canvas implements Runnable {
 
 
        // gameState = new GameState(handler);
-        world = new World(handler, "res" + File.separator + "world1.txt");
+        world = new World(handler, "../res/world1.txt");
 
         handler.setWorld(world);
 
@@ -377,7 +377,7 @@ public class Game extends Canvas implements Runnable {
 
     public static void main(String[] args){
 
-        Game game = new Game("Asha's Quest", 640, 480);
+        Game game = new Game("Asha's Quest", 1024, 768);
 
         game.start();
 

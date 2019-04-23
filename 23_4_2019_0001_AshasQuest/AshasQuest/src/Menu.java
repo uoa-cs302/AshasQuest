@@ -1,15 +1,18 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.IOException;
 
 public class Menu extends JPanel implements MouseListener {
 
     boolean started = false;
-    // public Rectangle playButton = new Rectangle(420,250,200,50);
-    public Rectangle scoreButton = new Rectangle(515,350,80,35);
-    public Rectangle creditsButton = new Rectangle(500,400,100,35);
-    //  public Rectangle quitButton = new Rectangle(520,420,150,25);
+    // public Rectangle playButton = new Rectangle(672,400,320,80);
+    public Rectangle scoreButton = new Rectangle(824,560,128,56);
+    public Rectangle creditsButton = new Rectangle(800,640,160,56);
+    //  public Rectangle quitButton = new Rectangle(832,672,240,40);
 
     public Menu() {
 
@@ -69,7 +72,9 @@ public class Menu extends JPanel implements MouseListener {
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         if (!started) {
-            g.drawImage(new ImageIcon(Menu.class.getResource("title-screen.png")).getImage(), 0, 0, 640, 480, this);
+            try {
+            g.drawImage(new ImageIcon(ImageIO.read(new File("../res/title-screen.png"))).getImage(), 0, 0, 1024, 768, this);
+            } catch (IOException e) {}
             Graphics2D g2d = (Graphics2D) g;
             Font fnt1 = new Font("arial",Font.BOLD,15);
             g.setFont(fnt1);
@@ -99,8 +104,8 @@ public class Menu extends JPanel implements MouseListener {
 //        public Rectangle helpButton = new Rectangle(WIDTH/2+120,250,100,50);
 //        public Rectangle quitButton = new Rectangle(WIDTH/2+120,350,100,50);
         //PlayButton
-        if (mx >= 420 && mx <= 620){
-            if (my >= 250 && my <= 300){
+        if (mx >= 672 && mx <= 992){
+            if (my >= 400 && my <= 480){
                 //Pressed PlayButton
                // Game.State  = Game.STATE.GAME;
             }
@@ -109,8 +114,8 @@ public class Menu extends JPanel implements MouseListener {
         //QuitButton
         //Functionally the quit button is complete
         //For this reason, the rectangle for it is no longer necessary
-        if (mx >= 520 && mx <= 620){
-            if (my >= 420 && my <= 500){
+        if (mx >= 832 && mx <= 992){
+            if (my >= 672 && my <= 800){
                 //Pressed QuitButton
                 System.exit(1);
             }

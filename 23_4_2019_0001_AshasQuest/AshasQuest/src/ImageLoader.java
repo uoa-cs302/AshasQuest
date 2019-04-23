@@ -5,6 +5,7 @@ import java.io.IOException;
 
 
 import javax.imageio.ImageIO;
+import java.io.File;
 
 
 
@@ -15,8 +16,9 @@ public class ImageLoader {
     public static BufferedImage loadImage(String path){
 
         try {
-
-            return ImageIO.read(ImageLoader.class.getResourceAsStream(path)); //this should be as stream right um yes
+            System.out.println(path);
+            return ImageIO.read(new File(path)); //this should be as stream right um yes
+                                                                              // umm, apparently no? maybe?
 
 
         } catch (IOException e) {

@@ -44,11 +44,11 @@ public class Assets {
 
         //The spritesheet contains almost all of the images of the assets, so it makes sense to just load sub images
         //from the main image.
-        SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/sheet.png"));
+        SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("../res/sheet.png"));
 
 
 
-        inventoryScreen = ImageLoader.loadImage("/inventoryScreen.png");
+        inventoryScreen = ImageLoader.loadImage("../res/inventoryScreen.png");
 
 
 
