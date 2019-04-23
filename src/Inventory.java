@@ -21,11 +21,11 @@ public class Inventory extends KeyManager{
 
 
     //Below are hardcoded regular values used to center the inventory's image
-    private int invX = 64, invY = 48,
+    private int invX = 102, invY = 77,
 
-    invWidth = 512, invHeight = 384,
+    invWidth = 819, invHeight = 614,
 
-    invListCenterX = invX + 171,
+    invListCenterX = invX + 274,
 
     invListCenterY = invY + invHeight / 2 + 5,
 
@@ -33,13 +33,13 @@ public class Inventory extends KeyManager{
 
 
 
-    private int invImageX = 452, invImageY = 82,
+    private int invImageX = 723, invImageY = 131,
 
-    invImageWidth = 64, invImageHeight = 64;
+    invImageWidth = 102, invImageHeight = 102;
 
 
 
-    private int invCountX = 484, invCountY = 172;
+    private int invCountX = 774, invCountY = 275;
 
 
 
@@ -60,7 +60,7 @@ public class Inventory extends KeyManager{
     public void tick(){
         //The below line toggles the inventory screen on and off
 
-        if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_E))
+        if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_I))
 
             active = !active;
 

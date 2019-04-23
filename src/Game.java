@@ -189,6 +189,8 @@ public class Game extends Canvas implements Runnable {
               //  State.getState().render(g);
         if (States==STATE.GAME) {
             world.render(g);
+            Font fnt2 = new Font("arial",Font.BOLD,15);
+            g.setFont(fnt2);
             g.setColor(Color.white);
             g.drawString("HP: " , 5, 25);
 
