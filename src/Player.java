@@ -1,7 +1,6 @@
-import java.awt.Graphics;
+import java.awt.*;
 
-import java.awt.Rectangle;
-
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 
@@ -12,6 +11,8 @@ public class Player extends Creature {
     //Animations
 
     private Animation animDown, animUp, animLeft, animRight;
+
+    private boolean exiting = false;
 
     // Attack timer, limits speed at which player can attack
     //wait 800 milliseconds to attack again
@@ -99,6 +100,19 @@ public class Player extends Creature {
         //Command List
         commandList.tick();
 
+        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_Q)){
+            //System.exit(1);
+            exiting = !exiting;
+        }
+
+        if (exiting&&handler.getKeyManager().keyJustPressed(KeyEvent.VK_Y)){
+            System.exit(1);
+        }
+
+        if (exiting&&handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)){
+            exiting=false;
+        }
+
     }
 
 
@@ -119,7 +133,7 @@ public class Player extends Creature {
 
 
 
-        if(inventory.isActive() || commandList.isExit_menu_active())
+        if(inventory.isActive() || commandList.isExit_menu_active()||exiting)
 
             return;
 
@@ -231,7 +245,7 @@ public class Player extends Creature {
 
 
 
-        if(inventory.isActive()||commandList.isExit_menu_active())
+        if(inventory.isActive()||commandList.isExit_menu_active()||exiting)
 
             return;
 
@@ -263,6 +277,8 @@ public class Player extends Creature {
 
         g.drawImage(getCurrentAnimationFrame(), (int) (x - handler.getGameCamera().getxOffset()), (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
 
+
+
     }
 
 
@@ -271,6 +287,21 @@ public class Player extends Creature {
 
         inventory.render(g);
         commandList.render(g);
+        if (exiting){
+            g.setColor(Color.black);
+            g.fillRect(305, 307,350, 70);
+
+            g.setColor(Color.LIGHT_GRAY);
+            g.drawRect(305, 307, 350, 70);
+
+            Font fnt3 = new Font("helvetica",Font.BOLD,20);
+            g.setFont(fnt3);
+            g.setColor(Color.white);
+            g.drawString("Are you sure you want to exit? " , 330, 327);
+            g.drawString("Y:Yes", 410, 357);
+            g.drawString("N:No", 490, 357);
+
+        }
 
     }
 

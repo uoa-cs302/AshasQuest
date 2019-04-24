@@ -17,7 +17,7 @@ public class Game extends Canvas implements Runnable {
 
     public String title;
 
-    private boolean exiting = false;
+    //private boolean exiting = false;
 
 
 
@@ -142,18 +142,18 @@ public class Game extends Canvas implements Runnable {
         if (States == STATE.GAME) {
             world.tick();
 
-            if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_Q)){
-                //System.exit(1);
-                exiting = !exiting;
-            }
-
-            if (exiting&&handler.getKeyManager().keyJustPressed(KeyEvent.VK_Y)){
-                System.exit(1);
-            }
-
-            if (exiting&&handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)){
-                exiting=false;
-            }
+//            if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_Q)){
+//                //System.exit(1);
+//                exiting = !exiting;
+//            }
+//
+//            if (exiting&&handler.getKeyManager().keyJustPressed(KeyEvent.VK_Y)){
+//                System.exit(1);
+//            }
+//
+//            if (exiting&&handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)){
+//                exiting=false;
+//            }
 
 
 
@@ -232,21 +232,21 @@ public class Game extends Canvas implements Runnable {
             g.setColor(Color.WHITE);
             g.drawString("Press C for Commands",5,50);
 
-            if (exiting){
-                g.setColor(Color.black);
-                g.fillRect(305, 307,350, 70);
-
-                g.setColor(Color.LIGHT_GRAY);
-                g.drawRect(305, 307, 350, 70);
-
-                Font fnt3 = new Font("helvetica",Font.BOLD,20);
-                g.setFont(fnt3);
-                g.setColor(Color.white);
-                g.drawString("Are you sure you want to exit? " , 330, 327);
-                g.drawString("Y:Yes", 410, 357);
-                g.drawString("N:No", 490, 357);
-
-            }
+//            if (exiting){
+//                g.setColor(Color.black);
+//                g.fillRect(305, 307,350, 70);
+//
+//                g.setColor(Color.LIGHT_GRAY);
+//                g.drawRect(305, 307, 350, 70);
+//
+//                Font fnt3 = new Font("helvetica",Font.BOLD,20);
+//                g.setFont(fnt3);
+//                g.setColor(Color.white);
+//                g.drawString("Are you sure you want to exit? " , 330, 327);
+//                g.drawString("Y:Yes", 410, 357);
+//                g.drawString("N:No", 490, 357);
+//
+//            }
 
 
 ////            if (exit_menu_active){
