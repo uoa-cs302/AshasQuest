@@ -1,11 +1,7 @@
 
 import java.awt.*;
 
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.io.File;
 
 
 public class Game extends Canvas implements Runnable {
@@ -19,6 +15,8 @@ public class Game extends Canvas implements Runnable {
 
     public String title;
 
+    private static int sec = 0;
+    private static int min = 0;
     //private boolean exiting = false;
 //    public int thousands = 0;
 //    public int hundreds = 0;
@@ -45,7 +43,7 @@ public class Game extends Canvas implements Runnable {
     private Graphics g;
 
     private Player player;
-    private String time = new String();
+    private String time = "00:00";
 
 
 
@@ -262,127 +260,27 @@ public class Game extends Canvas implements Runnable {
 
     }
 
-    public static String getTime(int sec)
+    public static String updateTime() {
+        String stringTime = "";
 
-    {
-
-        //if we have hours minutes and seconds
-
-        int hours = 0;
-
-        int remainderOfHours = 0;
-
-        int minutes = 0;
-
-        int seconds = 0;
-
-
-
-        if (sec >= 3600) // if we have an hour or more
-
-        {
-
-            hours = sec / 3600;
-
-            remainderOfHours = sec % 3600;        // could be more or less than a min
-
-
-
-            if (remainderOfHours >= 60)   //check if remainder is more or equal to a min
-
-            {
-
-                minutes = remainderOfHours / 60;
-
-                seconds = remainderOfHours % 60;
-
-            }
-
-            else
-
-            {                       // if it's less than a min
-
-                seconds = remainderOfHours;
-
-            }
-
+        if (sec < 59) { //Check min overflow
+            sec++;
+        } else {
+            sec = 0;
+            min++;
         }
 
-        // if we have a min or more
+        if (sec < 10) { //Formatting
+            stringTime += "0";
+        }
+        stringTime += sec;
 
-        else if (sec >= 60)
-
-        {
-
-            hours = 0;               //62
-
-            minutes = sec / 60;
-
-            seconds = sec % 60;
-
+        if (min > 0) {//ez timer
+            stringTime = min + ":" + stringTime;
         }
 
-        //if we have just seconds
 
-        else if (sec < 60)
-
-        {
-
-            hours = 0;
-
-            minutes = 0;
-
-            seconds = sec;
-
-        }
-
-//i get integer hour minute second. i want to transform them to strings:
-
-
-
-        String strHours;
-
-        String strMins;
-
-        String strSecs;
-
-
-
-        if(seconds < 10)
-
-            strSecs = "0" + Integer.toString(seconds);
-
-        else
-
-            strSecs = Integer.toString(seconds);
-
-
-
-        if(minutes < 10)
-
-            strMins = "0" + Integer.toString(minutes);
-
-        else
-
-            strMins = Integer.toString(minutes);
-
-
-
-        if(hours < 10)
-
-            strHours = "0" + Integer.toString(hours);
-
-        else
-
-            strHours = Integer.toString(hours);
-
-
-
-
-
-        String time = strHours + ":" + strMins + ":" + strSecs;
-
-        return time;
+        return stringTime;
 
     }
 
@@ -417,6 +315,7 @@ public class Game extends Canvas implements Runnable {
         //System.nanoTime returns current time of the computer in nano seconds.
 
         long lastTime = System.nanoTime();
+        long lastClockTime = System.currentTimeMillis();
 
         long timer = 0;
 
@@ -430,8 +329,11 @@ public class Game extends Canvas implements Runnable {
 
 
         while(running){
-            time = getTime(i);
-            i++;
+
+            if (System.currentTimeMillis() - lastClockTime > 1000) {//Only call every second
+                time = updateTime(); //Update
+                lastClockTime = System.currentTimeMillis();
+            }
             //Delta is added to. Now - last time will give the amount of time that has been passed
             //since this line of code was called. Divided by the amount of time we are allowed to call them.
 
