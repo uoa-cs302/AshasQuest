@@ -9,9 +9,30 @@ public class Tile {
     //STATIC STUFF HERE
     //Below will just hold 256 tiles. This will hold one instance of every tile in our game.
     public static Tile[] tiles = new Tile[256];
-    public static Tile grassTile = new GrassTile(0);
-    public static Tile dirtTile = new DirtTile(1);
-    public static Tile rockTile = new RockTile(2);
+    public static Tile floor = new Tile(Assets.BOSS_TERRAIN.get("FLOOR"), 0);
+    public static Tile top_left_corner = new Tile(Assets.BOSS_TERRAIN.get("TOP_LEFT_CORNER"), 1);
+    public static Tile top_edge = new Tile(Assets.BOSS_TERRAIN.get("TOP_EDGE"), 2);
+    public static Tile top_right_corner = new Tile(Assets.BOSS_TERRAIN.get("TOP_RIGHT_CORNER"), 3);
+    public static Tile left_edge = new Tile(Assets.BOSS_TERRAIN.get("LEFT_EDGE"), 4);
+    public static Tile right_edge = new Tile(Assets.BOSS_TERRAIN.get("RIGHT_EDGE"), 5);
+    public static Tile bottom_left_corner = new Tile(Assets.BOSS_TERRAIN.get("BOTTOM_LEFT_CORNER"), 6);
+    public static Tile bottom_edge = new Tile(Assets.BOSS_TERRAIN.get("BOTTOM_EDGE"), 7);
+    public static Tile bottom_right_corner = new Tile(Assets.BOSS_TERRAIN.get("BOTTOM_RIGHT_CORNER"), 8);
+    public static Tile black = new Tile(Assets.BOSS_TERRAIN.get("BLACK"), 9);
+    
+    public static Tile TOP_RIGHT_INSIDE = new Tile(Assets.BOSS_TERRAIN.get("TOP_RIGHT_INSIDE"), 11);
+    public static Tile TOP_LEFT_INSIDE = new Tile(Assets.BOSS_TERRAIN.get("TOP_LEFT_INSIDE"), 12);
+    public static Tile BOTTOM_RIGHT_INSIDE = new Tile(Assets.BOSS_TERRAIN.get("BOTTOM_RIGHT_INSIDE"), 13);
+    public static Tile BOTTOM_LEFT_INSIDE = new Tile(Assets.BOSS_TERRAIN.get("BOTTOM_LEFT_INSIDE"), 14);
+    public static Tile MAT_TOP_LEFT_CORNER = new Tile(Assets.BOSS_TERRAIN.get("MAT_TOP_LEFT_CORNER"), 15);
+    public static Tile MAT_TOP_EDGE = new Tile(Assets.BOSS_TERRAIN.get("MAT_TOP_EDGE"), 16);
+    public static Tile MAT_TOP_RIGHT_CORNER = new Tile(Assets.BOSS_TERRAIN.get("MAT_TOP_RIGHT_CORNER"), 17);
+    public static Tile MAT_LEFT_EDGE = new Tile(Assets.BOSS_TERRAIN.get("MAT_LEFT_EDGE"), 18);
+    public static Tile MAT = new Tile(Assets.BOSS_TERRAIN.get("MAT"), 19);
+    public static Tile MAT_RIGHT_EDGE = new Tile(Assets.BOSS_TERRAIN.get("MAT_RIGHT_EDGE"), 20);
+    public static Tile MAT_BOTTOM_LEFT_CORNER = new Tile(Assets.BOSS_TERRAIN.get("MAT_BOTTOM_LEFT_CORNER"), 21);
+    public static Tile MAT_BOTTOM_EDGE = new Tile(Assets.BOSS_TERRAIN.get("MAT_BOTTOM_EDGE"), 22);
+    public static Tile MAT_BOTTOM_RIGHT_CORNER = new Tile(Assets.BOSS_TERRAIN.get("MAT_BOTTOM_RIGHT_CORNER"), 23);
 
     //CLASS
 
