@@ -1,4 +1,5 @@
 import java.awt.Graphics;
+import java.util.HashMap;
 
 public class World {
 
@@ -15,6 +16,8 @@ public class World {
     private ItemManager itemManager;
 
     public World(Handler handler, String path){
+        map_init();
+
         this.handler = handler;
         entityManager = new EntityManager(handler, new Player(handler, 100, 100));
         itemManager = new ItemManager(handler);
@@ -95,9 +98,38 @@ public class World {
             for(int x = 0;x < width;x++){
                 //We are converting the x and y of the 4 loops into the 1 dimensional array index.
                 //We are adding 4 because the first 4 numbers are not actual world data.
-                tiles[x][y] = Utils.parseInt(tokens[(x + y * width) + 4]);
+                tiles[x][y] = STR_TO_INT.get(tokens[(x + y * width) + 4]);
             }
         }
+    }
+
+    public static final HashMap<String, Integer> STR_TO_INT = new HashMap<>();
+
+    public static void map_init(){
+        STR_TO_INT.put("0", 0);
+        STR_TO_INT.put("1", 1);
+        STR_TO_INT.put("2", 2);
+        STR_TO_INT.put("3", 3);
+        STR_TO_INT.put("4", 4);
+        STR_TO_INT.put("5", 5);
+        STR_TO_INT.put("6", 6);
+        STR_TO_INT.put("7", 7);
+        STR_TO_INT.put("8", 8);
+        STR_TO_INT.put("9", 9);
+        STR_TO_INT.put("A", 11);
+        STR_TO_INT.put("B", 12);
+        STR_TO_INT.put("C", 13);
+        STR_TO_INT.put("D", 14);
+        STR_TO_INT.put("E", 15);
+        STR_TO_INT.put("F", 16);
+        STR_TO_INT.put("G", 17);
+        STR_TO_INT.put("H", 18);
+        STR_TO_INT.put("I", 19);
+        STR_TO_INT.put("J", 20);
+        STR_TO_INT.put("K", 21);
+        STR_TO_INT.put("L", 22);
+        STR_TO_INT.put("M", 23);
+        STR_TO_INT.put("N", 24);
     }
 
     public int getWidth(){
