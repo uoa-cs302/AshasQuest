@@ -142,6 +142,10 @@ public class Game extends Canvas implements Runnable {
         if (States == STATE.GAME) {
             world.tick();
 
+            if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_Q)){
+                System.exit(1);
+            }
+
             //if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_E))
 
             //    exit_menu_active = !exit_menu_active;
