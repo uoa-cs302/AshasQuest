@@ -14,7 +14,7 @@ public class CommandList {
     }
 
     public void tick(){
-        if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_E))
+        if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_C))
 
           exit_menu_active = !exit_menu_active;
 
@@ -34,31 +34,37 @@ public class CommandList {
                // g.drawString("Press M: Return to Menu screen",150, 90);
 
                 g.setColor(Color.black);
-                g.fillRect(305, 307,400, 280);
+                g.fillRect(305, 307,380, 210);
 
                 g.setColor(Color.LIGHT_GRAY);
-                g.drawRect(305, 307, 400, 280);
+                g.drawRect(305, 307, 380, 210);
 
                 Font fnt3 = new Font("helvetica",Font.BOLD,20);
                 g.setFont(fnt3);
                 g.setColor(Color.white);
-                g.drawString("Command List: " , 440, 327);
+                g.drawString("Command List: " , 410, 327);
 
                 Font fnt4 = new Font("arial",Font.BOLD,15);
                 g.setFont(fnt4);
                 g.setColor(Color.white);
                // g.drawString("Command List: " , 460, 327);
-                g.drawString("W: Move Up", 460, 347);
-                g.drawString("A: Move Left", 460, 367);
-                g.drawString("S: Move Down", 460, 387);
-                g.drawString("D: Move Right", 460, 407);
-                g.drawString("Q: Exit Game", 460, 427);
-                g.drawString("M: Exit to Menu", 460, 447);
-                g.drawString("I: Call Inventory", 460, 467);
-                g.drawString("Up Arrow: Attack Up", 445, 487);
-                g.drawString("Left Arrow: Attack Left", 435, 507);
-                g.drawString("Right Arrow: Attack Right", 425, 527);
-                g.drawString("Down Arrow: Attack Down", 425, 547);
+                // Left column
+                g.drawString("W: Move Up", 320, 357);
+                g.drawString("A: Move Left", 320, 377);
+                g.drawString("S: Move Down", 320, 397);
+                g.drawString("D: Move Right", 320, 417);
+                g.drawString("Q: Exit Game", 320, 437);
+                g.drawString("M: Exit to Menu", 320, 457);
+                g.drawString("I: Call Inventory", 320, 477);
+
+                //Right column
+                g.drawString("B: Use Alucard Shield",470, 357);
+                g.drawString("P: Use Power Up",470,377);
+                g.drawString("Down Arrow: Attack Down",470,397);
+                g.drawString("Up Arrow: Attack Up", 470, 417);
+                g.drawString("Left Arrow: Attack Left", 470, 437);
+                g.drawString("Right Arrow: Attack Right", 470, 457);
+                g.drawString("Space: Shadowpiercer Slash", 470, 477);
 
 
 
