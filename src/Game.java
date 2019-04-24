@@ -330,7 +330,7 @@ public class Game extends Canvas implements Runnable {
 
         while(running){
 
-            if (System.currentTimeMillis() - lastClockTime > 1000) {//Only call every second
+            if ((System.currentTimeMillis() - lastClockTime > 1000)&&(States == STATE.GAME)) {//Only call every second
                 time = updateTime(); //Update
                 lastClockTime = System.currentTimeMillis();
             }
