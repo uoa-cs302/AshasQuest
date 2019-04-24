@@ -12,9 +12,9 @@ public class Player extends Creature {
 
     private Animation animDown, animUp, animLeft, animRight;
 
-    private boolean exiting = false;
+    public boolean exiting = false;
 
-    private boolean return_to_menu = false;
+    public boolean return_to_menu = false;
 
     // Attack timer, limits speed at which player can attack
     //wait 800 milliseconds to attack again

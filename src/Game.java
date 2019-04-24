@@ -1,6 +1,7 @@
 
 import java.awt.*;
 
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 
 
@@ -26,7 +27,8 @@ public class Game extends Canvas implements Runnable {
 
 
 
-    private boolean running = false;
+    public boolean running = false;
+    public boolean ticking = true;
 
     private Thread thread;
 
@@ -44,6 +46,7 @@ public class Game extends Canvas implements Runnable {
 
     private Player player;
     private String time = "00:00";
+    private CommandList commandList;
 
 
 
@@ -92,6 +95,8 @@ public class Game extends Canvas implements Runnable {
         menu = new Menu();
 
         player = new Player(handler,0,0);
+
+        commandList = new CommandList(handler);
 
 
     }
@@ -184,6 +189,10 @@ public class Game extends Canvas implements Runnable {
         //Below checks if we currently have a State that actually exists.
         if (States == STATE.GAME) {
             world.tick();
+
+           if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_P)){
+                ticking = !ticking;
+            }
 
         }
     }
@@ -330,10 +339,16 @@ public class Game extends Canvas implements Runnable {
 
         while(running){
 
-            if ((System.currentTimeMillis() - lastClockTime > 1000)&&(States == STATE.GAME)) {//Only call every second
-                time = updateTime(); //Update
-                lastClockTime = System.currentTimeMillis();
-            }
+           // if (commandList.isExit_menu_active()){
+               // return;
+           // } else {
+            if (ticking){
+
+                if ((System.currentTimeMillis() - lastClockTime > 1000) && (States == STATE.GAME)) {//Only call every second
+                    time = updateTime(); //Update
+                    lastClockTime = System.currentTimeMillis();
+                }
+           }
             //Delta is added to. Now - last time will give the amount of time that has been passed
             //since this line of code was called. Divided by the amount of time we are allowed to call them.
 
