@@ -14,6 +14,8 @@ public class Player extends Creature {
 
     private boolean exiting = false;
 
+    private boolean return_to_menu = false;
+
     // Attack timer, limits speed at which player can attack
     //wait 800 milliseconds to attack again
 
@@ -100,6 +102,8 @@ public class Player extends Creature {
         //Command List
         commandList.tick();
 
+        //Exit Menu
+
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_Q)){
             //System.exit(1);
             exiting = !exiting;
@@ -112,6 +116,21 @@ public class Player extends Creature {
         if (exiting&&handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)){
             exiting=false;
         }
+
+        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_M)){
+            return_to_menu = !return_to_menu;
+        }
+
+        if (return_to_menu&&handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)){
+            return_to_menu=false;
+        }
+
+        if (return_to_menu&&handler.getKeyManager().keyJustPressed(KeyEvent.VK_Y)){
+            Game.States  = Game.STATE.MENU;
+        }
+
+
+
 
     }
 
@@ -133,7 +152,7 @@ public class Player extends Creature {
 
 
 
-        if(inventory.isActive() || commandList.isExit_menu_active()||exiting)
+        if(inventory.isActive() || commandList.isExit_menu_active()||exiting||return_to_menu)
 
             return;
 
@@ -245,7 +264,7 @@ public class Player extends Creature {
 
 
 
-        if(inventory.isActive()||commandList.isExit_menu_active()||exiting)
+        if(inventory.isActive()||commandList.isExit_menu_active()||exiting||return_to_menu)
 
             return;
 
@@ -300,6 +319,23 @@ public class Player extends Creature {
             g.drawString("Are you sure you want to exit? " , 330, 327);
             g.drawString("Y:Yes", 410, 357);
             g.drawString("N:No", 490, 357);
+
+        }
+
+        if (return_to_menu){
+
+            g.setColor(Color.black);
+            g.fillRect(305, 307,420, 70);
+
+            g.setColor(Color.LIGHT_GRAY);
+            g.drawRect(305, 307, 420, 70);
+
+            Font fnt3 = new Font("helvetica",Font.BOLD,20);
+            g.setFont(fnt3);
+            g.setColor(Color.white);
+            g.drawString("Are you sure you want to return to menu? " , 320, 327);
+            g.drawString("Y:Yes", 440, 357);
+            g.drawString("N:No", 520, 357);
 
         }
 
