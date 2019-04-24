@@ -10,124 +10,6 @@ public class Assets {
     //several such images that will be in an array together.
 
     
-    // public enum HometownTerrain {
-    //     // format is row, col, range, 
-    //     // where the range is the grid rows between col + range - 1
-    //     GRASS               (1, 1, 8, "hometown"), 
-    //     DIRT                (2, 1, 5, "hometown"), 
-    //     LEFT_EDGE           (2, 18, 1, "hometown"),
-    //     RIGHT_EDGE          (2, 16, 1, "hometown"),
-    //     TOP_EDGE            (3, 17, 1, "hometown"),
-    //     BOTTOM_EDGE         (1, 17, 1, "hometown"),
-    //     TOP_LEFT_CORNER     (1, 19, 1, "hometown"),
-    //     TOP_RIGHT_CORNER    (1, 20, 1, "hometown"),
-    //     BOTTOM_LEFT_CORNER  (2, 19, 1, "hometown"),
-    //     BOTTOM_RIGHT_CORNER (2, 20, 1, "hometown"),
-    //     TOP_LEFT_INSIDE     (3, 18, 1, "hometown"),
-    //     TOP_RIGHT_INSIDE    (3, 16, 1, "hometown"),
-    //     BOTTOM_LEFT_INSIDE  (1, 18, 1, "hometown"),
-    //     BOTTOM_RIGHT_INSIDE (1, 16, 1, "hometown");
-
-    //     private final int row;
-    //     private final int col;
-    //     private final int range;
-    //     private final String filename;
-    //     private final int tile_size;
-
-    //     private HometownTerrain(int row, int col, int range, String filename) {
-    //         this.row = row;
-    //         this.col = col;
-    //         this.range = range;
-    //         this.filename = filename;
-    //         if (filename.equals("boss")) {
-    //             this.tile_size = 32;
-    //         }
-    //         else {
-    //             this.tile_size = 16;
-    //         }
-    //     }
-    // }
-
-    // public enum AshlandsTerrain {
-    //     // format is row, col, range, 
-    //     // where the range is the grid rows between col + range - 1
-    //     ASH                 (1, 2, 7, "castle"), 
-    //     DIRT                (2, 1, 6, "castle"), 
-    //     LEFT_EDGE           (8, 4, 1, "castle"),
-    //     RIGHT_EDGE          (8, 6, 1, "castle"),
-    //     TOP_EDGE            (7, 5, 1, "castle"),
-    //     BOTTOM_EDGE         (9, 5, 1, "castle"),
-    //     TOP_LEFT_CORNER     (7, 4, 1, "castle"),
-    //     TOP_RIGHT_CORNER    (7, 6, 1, "castle"),
-    //     BOTTOM_LEFT_CORNER  (9, 4, 1, "castle"),
-    //     BOTTOM_RIGHT_CORNER (9, 6, 1, "castle"),
-    //     TOP_LEFT_INSIDE     (7, 7, 1, "castle"),
-    //     TOP_RIGHT_INSIDE    (7, 8, 1, "castle"),
-    //     BOTTOM_LEFT_INSIDE  (8, 7, 1, "castle"),
-    //     BOTTOM_RIGHT_INSIDE (8, 8, 1, "castle");
-
-    //     private final int row;
-    //     private final int col;
-    //     private final int range;
-    //     private final String filename;
-    //     private final int tile_size;
-
-    //     private AshlandsTerrain(int row, int col, int range, String filename) {
-    //         this.row = row;
-    //         this.col = col;
-    //         this.range = range;
-    //         this.filename = filename;
-    //         if (filename.equals("boss")) {
-    //             this.tile_size = 32;
-    //         }
-    //         else {
-    //             this.tile_size = 16;
-    //         }
-    //     }
-    // }
-
-    // public enum CastleTerrain {
-    //     // format is row, col, range, 
-    //     // where the range is the grid rows between col + range - 1
-    //     // NAME             (row, col, range, spritesheet)
-    //     TOP_LEFT_CORNER         (1, 10, 1, "castle"),
-    //     TOP_EDGE                (1, 11, 1, "castle"),
-    //     TOP_RIGHT_CORNER        (1, 12, 1, "castle"),
-    //     LEFT_EDGE               (2, 10, 1, "castle"),
-    //     FLOOR                   (2, 11, 1, "castle"), 
-    //     RIGHT_EDGE              (2, 12, 1, "castle"),
-    //     BOTTOM_LEFT_CORNER      (3, 10, 1, "castle"),
-    //     BOTTOM_EDGE             (3, 11, 1, "castle"),
-    //     BOTTOM_RIGHT_CORNER     (3, 12, 1, "castle"),
-
-    //     TOP_LEFT_INSIDE         (2, 15, 1, "castle"),
-    //     TOP_RIGHT_INSIDE        (2, 14, 1, "castle"),
-    //     BOTTOM_LEFT_INSIDE      (1, 15, 1, "castle"),
-    //     BOTTOM_RIGHT_INSIDE     (1, 14, 1, "castle"),
-
-    //     WALL                    (4, 10, 1, "castle");
-
-    //     private final int row;
-    //     private final int col;
-    //     private final int range;
-    //     private final String filename;
-    //     private final int tile_size;
-
-    //     private CastleTerrain(int row, int col, int range, String filename) {
-    //         this.row = row;
-    //         this.col = col;
-    //         this.range = range;
-    //         this.filename = filename;
-    //         if (filename.equals("boss")) {
-    //             this.tile_size = 32;
-    //         }
-    //         else {
-    //             this.tile_size = 16;
-    //         }
-    //     }
-    // }
-    
-
     private static final int STD_TILE_SIZE = 32;
     public static Font font28;
 
@@ -139,9 +21,13 @@ public class Assets {
     public static BufferedImage[] btn_start;
     public static BufferedImage inventoryScreen;
 
+    //The following are hashmaps of each of the possible terrains that will be used
     public static final HashMap<String, BufferedImage> BOSS_TERRAIN = new HashMap<>();
+    public static final HashMap<String, BufferedImage> CASTLE_TERRAIN = new HashMap<>();
+    public static final HashMap<String, BufferedImage> ASHLANDS_TERRAIN = new HashMap<>();
+    public static final HashMap<String, BufferedImage> HOMETOWN_TERRAIN = new HashMap<>();
 
-    public static void boss(){
+    public static void init_hashmaps(){
         SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("../res/boss.png"), 32, 32);
         BOSS_TERRAIN.put("MAT_TOP_LEFT_CORNER", sheet.crop(3, 2, 1, 1));
         BOSS_TERRAIN.put("MAT_TOP_EDGE", sheet.crop(4, 2, 1, 1));
@@ -152,7 +38,6 @@ public class Assets {
         BOSS_TERRAIN.put("MAT_BOTTOM_LEFT_CORNER", sheet.crop(3, 4, 1, 1));
         BOSS_TERRAIN.put("MAT_BOTTOM_EDGE", sheet.crop(4, 4, 1, 1));
         BOSS_TERRAIN.put("MAT_BOTTOM_RIGHT_CORNER", sheet.crop(5, 4, 1, 1));
-
         BOSS_TERRAIN.put("TOP_LEFT_CORNER", sheet.crop(0, 0, 1, 1));
         BOSS_TERRAIN.put("TOP_EDGE", sheet.crop(1, 0, 1, 1));
         BOSS_TERRAIN.put("TOP_RIGHT_CORNER", sheet.crop(2, 0, 1, 1));
@@ -162,13 +47,60 @@ public class Assets {
         BOSS_TERRAIN.put("BOTTOM_LEFT_CORNER", sheet.crop(0, 2, 1, 1));
         BOSS_TERRAIN.put("BOTTOM_EDGE", sheet.crop(1, 2, 1, 1));
         BOSS_TERRAIN.put("BOTTOM_RIGHT_CORNER", sheet.crop(2, 2, 1, 1));
-        
         BOSS_TERRAIN.put("TOP_LEFT_INSIDE", sheet.crop(4, 1, 1, 1));
         BOSS_TERRAIN.put("TOP_RIGHT_INSIDE", sheet.crop(3, 1, 1, 1));
         BOSS_TERRAIN.put("BOTTOM_LEFT_INSIDE", sheet.crop(4, 0, 1, 1));
         BOSS_TERRAIN.put("BOTTOM_RIGHT_INSIDE", sheet.crop(3, 0, 1, 1));
-
         BOSS_TERRAIN.put("BLACK", sheet.crop(6, 3, 1, 1));
+
+        
+        sheet = new SpriteSheet(ImageLoader.loadImage("../res/castle.png"), 16, 16);
+        CASTLE_TERRAIN.put("TOP_LEFT_CORNER", sheet.crop(10, 1, 1, 1));
+        CASTLE_TERRAIN.put("TOP_EDGE", sheet.crop(11, 1, 1, 1));
+        CASTLE_TERRAIN.put("TOP_RIGHT_CORNER", sheet.crop(12, 1, 1, 1));
+        CASTLE_TERRAIN.put("LEFT_EDGE", sheet.crop(10, 2, 1, 1));
+        CASTLE_TERRAIN.put("FLOOR", sheet.crop(11, 2, 1, 1)); 
+        CASTLE_TERRAIN.put("RIGHT_EDGE", sheet.crop(12, 2, 1, 1));
+        CASTLE_TERRAIN.put("BOTTOM_LEFT_CORNER", sheet.crop(10, 3, 1, 1));
+        CASTLE_TERRAIN.put("BOTTOM_EDGE", sheet.crop(11, 3, 1, 1));
+        CASTLE_TERRAIN.put("BOTTOM_RIGHT_CORNER", sheet.crop(12, 3, 1, 1));
+        CASTLE_TERRAIN.put("TOP_LEFT_INSIDE", sheet.crop(15, 2, 1, 1));
+        CASTLE_TERRAIN.put("TOP_RIGHT_INSIDE", sheet.crop(14, 2, 1, 1));
+        CASTLE_TERRAIN.put("BOTTOM_LEFT_INSIDE", sheet.crop(15, 1, 1, 1));
+        CASTLE_TERRAIN.put("BOTTOM_RIGHT_INSIDE", sheet.crop(14, 1, 1, 1));
+        CASTLE_TERRAIN.put("WALL", sheet.crop(10, 4, 1, 1));
+
+        sheet = new SpriteSheet(ImageLoader.loadImage("../res/ashlands.png"), 16, 16);
+        ASHLANDS_TERRAIN.put("ASH", sheet.crop(2, 1, 1, 1));//can be randomly generated between 1&7
+        ASHLANDS_TERRAIN.put("DIRT", sheet.crop(1, 2, 1, 1));//can be randomly generated between 1&6
+        ASHLANDS_TERRAIN.put("LEFT_EDGE", sheet.crop(4, 8, 1, 1));
+        ASHLANDS_TERRAIN.put("RIGHT_EDGE", sheet.crop(6, 8, 1, 1));
+        ASHLANDS_TERRAIN.put("TOP_EDGE", sheet.crop(5, 7, 1, 1));
+        ASHLANDS_TERRAIN.put("BOTTOM_EDGE", sheet.crop(5, 9, 1, 1));
+        ASHLANDS_TERRAIN.put("TOP_LEFT_CORNER", sheet.crop(4, 7, 1, 1));
+        ASHLANDS_TERRAIN.put("TOP_RIGHT_CORNER", sheet.crop(6, 7, 1, 1));
+        ASHLANDS_TERRAIN.put("BOTTOM_LEFT_CORNER", sheet.crop(4, 9, 1, 1));
+        ASHLANDS_TERRAIN.put("BOTTOM_RIGHT_CORNER", sheet.crop(6, 9, 1, 1));
+        ASHLANDS_TERRAIN.put("TOP_LEFT_INSIDE", sheet.crop(7, 7, 1, 1));
+        ASHLANDS_TERRAIN.put("TOP_RIGHT_INSIDE", sheet.crop(8, 7, 1, 1));
+        ASHLANDS_TERRAIN.put("BOTTOM_LEFT_INSIDE", sheet.crop(7, 8, 1, 1));
+        ASHLANDS_TERRAIN.put("BOTTOM_RIGHT_INSIDE", sheet.crop(8, 8, 1, 1));
+
+        sheet = new SpriteSheet(ImageLoader.loadImage("../res/hometown.png"), 16, 16);
+        HOMETOWN_TERRAIN.put("GRASS", sheet.crop(1, 1, 1, 1)); //can be randomly generated between 1&8
+        HOMETOWN_TERRAIN.put("DIRT", sheet.crop(1, 2, 1, 1)); //can be randomly generated between 1&5
+        HOMETOWN_TERRAIN.put("LEFT_EDGE", sheet.crop(18, 2, 1, 1));
+        HOMETOWN_TERRAIN.put("RIGHT_EDGE", sheet.crop(16, 2, 1, 1));
+        HOMETOWN_TERRAIN.put("TOP_EDGE", sheet.crop(17, 3, 1, 1));
+        HOMETOWN_TERRAIN.put("BOTTOM_EDGE", sheet.crop(17, 1, 1, 1));
+        HOMETOWN_TERRAIN.put("TOP_LEFT_CORNER", sheet.crop(19, 1, 1, 1));
+        HOMETOWN_TERRAIN.put("TOP_RIGHT_CORNER", sheet.crop(20, 1, 1, 1));
+        HOMETOWN_TERRAIN.put("BOTTOM_LEFT_CORNER", sheet.crop(19, 2, 1, 1));
+        HOMETOWN_TERRAIN.put("BOTTOM_RIGHT_CORNER", sheet.crop(20, 2, 1, 1));
+        HOMETOWN_TERRAIN.put("TOP_LEFT_INSIDE", sheet.crop(18, 3, 1, 1));
+        HOMETOWN_TERRAIN.put("TOP_RIGHT_INSIDE", sheet.crop(16, 3, 1, 1));
+        HOMETOWN_TERRAIN.put("BOTTOM_LEFT_INSIDE", sheet.crop(18, 1, 1, 1));
+        HOMETOWN_TERRAIN.put("BOTTOM_RIGHT_INSIDE", sheet.crop(16, 1, 1, 1));
     }
 
     public static void init(){
@@ -190,7 +122,7 @@ public class Assets {
         btn_start[1] = sheet.crop(6, 5, 2, 1);
 
 
-        boss();
+        init_hashmaps();
         //Each direction of movement requires an array to describe it,
         //because each motion requires a "left and a right" motion
 
