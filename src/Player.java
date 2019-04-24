@@ -325,17 +325,18 @@ public class Player extends Creature {
         if (return_to_menu){
 
             g.setColor(Color.black);
-            g.fillRect(305, 307,420, 70);
+            g.fillRect(305, 307,400, 100);
 
             g.setColor(Color.LIGHT_GRAY);
-            g.drawRect(305, 307, 420, 70);
+            g.drawRect(305, 307, 400, 100);
 
             Font fnt3 = new Font("helvetica",Font.BOLD,20);
             g.setFont(fnt3);
             g.setColor(Color.white);
-            g.drawString("Are you sure you want to return to menu? " , 320, 327);
-            g.drawString("Y:Yes", 440, 357);
-            g.drawString("N:No", 520, 357);
+            g.drawString("Are you sure you want to return to " , 340, 327);
+            g.drawString("the title screen?", 420,357);
+            g.drawString("Y:Yes", 440, 387);
+            g.drawString("N:No", 520, 387);
 
         }
 

@@ -228,7 +228,7 @@ public class Game extends Canvas implements Runnable {
             g.fillRect(25, 10,player.getHealth()* 16, 20);
 
             g.setColor(Color.black);
-            g.drawRect(25, 10, 200, 20);
+            g.drawRect(25, 10, 160, 20);
             g.setColor(Color.WHITE);
             g.drawString("Press C for Commands",5,50);
 
