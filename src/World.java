@@ -15,6 +15,8 @@ public class World {
     // Item
     private ItemManager itemManager;
 
+    public int room = 1;
+
     public World(Handler handler, String path){
         map_init();
 
@@ -68,13 +70,13 @@ public class World {
         //gets x and y positions for the tile. It is going to look for the id in the tiles array at x,y.
         //if
         if(x < 0 || y < 0 || x >= width || y >= height)
-            return Tile.black;//used to be grassTile
+            return Tile.B_black;//used to be grassTile
 
         //accesses tiles array in Tile class.
         Tile t = Tile.tiles[tiles[x][y]];
         //if th tile that we got is equal to nothing, we run a default of a dirtTile.
         if(t == null)
-            return Tile.black;//used to be dirtTile
+            return Tile.B_black;//used to be dirtTile
         return t;
     }
 
@@ -88,8 +90,8 @@ public class World {
         width = Utils.parseInt(tokens[0]);
         height = Utils.parseInt(tokens[1]);
         //the second and third will decide where on the world the player will spawn at. What tile will the player spawn at.
-        spawnX = Utils.parseInt(tokens[2]);
-        spawnY = Utils.parseInt(tokens[3]);
+        spawnX = Utils.parseInt(tokens[2]) * Tile.TILEWIDTH;
+        spawnY = Utils.parseInt(tokens[3]) * Tile.TILEHEIGHT;
         //After that comes the world data. The tile data will be represented by an ID number on that position on that
         //file.Ensure that all of the ids are relative to the height and width you have set.
 
@@ -99,7 +101,19 @@ public class World {
             for(int x = 0;x < width;x++){
                 //We are converting the x and y of the 4 loops into the 1 dimensional array index.
                 //We are adding 4 because the first 4 numbers are not actual world data.
-                tiles[x][y] = STR_TO_INT.get(tokens[(x + y * width) + 4]);
+                if (room == 0 || room == 3 || room == 4 || room == 6 || room == 7 || room == 9 || room == 10 || room == 11){
+                    tiles[x][y] = STR_TO_INT.get(tokens[(x + y * width) + 4]);
+                } 
+                else if (room == 5 || room == 8){
+                    //adding 0, 30, 50, 70 to get a different terrain for the different rooms (see the Tile's ID)
+                    tiles[x][y] = STR_TO_INT.get(tokens[(x + y * width) + 4]) + 30;
+                }
+                else if (room == 2){
+                    tiles[x][y] = STR_TO_INT.get(tokens[(x + y * width) + 4]) + 50;
+                }
+                else if (room == 1){
+                    tiles[x][y] = STR_TO_INT.get(tokens[(x + y * width) + 4]) + 70;
+                }
             }
         }
     }
@@ -117,20 +131,20 @@ public class World {
         STR_TO_INT.put("7", 7);
         STR_TO_INT.put("8", 8);
         STR_TO_INT.put("9", 9);
-        STR_TO_INT.put("A", 11);
-        STR_TO_INT.put("B", 12);
-        STR_TO_INT.put("C", 13);
-        STR_TO_INT.put("D", 14);
-        STR_TO_INT.put("E", 15);
-        STR_TO_INT.put("F", 16);
-        STR_TO_INT.put("G", 17);
-        STR_TO_INT.put("H", 18);
-        STR_TO_INT.put("I", 19);
-        STR_TO_INT.put("J", 20);
-        STR_TO_INT.put("K", 21);
-        STR_TO_INT.put("L", 22);
-        STR_TO_INT.put("M", 23);
-        STR_TO_INT.put("N", 24);
+        STR_TO_INT.put("A", 10);
+        STR_TO_INT.put("B", 11);
+        STR_TO_INT.put("C", 12);
+        STR_TO_INT.put("D", 13);
+        STR_TO_INT.put("E", 14);
+        STR_TO_INT.put("F", 15);
+        STR_TO_INT.put("G", 16);
+        STR_TO_INT.put("H", 17);
+        STR_TO_INT.put("I", 18);
+        STR_TO_INT.put("J", 19);
+        STR_TO_INT.put("K", 20);
+        STR_TO_INT.put("L", 21);
+        STR_TO_INT.put("M", 22);
+        STR_TO_INT.put("N", 23);
     }
 
     public int getWidth(){
