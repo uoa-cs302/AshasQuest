@@ -3,7 +3,6 @@ import java.awt.*;
 
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
-import java.io.File;
 
 
 public class Game extends Canvas implements Runnable {
@@ -17,11 +16,19 @@ public class Game extends Canvas implements Runnable {
 
     public String title;
 
+    private static int sec = 0;
+    private static int min = 0;
     //private boolean exiting = false;
+//    public int thousands = 0;
+//    public int hundreds = 0;
+//    public int tens = 0;
+//    public int ones = 0;
 
 
 
-    private boolean running = false;
+
+    public boolean running = false;
+    public boolean ticking = true;
 
     private Thread thread;
 
@@ -38,6 +45,8 @@ public class Game extends Canvas implements Runnable {
     private Graphics g;
 
     private Player player;
+    private String time = "00:00";
+    private CommandList commandList;
 
 
 
@@ -57,11 +66,14 @@ public class Game extends Canvas implements Runnable {
 
     private GameCamera gameCamera;
 
+    int i = 0;
+
 
 
     //Handler
 
     private Handler handler;
+
 
 
 
@@ -83,6 +95,8 @@ public class Game extends Canvas implements Runnable {
         menu = new Menu();
 
         player = new Player(handler,0,0);
+
+        commandList = new CommandList(handler);
 
 
     }
@@ -130,6 +144,40 @@ public class Game extends Canvas implements Runnable {
 
     }
 
+//    private void timer() {
+//        while (running) {
+//            ones++;
+//            if (ones == 9) {
+//                tens++;
+//                ones = 0;
+//            }
+//            if (tens == 6) {
+//                hundreds++;
+//                tens = 0;
+//                ones = 0;
+//            }
+//            if (hundreds == 9) {
+//                thousands++;
+//                hundreds = 0;
+//            }
+//            if (thousands == 5) {
+//                thousands = 0;
+//                hundreds = 0;
+//                tens = 0;
+//                ones = 0;
+//            }
+//
+//        }
+//        if (!running) {
+//            thousands = 0;
+//            hundreds = 0;
+//            tens = 0;
+//            ones = 0;
+//
+//        }
+//    }
+
+
 
 
     private void tick() {
@@ -142,41 +190,15 @@ public class Game extends Canvas implements Runnable {
         if (States == STATE.GAME) {
             world.tick();
 
-//            if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_Q)){
-//                //System.exit(1);
-//                exiting = !exiting;
-//            }
-//
-//            if (exiting&&handler.getKeyManager().keyJustPressed(KeyEvent.VK_Y)){
-//                System.exit(1);
-//            }
-//
-//            if (exiting&&handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)){
-//                exiting=false;
-//            }
-
-
-
-            //if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_E))
-
-            //    exit_menu_active = !exit_menu_active;
-
-            //}
-            //  if(State.getState() != null)
-            //This calls the tick() method in whatever State we're currently in.
-
-            //      State.getState().tick();
+           if ((handler.getKeyManager().keyJustPressed(KeyEvent.VK_C))||
+                   (handler.getKeyManager().keyJustPressed(KeyEvent.VK_Q))||
+                   handler.getKeyManager().keyJustPressed(KeyEvent.VK_M)||
+                   handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)){
+                ticking = !ticking;
+            }
 
         }
     }
-
-//    public boolean isExit_menu_active(){
-//        while (handler.getKeyManager().keyJustPressed(KeyEvent.VK_E)){
-//            return true;
-//        }
-//        return false;
-//    }
-
 
 
     private void render(){
@@ -232,42 +254,8 @@ public class Game extends Canvas implements Runnable {
             g.setColor(Color.WHITE);
             g.drawString("Press C for Commands",5,50);
 
-//            if (exiting){
-//                g.setColor(Color.black);
-//                g.fillRect(305, 307,350, 70);
-//
-//                g.setColor(Color.LIGHT_GRAY);
-//                g.drawRect(305, 307, 350, 70);
-//
-//                Font fnt3 = new Font("helvetica",Font.BOLD,20);
-//                g.setFont(fnt3);
-//                g.setColor(Color.white);
-//                g.drawString("Are you sure you want to exit? " , 330, 327);
-//                g.drawString("Y:Yes", 410, 357);
-//                g.drawString("N:No", 490, 357);
-//
-//            }
+            g.drawString(time,5,70);
 
-
-////            if (exit_menu_active){
-////
-////
-////              //  g.drawString("Press Q: Exit game", 100, 90);
-////               // g.drawString("Press M: Return to Menu screen",150, 90);
-////
-////                g.setColor(Color.LIGHT_GRAY);
-////                g.fillRect(305, 307,400, 200);
-////
-////                g.setColor(Color.black);
-////                g.drawRect(305, 307, 400, 200);
-////
-////                Font fnt3 = new Font("arial",Font.BOLD,15);
-////                g.setFont(fnt3);
-////                g.setColor(Color.black);
-////                g.drawString("Exit Menu: " , 465, 327);
-//
-//
-//            }
         } else if (States==STATE.MENU){
             menu.paintComponent(g);
 
@@ -281,6 +269,30 @@ public class Game extends Canvas implements Runnable {
             bs.show();
 
             g.dispose();
+
+    }
+
+    public static String updateTime() {
+        String stringTime = "";
+
+        if (sec < 59) { //Check min overflow
+            sec++;
+        } else {
+            sec = 0;
+            min++;
+        }
+
+        if (sec < 10) { //Formatting
+            stringTime += "0";
+        }
+        stringTime += sec;
+
+        if (min > 0) {//ez timer
+            stringTime = min + ":" + stringTime;
+        }
+
+
+        return stringTime;
 
     }
 
@@ -315,6 +327,7 @@ public class Game extends Canvas implements Runnable {
         //System.nanoTime returns current time of the computer in nano seconds.
 
         long lastTime = System.nanoTime();
+        long lastClockTime = System.currentTimeMillis();
 
         long timer = 0;
 
@@ -322,11 +335,29 @@ public class Game extends Canvas implements Runnable {
 
 
 
+
+
+
+
+
         while(running){
+
+           // if (commandList.isExit_menu_active()){
+               // return;
+           // } else {
+            if (ticking){
+
+                if ((System.currentTimeMillis() - lastClockTime > 1000) && (States == STATE.GAME)) {//Only call every second
+                    time = updateTime(); //Update
+                    lastClockTime = System.currentTimeMillis();
+                }
+           }
             //Delta is added to. Now - last time will give the amount of time that has been passed
             //since this line of code was called. Divided by the amount of time we are allowed to call them.
 
             //Delta essentially tells the computer how much time there is until they have to call tick and render.
+
+
 
             now = System.nanoTime();
 
@@ -469,6 +500,7 @@ public class Game extends Canvas implements Runnable {
         Game game = new Game("Asha's Quest", 1024, 768);
 
         game.start();
+        //game.runTimer();
 
     }
 
