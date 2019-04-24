@@ -143,32 +143,32 @@ public class Assets {
 
     public static void boss(){
         SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("../res/boss.png"), 32, 32);
-        BOSS_TERRAIN.put("MAT_TOP_LEFT_CORNER", sheet.crop(2, 3, 1, 1));
-        BOSS_TERRAIN.put("MAT_TOP_EDGE", sheet.crop(2, 4, 1, 1));
-        BOSS_TERRAIN.put("MAT_TOP_RIGHT_CORNER", sheet.crop(2, 5, 1, 1));
+        BOSS_TERRAIN.put("MAT_TOP_LEFT_CORNER", sheet.crop(3, 2, 1, 1));
+        BOSS_TERRAIN.put("MAT_TOP_EDGE", sheet.crop(4, 2, 1, 1));
+        BOSS_TERRAIN.put("MAT_TOP_RIGHT_CORNER", sheet.crop(5, 2, 1, 1));
         BOSS_TERRAIN.put("MAT_LEFT_EDGE", sheet.crop(3, 3, 1, 1));
-        BOSS_TERRAIN.put("MAT", sheet.crop(3, 4, 1, 1));
-        BOSS_TERRAIN.put("MAT_RIGHT_EDGE", sheet.crop(3, 5, 1, 1));
-        BOSS_TERRAIN.put("MAT_BOTTOM_LEFT_CORNER", sheet.crop(4, 3, 1, 1));
+        BOSS_TERRAIN.put("MAT", sheet.crop(4, 3, 1, 1));
+        BOSS_TERRAIN.put("MAT_RIGHT_EDGE", sheet.crop(5, 3, 1, 1));
+        BOSS_TERRAIN.put("MAT_BOTTOM_LEFT_CORNER", sheet.crop(3, 4, 1, 1));
         BOSS_TERRAIN.put("MAT_BOTTOM_EDGE", sheet.crop(4, 4, 1, 1));
-        BOSS_TERRAIN.put("MAT_BOTTOM_RIGHT_CORNER", sheet.crop(4, 5, 1, 1));
+        BOSS_TERRAIN.put("MAT_BOTTOM_RIGHT_CORNER", sheet.crop(5, 4, 1, 1));
 
         BOSS_TERRAIN.put("TOP_LEFT_CORNER", sheet.crop(0, 0, 1, 1));
-        BOSS_TERRAIN.put("TOP_EDGE", sheet.crop(0, 1, 1, 1));
-        BOSS_TERRAIN.put("TOP_RIGHT_CORNER", sheet.crop(0, 2, 1, 1));
-        BOSS_TERRAIN.put("LEFT_EDGE", sheet.crop(1, 0, 1, 1));
+        BOSS_TERRAIN.put("TOP_EDGE", sheet.crop(1, 0, 1, 1));
+        BOSS_TERRAIN.put("TOP_RIGHT_CORNER", sheet.crop(2, 0, 1, 1));
+        BOSS_TERRAIN.put("LEFT_EDGE", sheet.crop(0, 1, 1, 1));
         BOSS_TERRAIN.put("FLOOR", sheet.crop(1, 1, 1, 1));
-        BOSS_TERRAIN.put("RIGHT_EDGE", sheet.crop(1, 2, 1, 1));
-        BOSS_TERRAIN.put("BOTTOM_LEFT_CORNER", sheet.crop(2, 0, 1, 1));
-        BOSS_TERRAIN.put("BOTTOM_EDGE", sheet.crop(2, 1, 1, 1));
+        BOSS_TERRAIN.put("RIGHT_EDGE", sheet.crop(2, 1, 1, 1));
+        BOSS_TERRAIN.put("BOTTOM_LEFT_CORNER", sheet.crop(0, 2, 1, 1));
+        BOSS_TERRAIN.put("BOTTOM_EDGE", sheet.crop(1, 2, 1, 1));
         BOSS_TERRAIN.put("BOTTOM_RIGHT_CORNER", sheet.crop(2, 2, 1, 1));
         
-        BOSS_TERRAIN.put("TOP_LEFT_INSIDE", sheet.crop(1, 4, 1, 1));
-        BOSS_TERRAIN.put("TOP_RIGHT_INSIDE", sheet.crop(1, 3, 1, 1));
-        BOSS_TERRAIN.put("BOTTOM_LEFT_INSIDE", sheet.crop(0, 4, 1, 1));
-        BOSS_TERRAIN.put("BOTTOM_RIGHT_INSIDE", sheet.crop(0, 3, 1, 1));
+        BOSS_TERRAIN.put("TOP_LEFT_INSIDE", sheet.crop(4, 1, 1, 1));
+        BOSS_TERRAIN.put("TOP_RIGHT_INSIDE", sheet.crop(3, 1, 1, 1));
+        BOSS_TERRAIN.put("BOTTOM_LEFT_INSIDE", sheet.crop(4, 0, 1, 1));
+        BOSS_TERRAIN.put("BOTTOM_RIGHT_INSIDE", sheet.crop(3, 0, 1, 1));
 
-        BOSS_TERRAIN.put("BLACK", sheet.crop(3, 6, 1, 1));
+        BOSS_TERRAIN.put("BLACK", sheet.crop(6, 3, 1, 1));
     }
 
     public static void init(){
