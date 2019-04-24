@@ -1,8 +1,10 @@
-public class RockTile extends Tile {
+import java.awt.image.BufferedImage;
 
-    public RockTile(int id) {
+public class WallTile extends Tile {
+
+    public WallTile(BufferedImage texture, int id) {
         //The id passed in will be used to identify what kind of tile it is.
-        super(Assets.stone, id);
+        super(texture, id);
     }
 
     @Override
