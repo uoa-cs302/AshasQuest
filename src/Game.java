@@ -190,7 +190,10 @@ public class Game extends Canvas implements Runnable {
         if (States == STATE.GAME) {
             world.tick();
 
-           if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_P)){
+           if ((handler.getKeyManager().keyJustPressed(KeyEvent.VK_C))||
+                   (handler.getKeyManager().keyJustPressed(KeyEvent.VK_Q))||
+                   handler.getKeyManager().keyJustPressed(KeyEvent.VK_M)||
+                   handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)){
                 ticking = !ticking;
             }
 
