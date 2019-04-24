@@ -30,7 +30,7 @@ public class World {
         entityManager.addEntity(new Rock(handler, 400, 345));
         entityManager.addEntity(new Tree(handler, 625, 325));
 
-        path = "../res/map0.txt";//tmp
+        path = "../res/map2.txt";//tmp
         loadWorld(path);
 
         //This sets where on the map the player character will show up.
