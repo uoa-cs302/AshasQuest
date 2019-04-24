@@ -3,6 +3,8 @@ import java.awt.*;
 
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.io.File;
 
 
@@ -18,6 +20,11 @@ public class Game extends Canvas implements Runnable {
     public String title;
 
     //private boolean exiting = false;
+//    public int thousands = 0;
+//    public int hundreds = 0;
+//    public int tens = 0;
+//    public int ones = 0;
+
 
 
 
@@ -38,6 +45,7 @@ public class Game extends Canvas implements Runnable {
     private Graphics g;
 
     private Player player;
+    private String time = new String();
 
 
 
@@ -57,11 +65,14 @@ public class Game extends Canvas implements Runnable {
 
     private GameCamera gameCamera;
 
+    int i = 0;
+
 
 
     //Handler
 
     private Handler handler;
+
 
 
 
@@ -130,6 +141,40 @@ public class Game extends Canvas implements Runnable {
 
     }
 
+//    private void timer() {
+//        while (running) {
+//            ones++;
+//            if (ones == 9) {
+//                tens++;
+//                ones = 0;
+//            }
+//            if (tens == 6) {
+//                hundreds++;
+//                tens = 0;
+//                ones = 0;
+//            }
+//            if (hundreds == 9) {
+//                thousands++;
+//                hundreds = 0;
+//            }
+//            if (thousands == 5) {
+//                thousands = 0;
+//                hundreds = 0;
+//                tens = 0;
+//                ones = 0;
+//            }
+//
+//        }
+//        if (!running) {
+//            thousands = 0;
+//            hundreds = 0;
+//            tens = 0;
+//            ones = 0;
+//
+//        }
+//    }
+
+
 
 
     private void tick() {
@@ -142,41 +187,8 @@ public class Game extends Canvas implements Runnable {
         if (States == STATE.GAME) {
             world.tick();
 
-//            if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_Q)){
-//                //System.exit(1);
-//                exiting = !exiting;
-//            }
-//
-//            if (exiting&&handler.getKeyManager().keyJustPressed(KeyEvent.VK_Y)){
-//                System.exit(1);
-//            }
-//
-//            if (exiting&&handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)){
-//                exiting=false;
-//            }
-
-
-
-            //if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_E))
-
-            //    exit_menu_active = !exit_menu_active;
-
-            //}
-            //  if(State.getState() != null)
-            //This calls the tick() method in whatever State we're currently in.
-
-            //      State.getState().tick();
-
         }
     }
-
-//    public boolean isExit_menu_active(){
-//        while (handler.getKeyManager().keyJustPressed(KeyEvent.VK_E)){
-//            return true;
-//        }
-//        return false;
-//    }
-
 
 
     private void render(){
@@ -232,42 +244,8 @@ public class Game extends Canvas implements Runnable {
             g.setColor(Color.WHITE);
             g.drawString("Press C for Commands",5,50);
 
-//            if (exiting){
-//                g.setColor(Color.black);
-//                g.fillRect(305, 307,350, 70);
-//
-//                g.setColor(Color.LIGHT_GRAY);
-//                g.drawRect(305, 307, 350, 70);
-//
-//                Font fnt3 = new Font("helvetica",Font.BOLD,20);
-//                g.setFont(fnt3);
-//                g.setColor(Color.white);
-//                g.drawString("Are you sure you want to exit? " , 330, 327);
-//                g.drawString("Y:Yes", 410, 357);
-//                g.drawString("N:No", 490, 357);
-//
-//            }
+            g.drawString(time,5,70);
 
-
-////            if (exit_menu_active){
-////
-////
-////              //  g.drawString("Press Q: Exit game", 100, 90);
-////               // g.drawString("Press M: Return to Menu screen",150, 90);
-////
-////                g.setColor(Color.LIGHT_GRAY);
-////                g.fillRect(305, 307,400, 200);
-////
-////                g.setColor(Color.black);
-////                g.drawRect(305, 307, 400, 200);
-////
-////                Font fnt3 = new Font("arial",Font.BOLD,15);
-////                g.setFont(fnt3);
-////                g.setColor(Color.black);
-////                g.drawString("Exit Menu: " , 465, 327);
-//
-//
-//            }
         } else if (States==STATE.MENU){
             menu.paintComponent(g);
 
@@ -281,6 +259,130 @@ public class Game extends Canvas implements Runnable {
             bs.show();
 
             g.dispose();
+
+    }
+
+    public static String getTime(int sec)
+
+    {
+
+        //if we have hours minutes and seconds
+
+        int hours = 0;
+
+        int remainderOfHours = 0;
+
+        int minutes = 0;
+
+        int seconds = 0;
+
+
+
+        if (sec >= 3600) // if we have an hour or more
+
+        {
+
+            hours = sec / 3600;
+
+            remainderOfHours = sec % 3600;        // could be more or less than a min
+
+
+
+            if (remainderOfHours >= 60)   //check if remainder is more or equal to a min
+
+            {
+
+                minutes = remainderOfHours / 60;
+
+                seconds = remainderOfHours % 60;
+
+            }
+
+            else
+
+            {                       // if it's less than a min
+
+                seconds = remainderOfHours;
+
+            }
+
+        }
+
+        // if we have a min or more
+
+        else if (sec >= 60)
+
+        {
+
+            hours = 0;               //62
+
+            minutes = sec / 60;
+
+            seconds = sec % 60;
+
+        }
+
+        //if we have just seconds
+
+        else if (sec < 60)
+
+        {
+
+            hours = 0;
+
+            minutes = 0;
+
+            seconds = sec;
+
+        }
+
+//i get integer hour minute second. i want to transform them to strings:
+
+
+
+        String strHours;
+
+        String strMins;
+
+        String strSecs;
+
+
+
+        if(seconds < 10)
+
+            strSecs = "0" + Integer.toString(seconds);
+
+        else
+
+            strSecs = Integer.toString(seconds);
+
+
+
+        if(minutes < 10)
+
+            strMins = "0" + Integer.toString(minutes);
+
+        else
+
+            strMins = Integer.toString(minutes);
+
+
+
+        if(hours < 10)
+
+            strHours = "0" + Integer.toString(hours);
+
+        else
+
+            strHours = Integer.toString(hours);
+
+
+
+
+
+        String time = strHours + ":" + strMins + ":" + strSecs;
+
+        return time;
 
     }
 
@@ -322,11 +424,20 @@ public class Game extends Canvas implements Runnable {
 
 
 
+
+
+
+
+
         while(running){
+            time = getTime(i);
+            i++;
             //Delta is added to. Now - last time will give the amount of time that has been passed
             //since this line of code was called. Divided by the amount of time we are allowed to call them.
 
             //Delta essentially tells the computer how much time there is until they have to call tick and render.
+
+
 
             now = System.nanoTime();
 
@@ -469,6 +580,7 @@ public class Game extends Canvas implements Runnable {
         Game game = new Game("Asha's Quest", 1024, 768);
 
         game.start();
+        //game.runTimer();
 
     }
 
