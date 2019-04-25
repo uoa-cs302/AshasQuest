@@ -96,12 +96,12 @@ public class World {
             entityManager.getPlayer().setY(5 *  Tile.TILEHEIGHT);//tmp
         }
         if (spawn_pos.equals("T")){
-            entityManager.getPlayer().setX((9) * Tile.TILEWIDTH);//tmp
+            entityManager.getPlayer().setX((8) * Tile.TILEWIDTH);//tmp
             entityManager.getPlayer().setY(1 *  Tile.TILEHEIGHT);
         }
         if (spawn_pos.equals("B")){
-            entityManager.getPlayer().setX((9) * Tile.TILEWIDTH);//tmp
-            entityManager.getPlayer().setY((height - 1) *  Tile.TILEHEIGHT);
+            entityManager.getPlayer().setX((8) * Tile.TILEWIDTH);//tmp
+            entityManager.getPlayer().setY((height - 1) *  Tile.TILEHEIGHT - Tile.TILEWIDTH / 2);
         }
         // entityManager.getPlayer().setX(spawnX * Tile.TILEWIDTH);
         // entityManager.getPlayer().setY(spawnY *  Tile.TILEHEIGHT);
@@ -132,6 +132,7 @@ public class World {
             }
             if (room == 5 || room == 8){//these rooms have a room above
                 room -= 3;//the room is now the room above
+                room = 2;//the room is now the room above
             }
             loadRoom(room, "B");
         }
