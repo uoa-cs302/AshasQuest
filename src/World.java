@@ -5,8 +5,8 @@ public class World {
 
     //widht and height will be used in terms of times of the world.
     private Handler handler;
-    private int width, height;
-    private int spawnX, spawnY;
+    private static int width, height;
+    private static int spawnX, spawnY;
     //this will hold the ids of tiles and what position they will be created in. There will be rows of tiles
     //and columns of tiles
     private int[][] tiles;
@@ -24,18 +24,12 @@ public class World {
         this.handler = handler;
         itemManager = new ItemManager(handler);
 
-        spawnX = 5 * Tile.TILEWIDTH;
-        spawnY = 5 *  Tile.TILEHEIGHT;
-        loadRoom(1, spawnX, spawnY);
+        loadRoom(1, "C");
     }
 
-    public void loadRoom(int room, int spawnX, int spawnY){
+    public void loadRoom(int room, String spawn_pos){
         this.room = room;
         entityManager = new EntityManager(handler, new Player(handler, 100, 100));
-
-        //This sets where on the map the player character will show up.
-        entityManager.getPlayer().setX(spawnX);
-        entityManager.getPlayer().setY(spawnY);
 
         switch (room) {
             case 0: {
@@ -85,11 +79,71 @@ public class World {
             }
         }
         loadWorld(map_path);
+
+        //This sets where on the map the player character will show up.
+        //L = left, R = right, T = top, B = bottom, C = centre    (of map)
+        // String spawn_pos = "C";
+        if (spawn_pos.equals("C")){
+            entityManager.getPlayer().setX(5 * Tile.TILEWIDTH);
+            entityManager.getPlayer().setY(7 *  Tile.TILEHEIGHT);
+        }
+        if (spawn_pos.equals("L")){
+            entityManager.getPlayer().setX(Tile.TILEWIDTH / 2);
+            entityManager.getPlayer().setY(5 *  Tile.TILEHEIGHT);//tmp
+        }
+        if (spawn_pos.equals("R")){
+            entityManager.getPlayer().setX((width - 1) * Tile.TILEWIDTH - Tile.TILEWIDTH / 2);
+            entityManager.getPlayer().setY(5 *  Tile.TILEHEIGHT);//tmp
+        }
+        if (spawn_pos.equals("T")){
+            entityManager.getPlayer().setX((9) * Tile.TILEWIDTH);//tmp
+            entityManager.getPlayer().setY(1 *  Tile.TILEHEIGHT);
+        }
+        if (spawn_pos.equals("B")){
+            entityManager.getPlayer().setX((9) * Tile.TILEWIDTH);//tmp
+            entityManager.getPlayer().setY((height - 1) *  Tile.TILEHEIGHT);
+        }
+        // entityManager.getPlayer().setX(spawnX * Tile.TILEWIDTH);
+        // entityManager.getPlayer().setY(spawnY *  Tile.TILEHEIGHT);
+
     }
 
     public void tick(){
         itemManager.tick();
         entityManager.tick();
+        if (entityManager.getPlayer().reachedRight()){
+            if (room != 4 && room != 7 && room != 11){//these rooms have no room to the right
+                room++;//the room is now the next room
+            }
+            loadRoom(room, "L");
+        }
+        if (entityManager.getPlayer().reachedLeft()){
+            if (room == 0){
+                room = 10;//goes to final boss room
+            }
+            if (room != 5 && room != 8){//these rooms have no room to the left
+                room--;//the room is now the next room
+            }
+            loadRoom(room, "R");
+        }
+        if (entityManager.getPlayer().reachedTop()){
+            if (room == 0){
+                room = 4;//goes to first boss room
+            }
+            if (room == 5 || room == 8){//these rooms have a room above
+                room -= 3;//the room is now the room above
+            }
+            loadRoom(room, "B");
+        }
+        if (entityManager.getPlayer().reachedBottom()){
+            if (room == 0){
+                room = 7;//goes to second boss room
+            }
+            if (room == 5 || room == 2){//these rooms have a room below
+                room += 3;//the room is now the room below
+            }
+            loadRoom(room, "T");
+        }
     }
 
     public void render(Graphics g){
@@ -194,11 +248,11 @@ public class World {
         STR_TO_INT.put("N", 23);
     }
 
-    public int getWidth(){
+    public static int getWidth(){
         return width;
     }
 
-    public int getHeight(){
+    public static int getHeight(){
         return height;
     }
 
