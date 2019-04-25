@@ -16,26 +16,75 @@ public class World {
     private ItemManager itemManager;
 
     public int room = 1;
+    private String map_path;
 
-    public World(Handler handler, String path){
+    public World(Handler handler){
         map_init();
 
         this.handler = handler;
-        entityManager = new EntityManager(handler, new Player(handler, 100, 100));
         itemManager = new ItemManager(handler);
-        // Temporary entity code!
-        entityManager.addEntity(new Tree(handler, 132, 250));
-        entityManager.addEntity(new Rock(handler, 132, 450));
-        entityManager.addEntity(new Rock(handler, 350, 300));
-        entityManager.addEntity(new Rock(handler, 400, 345));
-        entityManager.addEntity(new Tree(handler, 625, 325));
 
-        path = "../res/map2.txt";//tmp
-        loadWorld(path);
+        spawnX = 5 * Tile.TILEWIDTH;
+        spawnY = 5 *  Tile.TILEHEIGHT;
+        loadRoom(1, spawnX, spawnY);
+    }
+
+    public void loadRoom(int room, int spawnX, int spawnY){
+        this.room = room;
+        entityManager = new EntityManager(handler, new Player(handler, 100, 100));
 
         //This sets where on the map the player character will show up.
         entityManager.getPlayer().setX(spawnX);
         entityManager.getPlayer().setY(spawnY);
+
+        switch (room) {
+            case 0: {
+                map_path = "../res/map0.txt";
+                break;
+            }
+            case 1: {
+                // Temporary entity code!
+                entityManager.addEntity(new Tree(handler, 132, 250));
+                entityManager.addEntity(new Rock(handler, 132, 450));
+                entityManager.addEntity(new Rock(handler, 350, 300));
+                entityManager.addEntity(new Rock(handler, 400, 345));
+                entityManager.addEntity(new Tree(handler, 625, 325));
+                map_path = "../res/map1.txt";
+                break;
+            }
+            case 2: {
+                map_path = "../res/map2.txt";
+                break;
+            }
+            case 5: {
+                map_path = "../res/map5.txt";
+                break;
+            }
+            case 8: {
+                map_path = "../res/map8.txt";
+                break;
+            }
+            case 3:
+            case 6:
+            case 9: {
+                map_path = "../res/mapHoldingRoom.txt";
+                break;
+            }
+            case 4:
+            case 7: {
+                map_path = "../res/mapBoss.txt";
+                break;
+            }
+            case 10: {
+                map_path = "../res/mapFinalBoss.txt";
+                break;
+            }
+            case 11: {
+                map_path = "../res/mapFinalRoom.txt";
+                break;
+            }
+        }
+        loadWorld(map_path);
     }
 
     public void tick(){
@@ -89,9 +138,7 @@ public class World {
 
         width = Utils.parseInt(tokens[0]);
         height = Utils.parseInt(tokens[1]);
-        //the second and third will decide where on the world the player will spawn at. What tile will the player spawn at.
-        spawnX = Utils.parseInt(tokens[2]) * Tile.TILEWIDTH;
-        spawnY = Utils.parseInt(tokens[3]) * Tile.TILEHEIGHT;
+
         //After that comes the world data. The tile data will be represented by an ID number on that position on that
         //file.Ensure that all of the ids are relative to the height and width you have set.
 
@@ -102,17 +149,17 @@ public class World {
                 //We are converting the x and y of the 4 loops into the 1 dimensional array index.
                 //We are adding 4 because the first 4 numbers are not actual world data.
                 if (room == 0 || room == 3 || room == 4 || room == 6 || room == 7 || room == 9 || room == 10 || room == 11){
-                    tiles[x][y] = STR_TO_INT.get(tokens[(x + y * width) + 4]);
+                    tiles[x][y] = STR_TO_INT.get(tokens[(x + y * width) + 2]);
                 } 
                 else if (room == 5 || room == 8){
                     //adding 0, 30, 50, 70 to get a different terrain for the different rooms (see the Tile's ID)
-                    tiles[x][y] = STR_TO_INT.get(tokens[(x + y * width) + 4]) + 30;
+                    tiles[x][y] = STR_TO_INT.get(tokens[(x + y * width) + 2]) + 30;
                 }
                 else if (room == 2){
-                    tiles[x][y] = STR_TO_INT.get(tokens[(x + y * width) + 4]) + 50;
+                    tiles[x][y] = STR_TO_INT.get(tokens[(x + y * width) + 2]) + 50;
                 }
                 else if (room == 1){
-                    tiles[x][y] = STR_TO_INT.get(tokens[(x + y * width) + 4]) + 70;
+                    tiles[x][y] = STR_TO_INT.get(tokens[(x + y * width) + 2]) + 70;
                 }
             }
         }
