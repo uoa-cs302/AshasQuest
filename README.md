@@ -14,10 +14,10 @@ Java game repository for M.Hassaan Mirza and Kimberley Evans-Parker
 `WallTile` implements `Tile`, but cannot be moved through
 
 `Building`, `Tree`, `Rock` and `Gargoyle` are all `StaticEnities` that drop items when destroyed
-`StaticEntities impliments `Enitiy`
+`StaticEntities` impliments `Enitiy`
 `Player` is an entity. This also implements attacks and tracks movements for collision detection and new world loading
 `Creature` is also an entity, but moves and potentially causes damage
-`EntityManager`keeps track of all `Enities` 
+`EntityManager` keeps track of all `Enities` 
 
 `Item` is an object that can be picked up (rock, wood, etc.)
 `ItemManager`keeps track of all `Items` that haven't been added to `Inventory`
