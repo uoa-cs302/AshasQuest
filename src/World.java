@@ -1,5 +1,6 @@
 import java.awt.Graphics;
 import java.util.HashMap;
+import java.util.ArrayList;
 
 public class World {
 
@@ -18,18 +19,58 @@ public class World {
     public int room = 1;
     private String map_path;
 
-    public World(Handler handler){
-        map_init();
+    private ArrayList<Entity> room1_entities;
+    private ArrayList<Entity> room2_entities;
+    private ArrayList<Entity> room5_entities;
+    private ArrayList<Entity> room8_entities;
 
+    private void entity_init(){
+        room1_entities = new ArrayList<Entity>();
+        room1_entities.add(new Building(handler, 50, 0));
+        room1_entities.add(new Tree(handler, 60, 550, -1));
+        room1_entities.add(new Tree(handler, 850, 400, -1));
+        room1_entities.add(new Tree(handler, 200, 900, -1));
+        room1_entities.add(new Rock(handler, 132, 750));
+        room1_entities.add(new Rock(handler, 350, 600));
+        room1_entities.add(new Rock(handler, 400, 645));
+        room1_entities.add(new Tree(handler, 625, 795, -1));
+        room1_entities.add(new Tree(handler, 800, 890, -1));
+        
+        room2_entities = new ArrayList<Entity>();
+        room2_entities.add(new Tree(handler, 100, 70, 14));
+        room2_entities.add(new Tree(handler, 400, 120, 15));
+        room2_entities.add(new Tree(handler, 300, 590, 15));
+        room2_entities.add(new Tree(handler, 700, 500, 14));
+        
+        room5_entities = new ArrayList<Entity>();
+        room5_entities.add(new Gargoyle(handler, 300, 0));
+        room5_entities.add(new Gargoyle(handler, 600, 0));
+        room5_entities.add(new Gargoyle(handler, 900, 300));
+        room5_entities.add(new Gargoyle(handler, 900, 500));
+        room5_entities.add(new Gargoyle(handler, 300, 950));
+        room5_entities.add(new Gargoyle(handler, 600, 950));
+        
+        room8_entities = new ArrayList<Entity>();
+        room8_entities.add(new Gargoyle(handler, 300, 0));
+        room8_entities.add(new Gargoyle(handler, 600, 0));
+        room8_entities.add(new Gargoyle(handler, 1100, 200));
+        room8_entities.add(new Gargoyle(handler, 1100, 400));
+    }
+
+    public World(Handler handler){
         this.handler = handler;
+        map_init();
+        entity_init();
+
         itemManager = new ItemManager(handler);
+        entityManager = new EntityManager(handler, new Player(handler, 100, 100));
 
         loadRoom(1, "C");
     }
 
     public void loadRoom(int room, String spawn_pos){
+        entityManager.wipeObjects();
         this.room = room;
-        entityManager = new EntityManager(handler, new Player(handler, 100, 100));
 
         switch (room) {
             case 0: {
@@ -38,41 +79,30 @@ public class World {
             }
             case 1: {
                 // These are the objects that get loaded into the room
-                entityManager.addEntity(new Building(handler, 50, 0));
-                entityManager.addEntity(new Tree(handler, 60, 550, -1));
-                entityManager.addEntity(new Tree(handler, 850, 400, -1));
-                entityManager.addEntity(new Tree(handler, 200, 900, -1));
-                entityManager.addEntity(new Rock(handler, 132, 750));
-                entityManager.addEntity(new Rock(handler, 350, 600));
-                entityManager.addEntity(new Rock(handler, 400, 645));
-                entityManager.addEntity(new Tree(handler, 625, 795, -1));
-                entityManager.addEntity(new Tree(handler, 800, 890, -1));
+                for (Entity entity : room1_entities) {
+                    entityManager.addEntity(entity);
+                }
                 map_path = "../res/map1.txt";
                 break;
             }
             case 2: {
-                entityManager.addEntity(new Tree(handler, 100, 70, 14));
-                entityManager.addEntity(new Tree(handler, 400, 120, 15));
-                entityManager.addEntity(new Tree(handler, 300, 590, 15));
-                entityManager.addEntity(new Tree(handler, 700, 500, 14));
+                for (Entity entity : room2_entities) {
+                    entityManager.addEntity(entity);
+                }
                 map_path = "../res/map2.txt";
                 break;
             }
             case 5: {
-                entityManager.addEntity(new Gargoyle(handler, 300, 0));
-                entityManager.addEntity(new Gargoyle(handler, 600, 0));
-                entityManager.addEntity(new Gargoyle(handler, 900, 300));
-                entityManager.addEntity(new Gargoyle(handler, 900, 500));
-                entityManager.addEntity(new Gargoyle(handler, 300, 950));
-                entityManager.addEntity(new Gargoyle(handler, 600, 950));
+                for (Entity entity : room5_entities) {
+                    entityManager.addEntity(entity);
+                }
                 map_path = "../res/map5.txt";
                 break;
             }
             case 8: {
-                entityManager.addEntity(new Gargoyle(handler, 300, 0));
-                entityManager.addEntity(new Gargoyle(handler, 600, 0));
-                entityManager.addEntity(new Gargoyle(handler, 1100, 200));
-                entityManager.addEntity(new Gargoyle(handler, 1100, 400));
+                for (Entity entity : room8_entities) {
+                    entityManager.addEntity(entity);
+                }
                 map_path = "../res/map8.txt";
                 break;
             }
