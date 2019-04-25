@@ -19,7 +19,6 @@ public class Building extends StaticEntity {
 
     @Override
     public void tick() {
-
     }
 
     @Override
@@ -34,5 +33,4 @@ public class Building extends StaticEntity {
     public void render(Graphics g) {
         g.drawImage(texture, (int) (x - handler.getGameCamera().getxOffset()), (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
     }
-
 }
