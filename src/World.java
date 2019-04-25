@@ -38,23 +38,41 @@ public class World {
             }
             case 1: {
                 // Temporary entity code!
-                entityManager.addEntity(new Tree(handler, 132, 250));
-                entityManager.addEntity(new Rock(handler, 132, 450));
-                entityManager.addEntity(new Rock(handler, 350, 300));
-                entityManager.addEntity(new Rock(handler, 400, 345));
-                entityManager.addEntity(new Tree(handler, 625, 325));
+                entityManager.addEntity(new Building(handler, 50, 0));
+                entityManager.addEntity(new Tree(handler, 60, 550, -1));
+                entityManager.addEntity(new Tree(handler, 850, 400, -1));
+                entityManager.addEntity(new Tree(handler, 200, 900, -1));
+                entityManager.addEntity(new Rock(handler, 132, 750));
+                entityManager.addEntity(new Rock(handler, 350, 600));
+                entityManager.addEntity(new Rock(handler, 400, 645));
+                entityManager.addEntity(new Tree(handler, 625, 795, -1));
+                entityManager.addEntity(new Tree(handler, 800, 890, -1));
                 map_path = "../res/map1.txt";
                 break;
             }
             case 2: {
+                entityManager.addEntity(new Tree(handler, 100, 70, 14));
+                entityManager.addEntity(new Tree(handler, 400, 120, 15));
+                entityManager.addEntity(new Tree(handler, 300, 590, 15));
+                entityManager.addEntity(new Tree(handler, 700, 500, 14));
                 map_path = "../res/map2.txt";
                 break;
             }
             case 5: {
+                entityManager.addEntity(new Gargoyle(handler, 300, 0));
+                entityManager.addEntity(new Gargoyle(handler, 600, 0));
+                entityManager.addEntity(new Gargoyle(handler, 900, 300));
+                entityManager.addEntity(new Gargoyle(handler, 900, 500));
+                entityManager.addEntity(new Gargoyle(handler, 300, 950));
+                entityManager.addEntity(new Gargoyle(handler, 600, 950));
                 map_path = "../res/map5.txt";
                 break;
             }
             case 8: {
+                entityManager.addEntity(new Gargoyle(handler, 300, 0));
+                entityManager.addEntity(new Gargoyle(handler, 600, 0));
+                entityManager.addEntity(new Gargoyle(handler, 1100, 200));
+                entityManager.addEntity(new Gargoyle(handler, 1100, 400));
                 map_path = "../res/map8.txt";
                 break;
             }
@@ -85,15 +103,21 @@ public class World {
         // String spawn_pos = "C";
         if (spawn_pos.equals("C")){
             entityManager.getPlayer().setX(5 * Tile.TILEWIDTH);
-            entityManager.getPlayer().setY(7 *  Tile.TILEHEIGHT);
+            entityManager.getPlayer().setY(12 *  Tile.TILEHEIGHT);
         }
         if (spawn_pos.equals("L")){
             entityManager.getPlayer().setX(Tile.TILEWIDTH / 2);
             entityManager.getPlayer().setY(5 *  Tile.TILEHEIGHT);//tmp
         }
         if (spawn_pos.equals("R")){
-            entityManager.getPlayer().setX((width - 1) * Tile.TILEWIDTH - Tile.TILEWIDTH / 2);
-            entityManager.getPlayer().setY(5 *  Tile.TILEHEIGHT);//tmp
+            if (room == 1){
+                entityManager.getPlayer().setX((width - 1) * Tile.TILEWIDTH - Tile.TILEWIDTH / 2);
+                entityManager.getPlayer().setY(11 *  Tile.TILEHEIGHT);//tmp
+            }
+            else{
+                entityManager.getPlayer().setX((width - 1) * Tile.TILEWIDTH - Tile.TILEWIDTH / 2);
+                entityManager.getPlayer().setY(5 *  Tile.TILEHEIGHT);//tmp
+            }
         }
         if (spawn_pos.equals("T")){
             entityManager.getPlayer().setX((8) * Tile.TILEWIDTH);//tmp
@@ -103,8 +127,6 @@ public class World {
             entityManager.getPlayer().setX((8) * Tile.TILEWIDTH);//tmp
             entityManager.getPlayer().setY((height - 1) *  Tile.TILEHEIGHT - Tile.TILEWIDTH / 2);
         }
-        // entityManager.getPlayer().setX(spawnX * Tile.TILEWIDTH);
-        // entityManager.getPlayer().setY(spawnY *  Tile.TILEHEIGHT);
 
     }
 
@@ -132,7 +154,6 @@ public class World {
             }
             if (room == 5 || room == 8){//these rooms have a room above
                 room -= 3;//the room is now the room above
-                room = 2;//the room is now the room above
             }
             loadRoom(room, "B");
         }
