@@ -27,6 +27,11 @@ public class ItemManager {
         }
     }
 
+    //wipes all items from the manager
+    public void wipeObjects(){
+        items = new ArrayList<Item>();
+    }
+
     public void render(Graphics g){
         for(Item i : items)
             i.render(g);

@@ -71,6 +71,8 @@ public class World {
     public void loadRoom(int room, String spawn_pos){
         //We don't want any objects to appear from the previous room, therefore we call wipe objects
         entityManager.wipeObjects();
+        //Again, we don't want any unpicked up items to remain, so we remove them
+        itemManager.wipeObjects();
         this.room = room;
 
         switch (room) {
