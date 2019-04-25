@@ -72,19 +72,19 @@ public class Assets {
 
         sheet = new SpriteSheet(ImageLoader.loadImage("../res/ashlands.png"), 16, 16);
         ASHLANDS_TERRAIN.put("ASH", sheet.crop(2, 1, 1, 1));//can be randomly generated between 1&7
-        ASHLANDS_TERRAIN.put("DIRT", sheet.crop(1, 2, 1, 1));//can be randomly generated between 1&6
-        ASHLANDS_TERRAIN.put("LEFT_EDGE", sheet.crop(4, 8, 1, 1));
-        ASHLANDS_TERRAIN.put("RIGHT_EDGE", sheet.crop(6, 8, 1, 1));
-        ASHLANDS_TERRAIN.put("TOP_EDGE", sheet.crop(5, 7, 1, 1));
-        ASHLANDS_TERRAIN.put("BOTTOM_EDGE", sheet.crop(5, 9, 1, 1));
-        ASHLANDS_TERRAIN.put("TOP_LEFT_CORNER", sheet.crop(4, 7, 1, 1));
-        ASHLANDS_TERRAIN.put("TOP_RIGHT_CORNER", sheet.crop(6, 7, 1, 1));
-        ASHLANDS_TERRAIN.put("BOTTOM_LEFT_CORNER", sheet.crop(4, 9, 1, 1));
-        ASHLANDS_TERRAIN.put("BOTTOM_RIGHT_CORNER", sheet.crop(6, 9, 1, 1));
-        ASHLANDS_TERRAIN.put("TOP_LEFT_INSIDE", sheet.crop(7, 7, 1, 1));
-        ASHLANDS_TERRAIN.put("TOP_RIGHT_INSIDE", sheet.crop(8, 7, 1, 1));
-        ASHLANDS_TERRAIN.put("BOTTOM_LEFT_INSIDE", sheet.crop(7, 8, 1, 1));
-        ASHLANDS_TERRAIN.put("BOTTOM_RIGHT_INSIDE", sheet.crop(8, 8, 1, 1));
+        ASHLANDS_TERRAIN.put("DIRT", sheet.crop(1, 3, 1, 1));//can be randomly generated between 1&6
+        ASHLANDS_TERRAIN.put("LEFT_EDGE", sheet.crop(20, 2, 1, 1));
+        ASHLANDS_TERRAIN.put("RIGHT_EDGE", sheet.crop(22, 2, 1, 1));
+        ASHLANDS_TERRAIN.put("TOP_EDGE", sheet.crop(21, 1, 1, 1));
+        ASHLANDS_TERRAIN.put("BOTTOM_EDGE", sheet.crop(21, 3, 1, 1));
+        ASHLANDS_TERRAIN.put("TOP_LEFT_CORNER", sheet.crop(20, 1, 1, 1));
+        ASHLANDS_TERRAIN.put("TOP_RIGHT_CORNER", sheet.crop(22, 1, 1, 1));
+        ASHLANDS_TERRAIN.put("BOTTOM_LEFT_CORNER", sheet.crop(20, 3, 1, 1));
+        ASHLANDS_TERRAIN.put("BOTTOM_RIGHT_CORNER", sheet.crop(22, 3, 1, 1));
+        ASHLANDS_TERRAIN.put("TOP_LEFT_INSIDE", sheet.crop(23, 1, 1, 1));
+        ASHLANDS_TERRAIN.put("TOP_RIGHT_INSIDE", sheet.crop(24, 1, 1, 1));
+        ASHLANDS_TERRAIN.put("BOTTOM_LEFT_INSIDE", sheet.crop(23, 2, 1, 1));
+        ASHLANDS_TERRAIN.put("BOTTOM_RIGHT_INSIDE", sheet.crop(24, 2, 1, 1));
 
         sheet = new SpriteSheet(ImageLoader.loadImage("../res/hometown.png"), 16, 16);
         HOMETOWN_TERRAIN.put("GRASS", sheet.crop(1, 1, 1, 1)); //can be randomly generated between 1&8
