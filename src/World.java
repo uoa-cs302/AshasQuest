@@ -3,7 +3,7 @@ import java.util.HashMap;
 
 public class World {
 
-    //widht and height will be used in terms of times of the world.
+    //width and height will be used in terms of times of the world.
     private Handler handler;
     private static int width, height;
     private static int spawnX, spawnY;
@@ -37,7 +37,7 @@ public class World {
                 break;
             }
             case 1: {
-                // Temporary entity code!
+                // These are the objects that get loaded into the room
                 entityManager.addEntity(new Building(handler, 50, 0));
                 entityManager.addEntity(new Tree(handler, 60, 550, -1));
                 entityManager.addEntity(new Tree(handler, 850, 400, -1));

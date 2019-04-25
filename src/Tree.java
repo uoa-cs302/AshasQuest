@@ -6,6 +6,9 @@ public class Tree extends StaticEntity {
 
     private BufferedImage texture;
 
+    //if id is -1, it will be a random pink or green tree.  
+    //if it is between 0 and 13, it will be that particular green or pink tree.
+    //if is 14 or 15 it will be a dead tree
     public Tree(Handler handler, float x, float y, int id) {
         super(handler, x, y, Tile.TILEWIDTH * 2, Tile.TILEHEIGHT * 2);
 
