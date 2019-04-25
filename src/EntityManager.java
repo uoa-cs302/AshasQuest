@@ -8,7 +8,6 @@ public class EntityManager {
     private Handler handler;
     private Player player;
     private ArrayList<Entity> entities;
-    private ArrayList<StaticEntity> static_entities;//tmp
 
     private Comparator<Entity> renderSorter = new Comparator<Entity>(){
         @Override
@@ -23,10 +22,10 @@ public class EntityManager {
         this.handler = handler;
         this.player = player;
         entities = new ArrayList<Entity>();
-        static_entities = new ArrayList<StaticEntity>();//tmp
         addEntity(player);
     }
 
+    //wipes all entities from the manager, except the player
     public void wipeObjects(){
         entities = new ArrayList<Entity>();
         addEntity(player);

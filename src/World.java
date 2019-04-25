@@ -69,6 +69,7 @@ public class World {
     }
 
     public void loadRoom(int room, String spawn_pos){
+        //We don't want any objects to appear from the previous room, therefore we call wipe objects
         entityManager.wipeObjects();
         this.room = room;
 
@@ -129,32 +130,31 @@ public class World {
         loadWorld(map_path);
 
         //This sets where on the map the player character will show up.
-        //L = left, R = right, T = top, B = bottom, C = centre    (of map)
-        // String spawn_pos = "C";
+        //L = left, R = right, T = top, B = bottom, C = centre   (of map)
         if (spawn_pos.equals("C")){
             entityManager.getPlayer().setX(5 * Tile.TILEWIDTH);
             entityManager.getPlayer().setY(12 *  Tile.TILEHEIGHT);
         }
         if (spawn_pos.equals("L")){
             entityManager.getPlayer().setX(Tile.TILEWIDTH / 2);
-            entityManager.getPlayer().setY(5 *  Tile.TILEHEIGHT);//tmp
+            entityManager.getPlayer().setY(5 *  Tile.TILEHEIGHT);
         }
         if (spawn_pos.equals("R")){
             if (room == 1){
                 entityManager.getPlayer().setX((width - 1) * Tile.TILEWIDTH - Tile.TILEWIDTH / 2);
-                entityManager.getPlayer().setY(11 *  Tile.TILEHEIGHT);//tmp
+                entityManager.getPlayer().setY(11 *  Tile.TILEHEIGHT);
             }
             else{
                 entityManager.getPlayer().setX((width - 1) * Tile.TILEWIDTH - Tile.TILEWIDTH / 2);
-                entityManager.getPlayer().setY(5 *  Tile.TILEHEIGHT);//tmp
+                entityManager.getPlayer().setY(5 *  Tile.TILEHEIGHT);
             }
         }
         if (spawn_pos.equals("T")){
-            entityManager.getPlayer().setX((8) * Tile.TILEWIDTH);//tmp
+            entityManager.getPlayer().setX((8) * Tile.TILEWIDTH);
             entityManager.getPlayer().setY(1 *  Tile.TILEHEIGHT);
         }
         if (spawn_pos.equals("B")){
-            entityManager.getPlayer().setX((8) * Tile.TILEWIDTH);//tmp
+            entityManager.getPlayer().setX((8) * Tile.TILEWIDTH);
             entityManager.getPlayer().setY((height - 1) *  Tile.TILEHEIGHT - Tile.TILEWIDTH / 2);
         }
 
@@ -163,6 +163,9 @@ public class World {
     public void tick(){
         itemManager.tick();
         entityManager.tick();
+
+        //the below checks if the player has reached one of the edges of the map
+        //if they have, it will load a new room
         if (entityManager.getPlayer().reachedRight()){
             if (room != 4 && room != 7 && room != 11){//these rooms have no room to the right
                 room++;//the room is now the next room
@@ -205,7 +208,6 @@ public class World {
         int xEnd = (int) Math.min(width, (handler.getGameCamera().getxOffset() + handler.getWidth()) / Tile.TILEWIDTH + 1);
         int yStart = (int) Math.max(0, handler.getGameCamera().getyOffset() / Tile.TILEHEIGHT);
         int yEnd = (int) Math.min(height, (handler.getGameCamera().getyOffset() + handler.getHeight()) / Tile.TILEHEIGHT + 1);
-
 
         //Loop extends from beginning of map to end of map
         for(int y = yStart;y < yEnd;y++){
