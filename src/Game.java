@@ -37,7 +37,7 @@ public class Game extends Canvas implements Runnable {
 
     //Input
     private KeyManager keyManager;
-    private MouseManager mouseManager;
+    //private MouseManager mouseManager;
     private MouseInput mouseInput;
     private Menu menu;
 
@@ -55,7 +55,7 @@ public class Game extends Canvas implements Runnable {
         this.height = height;
         this.title = title;
         keyManager = new KeyManager();
-        mouseManager = new MouseManager();
+      //  mouseManager = new MouseManager();
         mouseInput = new MouseInput();
         menu = new Menu();
         player = new Player(handler,0,0);
@@ -67,10 +67,10 @@ public class Game extends Canvas implements Runnable {
         //in built commands regarding adding Mouse and Key Listeners, as seen below.
         display = new Display(title, width, height);
         display.getFrame().addKeyListener(keyManager);
-        display.getFrame().addMouseListener(mouseManager);
-        display.getFrame().addMouseMotionListener(mouseManager);
-        display.getCanvas().addMouseListener(mouseManager);
-        display.getCanvas().addMouseMotionListener(mouseManager);
+      //  display.getFrame().addMouseListener(mouseManager);
+       // display.getFrame().addMouseMotionListener(mouseManager);
+       // display.getCanvas().addMouseListener(mouseManager);
+       // display.getCanvas().addMouseMotionListener(mouseManager);
         display.getCanvas().addMouseListener(mouseInput);
         //Ensures that all sprites assigned to assets in the Assets class gets brought onto the Frame.
         Assets.init();
@@ -248,9 +248,9 @@ public class Game extends Canvas implements Runnable {
         return keyManager;
     }
 
-    public MouseManager getMouseManager(){
-        return mouseManager;
-    }
+   //// public MouseManager getMouseManager(){
+   //     return mouseManager;
+  ///  }
 
     public GameCamera getGameCamera(){
         return gameCamera;
