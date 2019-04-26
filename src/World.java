@@ -73,6 +73,10 @@ public class World {
         room8_entities.add(new Gargoyle(handler, 600, 0));
         room8_entities.add(new Gargoyle(handler, 1100, 200));
         room8_entities.add(new Gargoyle(handler, 1100, 400));
+        room8_entities.add(new Portal(handler, 50, 100, 1100, 600, Assets.portal[0]));
+        room8_entities.add(new Portal(handler, 1150, 600, 150, 100, Assets.portal[0]));
+        room8_entities.add(new Portal(handler, 50, 500, 1100, 100, Assets.portal[1]));
+        room8_entities.add(new Portal(handler, 1150, 100, 150, 500, Assets.portal[1]));
 
         room11_entities = new ArrayList<Entity>();
         room11_entities.add(new MorningStar(handler, 610, 325));
@@ -86,7 +90,7 @@ public class World {
         itemManager = new ItemManager(handler);
         entityManager = new EntityManager(handler, new Player(handler, 100, 100));
 
-        loadRoom(1, "C");
+        loadRoom(8, "C");
     }
 
     public void loadRoom(int room, String spawn_pos){

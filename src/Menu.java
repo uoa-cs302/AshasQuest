@@ -19,7 +19,7 @@ public class Menu extends JPanel implements MouseListener {
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        System.out.println("Started");
+        // System.out.println("Started");
         add(Box.createVerticalStrut(280));
         addMouseListener(this);
 
