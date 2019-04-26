@@ -15,7 +15,7 @@ public class Inventory extends KeyManager{
     invWidth = 819, invHeight = 614,
     invListCenterX = invX + 274,
     invListCenterY = invY + invHeight / 2 + 5,
-    invListSpacing = 30;
+    invListSpacing = 40;
 
     private int invImageX = 723, invImageY = 131,
     invImageWidth = 102, invImageHeight = 102;
