@@ -2,6 +2,9 @@
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.io.IOException;
 
 public class Game extends Canvas implements Runnable {
 
@@ -13,11 +16,6 @@ public class Game extends Canvas implements Runnable {
     private static int sec = 0;
     private static int min = 0;
     //private boolean exiting = false;
-//    public int thousands = 0;
-//    public int hundreds = 0;
-//    public int tens = 0;
-//    public int ones = 0;
-
 
     public boolean running = false;
     public boolean ticking = true;
@@ -31,6 +29,7 @@ public class Game extends Canvas implements Runnable {
     private BufferStrategy bs;
     private Graphics g;
     private Player player;
+    private String name = "Unknown";
     private String time = "00:00";
     private CommandList commandList;
 
@@ -89,11 +88,20 @@ public class Game extends Canvas implements Runnable {
         keyManager.tick();
 
         if (won){
+            won = false;
             int score = 5 * 60 - sec - min * 60; //remaining seconds (from 5mins)
             score += player.getInventory().getInventorySize() * 10; //gets 10 points for every item in the inventory
             System.out.println(score);
+            try{
+                save_score(score);
+            }
+            catch (IOException e){
+                System.out.println("can't save score");
+            }
             //TODO: add score to file, with name (that we need to create/get)
-            won = false;
+            //TODO: score page
+            States = STATE.MENU;
+            init();
         }
 
         //Below checks if we currently have a State that actually exists.
@@ -106,6 +114,18 @@ public class Game extends Canvas implements Runnable {
                 ticking = !ticking;
             }
         }
+    }
+
+    private void save_score(int score) throws IOException {
+        String path = "../res/scores.txt";
+        // FileWriter write = new FileWriter( path , append_to_file);
+        String line = name + " " + Integer.toString(score);
+        FileWriter write = new FileWriter(path, true);
+        PrintWriter print_line = new PrintWriter(write);
+        print_line.printf("%s", line);
+        print_line.close();
+        // WriteFile data = new WriteFile(path, true);
+        // data.writeToFile(line);
     }
 
     private void render(){
