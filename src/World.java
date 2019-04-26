@@ -25,6 +25,9 @@ public class World {
     private ArrayList<Entity> room5_entities;
     private ArrayList<Entity> room8_entities;
     private ArrayList<Entity> room11_entities;
+    
+    private ArrayList<PuzzleSwitch> room5_buttons;
+    private int num_off_switches = 0;
 
     private void entity_init(){
         room1_entities = new ArrayList<Entity>();
@@ -51,14 +54,6 @@ public class World {
         room5_entities.add(new Gargoyle(handler, 900, 500));
         room5_entities.add(new Gargoyle(handler, 300, 950));
         room5_entities.add(new Gargoyle(handler, 600, 950));
-        for (int y = 200; y < 8000; y += Tile.TILEHEIGHT) {
-            for (int x = 100; x < 800; x += Tile.TILEWIDTH) {
-                int n = ThreadLocalRandom.current().nextInt(4);
-                if (n > 0) {
-                    room5_entities.add(new PuzzleSwitch(handler, x, y));
-                }
-            }
-        }
         
         room8_entities = new ArrayList<Entity>();
         room8_entities.add(new Gargoyle(handler, 300, 0));
@@ -74,6 +69,17 @@ public class World {
         this.handler = handler;
         map_init();
         entity_init();
+
+        room5_buttons = new ArrayList<PuzzleSwitch>();
+        for (int y = 200; y < 850; y += Tile.TILEHEIGHT) {
+            for (int x = 100; x < 850; x += Tile.TILEWIDTH) {
+                int n = ThreadLocalRandom.current().nextInt(3);
+                if (n > 0) {
+                    room5_buttons.add(new PuzzleSwitch(handler, x, y));
+                    num_off_switches++;
+                }
+            }
+        }
 
         itemManager = new ItemManager(handler);
         entityManager = new EntityManager(handler, new Player(handler, 100, 100));
@@ -112,6 +118,9 @@ public class World {
                 for (Entity entity : room5_entities) {
                     entityManager.addEntity(entity);
                 }
+                // for (PuzzleSwitch button : room5_buttons) {
+                //     entityManager.addEntity(entity);
+                // }
                 map_path = "../res/map5.txt";
                 break;
             }
@@ -185,6 +194,14 @@ public class World {
     public void tick(){
         itemManager.tick();
         entityManager.tick();
+        if (room == 5){
+            for(PuzzleSwitch e : room5_buttons){
+                e.tick();
+            }
+            if (num_off_switches == 0){
+                System.out.println("Yay :)");
+            }
+        }
 
         //the below checks if the player has reached one of the edges of the map
         //if they have, it will load a new room
@@ -237,6 +254,11 @@ public class World {
                 //Here, we are converting the tile co-ordinates to pixels. x by width, y by height.
                 getTile(x, y).render(g, (int) (x * Tile.TILEWIDTH - handler.getGameCamera().getxOffset()),
                         (int) (y * Tile.TILEHEIGHT - handler.getGameCamera().getyOffset()));
+            }
+        }
+        if (room == 5){
+            for(PuzzleSwitch e : room5_buttons){
+                e.render(g);
             }
         }
         // Items
@@ -352,4 +374,17 @@ public class World {
         this.itemManager = itemManager;
     }
 
+    public int getNumOffSwitches(){
+        return num_off_switches;
+    }
+
+    public void incNumOffSwitches(){
+        System.out.println(num_off_switches);
+        num_off_switches++;
+    }
+
+    public void decNumOffSwitches(){
+        System.out.println(num_off_switches);
+        num_off_switches--;
+    }
 }
