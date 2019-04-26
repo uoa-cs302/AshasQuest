@@ -1,10 +1,12 @@
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 public class Zombie extends Enemy {
     private BufferedImage texture;
     public Animation zomDown, zomUp, zomLeft, zomRight;
-    public int persuitTimer;
+    public boolean paused = false;
+    public int pursuitTimer;
     private boolean isMoving;
     public Player player;
 //    int [][] Path = {  {  1,  0, 12, -1 },
@@ -18,7 +20,7 @@ public class Zombie extends Enemy {
 
         setHealth(3);
 
-        this.persuitTimer = 0;
+        this.pursuitTimer= 0;
         this.handler = handler;
         this.isMoving = false;
 
@@ -38,13 +40,21 @@ public class Zombie extends Enemy {
 
     @Override
     public void tick() {
-        System.out.println("Wrok");
+      //  System.out.println("Wrok");
+        if ((handler.getKeyManager().keyJustPressed(KeyEvent.VK_C))||
+                (handler.getKeyManager().keyJustPressed(KeyEvent.VK_P))||
+                (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE))||
+                handler.getKeyManager().keyJustPressed(KeyEvent.VK_M)||
+                handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)||
+                handler.getKeyManager().keyJustPressed(KeyEvent.VK_I)){
+            paused = !paused;
+        }
 
         this.x += this.xMove;
         this.y += this.yMove;
 
         if (!isMoving) {
-            this.persuitTimer++;
+            this.pursuitTimer++;
         }
 
         for(Entity e : handler.getWorld().getEntityManager().getEntities()) {
@@ -69,6 +79,7 @@ public class Zombie extends Enemy {
         zomUp.tick();
         zomRight.tick();
         zomLeft.tick();
+
        // Path();
          move();
     }
@@ -79,7 +90,10 @@ public class Zombie extends Enemy {
     }
 
     private void pursuePlayer(Player player) {
-        System.out.println("Work");
+       // System.out.println("Work");
+        if (paused){
+            return;
+        }
         if(this.x - player.x  < 400 && this.y - player.y < 400) {
             if (this.x > player.getX()) {
                 this.xMove = -1;
