@@ -18,6 +18,7 @@ public abstract class Entity {
     //When active is false, we will implement code to remove the element from the game. hurt() does this.
     protected boolean active = true;
     protected Rectangle bounds;
+    private boolean ontop = true;//will render over player. Set to false if you want to render under player.
 
     public Entity(Handler handler, float x, float y, int width, int height){
         this.handler = handler;
@@ -111,6 +112,14 @@ public abstract class Entity {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public boolean isOntop() {
+        return ontop;
+    }
+
+    public void setOntop(boolean ontop) {
+        this.ontop = ontop;
     }
 
 }

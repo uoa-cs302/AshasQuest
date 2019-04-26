@@ -67,7 +67,6 @@ public class Zombie extends Enemy {
             //    e.hurt(1);
             //    return;
             if (e.equals(this.handler.getWorld().getEntityManager().getPlayer())) {
-                System.out.println("Found");
                 isMoving = true;
                 if (this.isMoving) {
                     this.pursuePlayer(this.handler.getWorld().getEntityManager().getPlayer());

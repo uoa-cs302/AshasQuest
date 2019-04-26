@@ -84,6 +84,10 @@ public class Tile {
     public static Tile H_bottom_right_inside = new WallTile(Assets.HOMETOWN_TERRAIN.get("BOTTOM_RIGHT_INSIDE"), 82);
     public static Tile H_bottom_left_inside = new WallTile(Assets.HOMETOWN_TERRAIN.get("BOTTOM_LEFT_INSIDE"), 83);
 
+    // 90 to 91 are buttons
+    public static Tile button_off = new WallTile(Assets.button[0], 90);
+    public static Tile button_on = new WallTile(Assets.button[1], 91);
+
     //CLASS
 
     public static final int TILEWIDTH = 64, TILEHEIGHT = 64;

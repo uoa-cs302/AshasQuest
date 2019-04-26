@@ -2,6 +2,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class World {
 
@@ -26,6 +27,8 @@ public class World {
     private ArrayList<Entity> room5_entities;
     private ArrayList<Entity> room8_entities;
     private ArrayList<Entity> room11_entities;
+    
+    private int num_off_switches = 0;
 
     private void entity_init(){
         room1_entities = new ArrayList<Entity>();
@@ -53,12 +56,27 @@ public class World {
         room5_entities.add(new Gargoyle(handler, 900, 500));
         room5_entities.add(new Gargoyle(handler, 300, 950));
         room5_entities.add(new Gargoyle(handler, 600, 950));
+        room5_entities.add(new Door(handler, 425, 950));
+
+        for (int y = 200; y < 850; y += Tile.TILEHEIGHT) {
+            for (int x = 100; x < 850; x += Tile.TILEWIDTH) {
+                int n = ThreadLocalRandom.current().nextInt(3);
+                if (n > 0) {
+                    room5_entities.add(new PuzzleSwitch(handler, x, y));
+                    num_off_switches++;
+                }
+            }
+        }
         
         room8_entities = new ArrayList<Entity>();
         room8_entities.add(new Gargoyle(handler, 300, 0));
         room8_entities.add(new Gargoyle(handler, 600, 0));
-        room8_entities.add(new Gargoyle(handler, 1100, 200));
-        room8_entities.add(new Gargoyle(handler, 1100, 400));
+        room8_entities.add(new Gargoyle(handler, 1250, 200));
+        room8_entities.add(new Gargoyle(handler, 1250, 400));
+        room8_entities.add(new Portal(handler, 50, 100, 1200, 700, Assets.portal[0]));
+        room8_entities.add(new Portal(handler, 1250, 700, 150, 100, Assets.portal[0]));
+        room8_entities.add(new Portal(handler, 50, 600, 1200, 75, Assets.portal[1]));
+        room8_entities.add(new Portal(handler, 1250, 75, 150, 600, Assets.portal[1]));
 
         room11_entities = new ArrayList<Entity>();
         room11_entities.add(new MorningStar(handler, 610, 325));
@@ -155,6 +173,10 @@ public class World {
             if (room == 1){
                 entityManager.getPlayer().setX((width - 1) * Tile.TILEWIDTH - Tile.TILEWIDTH / 2);
                 entityManager.getPlayer().setY(11 *  Tile.TILEHEIGHT);
+            }
+            else if (room == 5){
+                entityManager.getPlayer().setX((width - 1) * Tile.TILEWIDTH - Tile.TILEWIDTH / 2);
+                entityManager.getPlayer().setY(6 *  Tile.TILEHEIGHT + Tile.TILEWIDTH / 2);
             }
             else{
                 entityManager.getPlayer().setX((width - 1) * Tile.TILEWIDTH - Tile.TILEWIDTH / 2);
@@ -366,4 +388,15 @@ public class World {
         this.itemManager = itemManager;
     }
 
+    public int getNumOffSwitches(){
+        return num_off_switches;
+    }
+
+    public void incNumOffSwitches(){
+        num_off_switches++;
+    }
+
+    public void decNumOffSwitches(){
+        num_off_switches--;
+    }
 }
