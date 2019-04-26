@@ -9,6 +9,7 @@ public class Player extends Creature {
     public Animation anim_attack_down, anim_attack_up, anim_attack_left,anim_attack_right;
     public boolean exiting = false;
     public boolean return_to_menu = false;
+    public boolean boss_ready = false;
 
     // Attack timer, limits speed at which player can attack
     //wait 800 milliseconds to attack again
@@ -113,6 +114,12 @@ public class Player extends Creature {
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_P)){
             paused= !paused;
         }
+        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_PAGE_DOWN)){
+            boss_ready = !boss_ready;
+        }
+        if (boss_ready &&((handler.getKeyManager().keyJustPressed(KeyEvent.VK_Y))||(handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)))){
+            boss_ready = false;
+        }
         if (return_to_menu&&handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)){
             return_to_menu=false;
         }
@@ -131,7 +138,7 @@ public class Player extends Creature {
         if(attackTimer < attackCooldown)
             return;
 
-        if(inventory.isActive() || commandList.isExit_menu_active()||exiting||return_to_menu||paused)
+        if(inventory.isActive() || commandList.isExit_menu_active()||exiting||return_to_menu||paused||boss_ready)
             return;
 
         Rectangle cb = getCollisionBounds(0, 0);
@@ -197,7 +204,7 @@ public class Player extends Creature {
         yAttacking = 0;
         xAttacking = 0;
 
-        if(inventory.isActive()||commandList.isExit_menu_active()||exiting||return_to_menu||paused)
+        if(inventory.isActive()||commandList.isExit_menu_active()||exiting||return_to_menu||paused||boss_ready)
             return;
 
         if(handler.getKeyManager().up)

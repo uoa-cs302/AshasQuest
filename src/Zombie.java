@@ -46,7 +46,8 @@ public class Zombie extends Enemy {
                 (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE))||
                 handler.getKeyManager().keyJustPressed(KeyEvent.VK_M)||
                 handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)||
-                handler.getKeyManager().keyJustPressed(KeyEvent.VK_I)){
+                handler.getKeyManager().keyJustPressed(KeyEvent.VK_I)||
+        handler.getKeyManager().keyJustPressed(KeyEvent.VK_PAGE_DOWN)){
             paused = !paused;
         }
 
