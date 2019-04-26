@@ -29,6 +29,7 @@ public class Game extends Canvas implements Runnable {
     private BufferStrategy bs;
     private Graphics g;
     private Player player;
+    public String path = "../res/scores.txt";
     private String name = "Unknown";
     private String time = "00:00";
     private CommandList commandList;
@@ -117,7 +118,6 @@ public class Game extends Canvas implements Runnable {
     }
 
     private void save_score(int score) throws IOException {
-        String path = "../res/scores.txt";
         // FileWriter write = new FileWriter( path , append_to_file);
         String line = name + " " + Integer.toString(score) + "\n";
         FileWriter write = new FileWriter(path, true);
