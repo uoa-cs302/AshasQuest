@@ -36,6 +36,7 @@ public class World {
         room1_entities.add(new Rock(handler, 400, 645));
         room1_entities.add(new Tree(handler, 625, 795, -1));
         room1_entities.add(new Tree(handler, 800, 890, -1));
+        room1_entities.add(new Zombie(handler, 900, 690, 64, 64));
         
         room2_entities = new ArrayList<Entity>();
         room2_entities.add(new Tree(handler, 100, 70, 14));

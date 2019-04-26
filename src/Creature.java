@@ -7,6 +7,7 @@ public abstract class Creature extends Entity {
     protected float speed;
     protected float xMove, yMove;
 
+
     protected float xAttacking, yAttacking;
 
     //This is for Enemies and Players, which are able to move around.
