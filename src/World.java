@@ -1,4 +1,5 @@
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.ArrayList;
 
@@ -18,6 +19,7 @@ public class World {
 
     public int room = 1;
     private String map_path;
+    public boolean boss_ready = false;
 
     private ArrayList<Entity> room1_entities;
     private ArrayList<Entity> room2_entities;
@@ -173,6 +175,9 @@ public class World {
     public void tick(){
         itemManager.tick();
         entityManager.tick();
+        if  (handler.getKeyManager().keyJustPressed(KeyEvent.VK_PAGE_DOWN)){
+            loadRoom(10,"L");
+        }
 
         //the below checks if the player has reached one of the edges of the map
         //if they have, it will load a new room
