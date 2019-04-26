@@ -20,6 +20,7 @@ public class Game extends Canvas implements Runnable {
 
 
     public boolean running = false;
+    public boolean paused = false;
     public boolean ticking = true;
     private Thread thread;
     //States
@@ -99,7 +100,11 @@ public class Game extends Canvas implements Runnable {
         //Below checks if we currently have a State that actually exists.
         if (States == STATE.GAME) {
             world.tick();
+            if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_P)){
+                paused = !paused;
+            }
            if ((handler.getKeyManager().keyJustPressed(KeyEvent.VK_C))||
+                   (handler.getKeyManager().keyJustPressed(KeyEvent.VK_P))||
                    (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE))||
                    handler.getKeyManager().keyJustPressed(KeyEvent.VK_M)||
                    handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)||
@@ -144,6 +149,13 @@ public class Game extends Canvas implements Runnable {
             g.setColor(Color.WHITE);
             g.drawString("Press C for Commands",5,50);
             g.drawString(time,5,70);
+
+            if (paused){
+                Font fnt4 = new Font("helvetica",Font.BOLD, 60);
+                g.setFont(fnt4);
+                g.setColor(Color.white);
+                g.drawString("GAME      PAUSED", 240, 400);
+            }
         } else if (States==STATE.MENU){
             menu.paintComponent(g);
         }
