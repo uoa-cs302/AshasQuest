@@ -32,6 +32,20 @@ public class MouseInput implements MouseListener {
                 System.exit(1);
             }
         }
+        if (mx >= 800 && mx<=952){
+            if (my>=560 && my<= 616){
+                Game.States= Game.STATE.CREDITS;
+            }
+        }
+
+        if (Game.States==Game.STATE.CREDITS){
+            if (mx>=200 && mx<=300){
+                if (my>=500 && my<=550){
+                    Game.States = Game.STATE.MENU;
+                }
+            }
+
+        }
 
 
 
