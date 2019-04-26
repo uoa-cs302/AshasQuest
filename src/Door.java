@@ -15,7 +15,7 @@ public class Door extends StaticEntity {
         bounds.y = 0;
         bounds.width = width;
         bounds.height = height;
-        
+
         setOntop(false);
         setHealth(1000);//object can't be destroyed
     }
@@ -23,6 +23,10 @@ public class Door extends StaticEntity {
     public void open(){
         //if door not already open
         if (index == 0){
+            //when they open the door, increase the score by 100
+            if (count != true){
+                handler.getGame().incScore(100);
+            }
             bounds.width = 0;
             bounds.height = 0;
             count = true;

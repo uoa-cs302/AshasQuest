@@ -88,6 +88,8 @@ public class Inventory extends KeyManager{
     // Inventory methods
 
     public void addItem(Item item){
+        //when they pick up an item, increase the score by 10
+        handler.getGame().incScore(10);
         //in our inventory list, if the item we have just picked up is something we already have, then we
         //will just increment the count for how many of that item is in the inventory already
         //if the item isn't already in the inventory, add it in.
