@@ -153,6 +153,10 @@ public class World {
                 entityManager.getPlayer().setX((width - 1) * Tile.TILEWIDTH - Tile.TILEWIDTH / 2);
                 entityManager.getPlayer().setY(11 *  Tile.TILEHEIGHT);
             }
+            else if (room == 5){
+                entityManager.getPlayer().setX((width - 1) * Tile.TILEWIDTH - Tile.TILEWIDTH / 2);
+                entityManager.getPlayer().setY(6 *  Tile.TILEHEIGHT + Tile.TILEWIDTH / 2);
+            }
             else{
                 entityManager.getPlayer().setX((width - 1) * Tile.TILEWIDTH - Tile.TILEWIDTH / 2);
                 entityManager.getPlayer().setY(5 *  Tile.TILEHEIGHT);
