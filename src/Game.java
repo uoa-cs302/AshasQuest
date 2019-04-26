@@ -9,6 +9,7 @@ public class Game extends Canvas implements Runnable {
     private int width, height;
     private World world;
     public String title;
+    public boolean won = false;
     private static int sec = 0;
     private static int min = 0;
     //private boolean exiting = false;
@@ -58,7 +59,6 @@ public class Game extends Canvas implements Runnable {
         menu = new Menu();
         player = new Player(handler,0,0);
         commandList = new CommandList(handler);
-
     }
 
     private void init(){
@@ -74,53 +74,27 @@ public class Game extends Canvas implements Runnable {
         //Ensures that all sprites assigned to assets in the Assets class gets brought onto the Frame.
         Assets.init();
 
-
         handler = new Handler(this);
         gameCamera = new GameCamera(handler, 0, 0);
 
-       // gameState = new GameState(handler);
+        // gameState = new GameState(handler);
         world = new World(handler);
         handler.setWorld(world);
-      //  menuState = new MenuState(handler);
-      //  State.setState(menuState);
+        // menuState = new MenuState(handler);
+        // State.setState(menuState);
     }
-//    private void timer() {
-//        while (running) {
-//            ones++;
-//            if (ones == 9) {
-//                tens++;
-//                ones = 0;
-//            }
-//            if (tens == 6) {
-//                hundreds++;
-//                tens = 0;
-//                ones = 0;
-//            }
-//            if (hundreds == 9) {
-//                thousands++;
-//                hundreds = 0;
-//            }
-//            if (thousands == 5) {
-//                thousands = 0;
-//                hundreds = 0;
-//                tens = 0;
-//                ones = 0;
-//            }
-//
-//        }
-//        if (!running) {
-//            thousands = 0;
-//            hundreds = 0;
-//            tens = 0;
-//            ones = 0;
-//
-//        }
-//    }
-
 
     private void tick() {
         //Updates everything
         keyManager.tick();
+
+        if (won){
+            int score = 5 * 60 - sec - min * 60; //remaining seconds (from 5mins)
+            score += player.getInventory().getInventorySize() * 10; //gets 10 points for every item in the inventory
+            System.out.println(score);
+            //TODO: add score to file, with name (that we need to create/get)
+            won = false;
+        }
 
         //Below checks if we currently have a State that actually exists.
         if (States == STATE.GAME) {
@@ -171,9 +145,7 @@ public class Game extends Canvas implements Runnable {
             g.drawString(time,5,70);
         } else if (States==STATE.MENU){
             menu.paintComponent(g);
-
         }
-
             //End Drawing!
             bs.show();
             g.dispose();
@@ -198,7 +170,6 @@ public class Game extends Canvas implements Runnable {
     }
 
     public void run(){
-
         //Soon as the game runs, everything we have in the init method will begin.
         init();
         Toolkit toolkit = Toolkit.getDefaultToolkit();
@@ -218,8 +189,6 @@ public class Game extends Canvas implements Runnable {
         long lastClockTime = System.currentTimeMillis();
         long timer = 0;
         int ticks = 0;
-
-
 
 
         while(running){
@@ -253,7 +222,7 @@ public class Game extends Canvas implements Runnable {
             if(timer >= 1000000000){
                 //Below just checks how many times tick and render are being called, to confirm the code works
                 //This reset happens when the timer reaches 1 billion nanoseconds
-               // System.out.println("Ticks and Frames: " + ticks);
+                //System.out.println("Ticks and Frames: " + ticks);
                 ticks = 0;
                 timer = 0;
             }
@@ -282,9 +251,7 @@ public class Game extends Canvas implements Runnable {
         return height;
     }
 //    public boolean isExit_menu_active() {
-//
 //        return exit_menu_active;
-//
 //    }
 
     public synchronized void start(){
@@ -312,7 +279,6 @@ public class Game extends Canvas implements Runnable {
     public static void main(String[] args){
         Game game = new Game("Asha's Quest", 1024, 768);
         game.start();
-        //game.runTimer();
     }
 
 }

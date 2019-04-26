@@ -59,7 +59,7 @@ public class Player extends Creature {
         return false;
     }
     public boolean reachedTop(){
-        if (this.getY() <= Tile.TILEHEIGHT / 2){
+        if (this.getY() <= 1){
             return true;
         }
         return false;

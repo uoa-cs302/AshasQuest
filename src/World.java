@@ -1,9 +1,10 @@
 import java.awt.Graphics;
 import java.util.HashMap;
+import java.util.ArrayList;
 
 public class World {
 
-    //widht and height will be used in terms of times of the world.
+    //width and height will be used in terms of times of the world.
     private Handler handler;
     private static int width, height;
     private static int spawnX, spawnY;
@@ -18,18 +19,65 @@ public class World {
     public int room = 1;
     private String map_path;
 
-    public World(Handler handler){
-        map_init();
+    private ArrayList<Entity> room1_entities;
+    private ArrayList<Entity> room2_entities;
+    private ArrayList<Entity> room5_entities;
+    private ArrayList<Entity> room8_entities;
+    private ArrayList<Entity> room11_entities;
 
+    private void entity_init(){
+        room1_entities = new ArrayList<Entity>();
+        room1_entities.add(new Building(handler, 50, 0));
+        room1_entities.add(new Tree(handler, 60, 550, -1));
+        room1_entities.add(new Tree(handler, 850, 400, -1));
+        room1_entities.add(new Tree(handler, 200, 900, -1));
+        room1_entities.add(new Rock(handler, 132, 750));
+        room1_entities.add(new Rock(handler, 350, 600));
+        room1_entities.add(new Rock(handler, 400, 645));
+        room1_entities.add(new Tree(handler, 625, 795, -1));
+        room1_entities.add(new Tree(handler, 800, 890, -1));
+        
+        room2_entities = new ArrayList<Entity>();
+        room2_entities.add(new Tree(handler, 100, 70, 14));
+        room2_entities.add(new Tree(handler, 400, 120, 15));
+        room2_entities.add(new Tree(handler, 300, 590, 15));
+        room2_entities.add(new Tree(handler, 700, 500, 14));
+        
+        room5_entities = new ArrayList<Entity>();
+        room5_entities.add(new Gargoyle(handler, 300, 0));
+        room5_entities.add(new Gargoyle(handler, 600, 0));
+        room5_entities.add(new Gargoyle(handler, 900, 300));
+        room5_entities.add(new Gargoyle(handler, 900, 500));
+        room5_entities.add(new Gargoyle(handler, 300, 950));
+        room5_entities.add(new Gargoyle(handler, 600, 950));
+        
+        room8_entities = new ArrayList<Entity>();
+        room8_entities.add(new Gargoyle(handler, 300, 0));
+        room8_entities.add(new Gargoyle(handler, 600, 0));
+        room8_entities.add(new Gargoyle(handler, 1100, 200));
+        room8_entities.add(new Gargoyle(handler, 1100, 400));
+
+        room11_entities = new ArrayList<Entity>();
+        room11_entities.add(new MorningStar(handler, 610, 325));
+    }
+
+    public World(Handler handler){
         this.handler = handler;
+        map_init();
+        entity_init();
+
         itemManager = new ItemManager(handler);
+        entityManager = new EntityManager(handler, new Player(handler, 100, 100));
 
         loadRoom(1, "C");
     }
 
     public void loadRoom(int room, String spawn_pos){
+        //We don't want any objects to appear from the previous room, therefore we call wipe objects
+        entityManager.wipeObjects();
+        //Again, we don't want any unpicked up items to remain, so we remove them
+        itemManager.wipeObjects();
         this.room = room;
-        entityManager = new EntityManager(handler, new Player(handler, 100, 100));
 
         switch (room) {
             case 0: {
@@ -37,24 +85,31 @@ public class World {
                 break;
             }
             case 1: {
-                // Temporary entity code!
-                entityManager.addEntity(new Tree(handler, 132, 250));
-                entityManager.addEntity(new Rock(handler, 132, 450));
-                entityManager.addEntity(new Rock(handler, 350, 300));
-                entityManager.addEntity(new Rock(handler, 400, 345));
-                entityManager.addEntity(new Tree(handler, 625, 325));
+                // These are the objects that get loaded into the room
+                for (Entity entity : room1_entities) {
+                    entityManager.addEntity(entity);
+                }
                 map_path = "../res/map1.txt";
                 break;
             }
             case 2: {
+                for (Entity entity : room2_entities) {
+                    entityManager.addEntity(entity);
+                }
                 map_path = "../res/map2.txt";
                 break;
             }
             case 5: {
+                for (Entity entity : room5_entities) {
+                    entityManager.addEntity(entity);
+                }
                 map_path = "../res/map5.txt";
                 break;
             }
             case 8: {
+                for (Entity entity : room8_entities) {
+                    entityManager.addEntity(entity);
+                }
                 map_path = "../res/map8.txt";
                 break;
             }
@@ -74,6 +129,9 @@ public class World {
                 break;
             }
             case 11: {
+                for (Entity entity : room11_entities) {
+                    entityManager.addEntity(entity);
+                }
                 map_path = "../res/mapFinalRoom.txt";
                 break;
             }
@@ -81,36 +139,42 @@ public class World {
         loadWorld(map_path);
 
         //This sets where on the map the player character will show up.
-        //L = left, R = right, T = top, B = bottom, C = centre    (of map)
-        // String spawn_pos = "C";
+        //L = left, R = right, T = top, B = bottom, C = centre   (of map)
         if (spawn_pos.equals("C")){
             entityManager.getPlayer().setX(5 * Tile.TILEWIDTH);
-            entityManager.getPlayer().setY(7 *  Tile.TILEHEIGHT);
+            entityManager.getPlayer().setY(12 *  Tile.TILEHEIGHT);
         }
         if (spawn_pos.equals("L")){
             entityManager.getPlayer().setX(Tile.TILEWIDTH / 2);
-            entityManager.getPlayer().setY(5 *  Tile.TILEHEIGHT);//tmp
+            entityManager.getPlayer().setY(5 *  Tile.TILEHEIGHT);
         }
         if (spawn_pos.equals("R")){
-            entityManager.getPlayer().setX((width - 1) * Tile.TILEWIDTH - Tile.TILEWIDTH / 2);
-            entityManager.getPlayer().setY(5 *  Tile.TILEHEIGHT);//tmp
+            if (room == 1){
+                entityManager.getPlayer().setX((width - 1) * Tile.TILEWIDTH - Tile.TILEWIDTH / 2);
+                entityManager.getPlayer().setY(11 *  Tile.TILEHEIGHT);
+            }
+            else{
+                entityManager.getPlayer().setX((width - 1) * Tile.TILEWIDTH - Tile.TILEWIDTH / 2);
+                entityManager.getPlayer().setY(5 *  Tile.TILEHEIGHT);
+            }
         }
         if (spawn_pos.equals("T")){
-            entityManager.getPlayer().setX((8) * Tile.TILEWIDTH);//tmp
+            entityManager.getPlayer().setX((8) * Tile.TILEWIDTH);
             entityManager.getPlayer().setY(1 *  Tile.TILEHEIGHT);
         }
         if (spawn_pos.equals("B")){
-            entityManager.getPlayer().setX((8) * Tile.TILEWIDTH);//tmp
+            entityManager.getPlayer().setX((8) * Tile.TILEWIDTH);
             entityManager.getPlayer().setY((height - 1) *  Tile.TILEHEIGHT - Tile.TILEWIDTH / 2);
         }
-        // entityManager.getPlayer().setX(spawnX * Tile.TILEWIDTH);
-        // entityManager.getPlayer().setY(spawnY *  Tile.TILEHEIGHT);
 
     }
 
     public void tick(){
         itemManager.tick();
         entityManager.tick();
+
+        //the below checks if the player has reached one of the edges of the map
+        //if they have, it will load a new room
         if (entityManager.getPlayer().reachedRight()){
             if (room != 4 && room != 7 && room != 11){//these rooms have no room to the right
                 room++;//the room is now the next room
@@ -132,7 +196,6 @@ public class World {
             }
             if (room == 5 || room == 8){//these rooms have a room above
                 room -= 3;//the room is now the room above
-                room = 2;//the room is now the room above
             }
             loadRoom(room, "B");
         }
@@ -154,7 +217,6 @@ public class World {
         int xEnd = (int) Math.min(width, (handler.getGameCamera().getxOffset() + handler.getWidth()) / Tile.TILEWIDTH + 1);
         int yStart = (int) Math.max(0, handler.getGameCamera().getyOffset() / Tile.TILEHEIGHT);
         int yEnd = (int) Math.min(height, (handler.getGameCamera().getyOffset() + handler.getHeight()) / Tile.TILEHEIGHT + 1);
-
 
         //Loop extends from beginning of map to end of map
         for(int y = yStart;y < yEnd;y++){

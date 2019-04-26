@@ -1,8 +1,30 @@
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.util.concurrent.ThreadLocalRandom;
+
 public class Tree extends StaticEntity {
 
-    public Tree(Handler handler, float x, float y) {
-        super(handler, x, y, Tile.TILEWIDTH, Tile.TILEHEIGHT * 2);
+    private BufferedImage texture;
+
+    //if id is -1, it will be a random pink or green tree.  
+    //if it is between 0 and 13, it will be that particular green or pink tree.
+    //if is 14 or 15 it will be a dead tree
+    public Tree(Handler handler, float x, float y, int id) {
+        super(handler, x, y, Tile.TILEWIDTH * 2, Tile.TILEHEIGHT * 2);
+
+        if (id == -1) {
+            int n = ThreadLocalRandom.current().nextInt(Assets.tree.length);
+            texture = Assets.tree[n];
+        }
+        else if (id == 14) {
+            texture = Assets.ASHLANDS_TERRAIN.get("TREE");
+        }
+        else if (id == 15) {
+            texture = Assets.ASHLANDS_TERRAIN.get("TREE2");
+        }
+        else {
+            texture = Assets.tree[id];
+        }
 
         bounds.x = 10;
         bounds.y = (int) (height / 1.5f);
@@ -23,7 +45,7 @@ public class Tree extends StaticEntity {
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(Assets.tree, (int) (x - handler.getGameCamera().getxOffset()), (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
+        g.drawImage(texture, (int) (x - handler.getGameCamera().getxOffset()), (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
     }
 
 }

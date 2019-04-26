@@ -17,11 +17,11 @@ public class Assets {
 
     //Here, we declare all of our assets that need images.
 
-    public static BufferedImage dirt, grass, stone, tree, rock, wood;
+    public static BufferedImage dirt, grass, stone, rock, wood, building, morning_star;
     public static BufferedImage[] player_down, player_up, player_left, player_right;
     public static BufferedImage[] zombie_down, zombie_up, zombie_left, zombie_right;
     public static BufferedImage[] attack_down, attack_up, attack_left, attack_right;
-    public static BufferedImage[] btn_start;
+    public static BufferedImage[] btn_start, tree;
     public static BufferedImage inventoryScreen;
 
     //The following are hashmaps of each of the possible terrains that will be used
@@ -72,6 +72,7 @@ public class Assets {
         CASTLE_TERRAIN.put("BOTTOM_LEFT_INSIDE", sheet.crop(15, 1, 1, 1));
         CASTLE_TERRAIN.put("BOTTOM_RIGHT_INSIDE", sheet.crop(14, 1, 1, 1));
         CASTLE_TERRAIN.put("WALL", sheet.crop(10, 4, 1, 1));
+        CASTLE_TERRAIN.put("GARGOYLE", sheet.crop(13, 17, 3, 3));
 
         sheet = new SpriteSheet(ImageLoader.loadImage("../res/ashlands.png"), 16, 16);
         ASHLANDS_TERRAIN.put("ASH", sheet.crop(2, 1, 1, 1));//can be randomly generated between 1&7
@@ -88,6 +89,8 @@ public class Assets {
         ASHLANDS_TERRAIN.put("TOP_RIGHT_INSIDE", sheet.crop(24, 1, 1, 1));
         ASHLANDS_TERRAIN.put("BOTTOM_LEFT_INSIDE", sheet.crop(23, 2, 1, 1));
         ASHLANDS_TERRAIN.put("BOTTOM_RIGHT_INSIDE", sheet.crop(24, 2, 1, 1));
+        ASHLANDS_TERRAIN.put("TREE", sheet.crop(35, 2, 3, 5));
+        ASHLANDS_TERRAIN.put("TREE2", sheet.crop(33, 3, 2, 4));
 
         sheet = new SpriteSheet(ImageLoader.loadImage("../res/hometown.png"), 16, 16);
         HOMETOWN_TERRAIN.put("GRASS", sheet.crop(1, 1, 1, 1)); //can be randomly generated between 1&8
@@ -275,7 +278,6 @@ public class Assets {
         dirt = sheet.crop(1, 0, 1, 1);
         grass = sheet.crop(2, 0, 1, 1);
         stone = sheet.crop(3, 0, 1, 1);
-        tree = sheet.crop(0, 0, 1, 2);
         rock = sheet.crop(0, 2, 1, 1);
 
         //Attack Animations
@@ -392,7 +394,30 @@ public class Assets {
         attack_right[23] = sheet_attack_right.crop(3, 5, 1, 1);
 
 
-
-
+        tree = new BufferedImage[14];
+        sheet = new SpriteSheet(ImageLoader.loadImage("../res/trees.png"), 55, 64);
+        tree[0] = sheet.crop(0, 0, 1, 1);
+        tree[1] = sheet.crop(0, 1, 1, 1);
+        tree[2] = sheet.crop(0, 2, 1, 1);
+        sheet = new SpriteSheet(ImageLoader.loadImage("../res/trees2.png"), 40, 64);
+        tree[3] = sheet.crop(0, 0, 1, 1);
+        tree[4] = sheet.crop(0, 1, 1, 1);
+        tree[5] = sheet.crop(0, 2, 1, 1);
+        sheet = new SpriteSheet(ImageLoader.loadImage("../res/trees3.png"), 35, 64);
+        tree[6] = sheet.crop(0, 0, 1, 1);
+        tree[7] = sheet.crop(0, 1, 1, 1);
+        tree[8] = sheet.crop(0, 2, 1, 1);
+        sheet = new SpriteSheet(ImageLoader.loadImage("../res/trees4.png"), 30, 64);
+        tree[9] = sheet.crop(0, 0, 1, 1);
+        tree[10] = sheet.crop(0, 1, 1, 1);
+        tree[11] = sheet.crop(0, 2, 1, 1);
+        sheet = new SpriteSheet(ImageLoader.loadImage("../res/pinktrees.png"), 64, 64);
+        tree[12] = sheet.crop(0, 0, 1, 1);
+        tree[13] = sheet.crop(1, 0, 1, 1);
+        
+        sheet = new SpriteSheet(ImageLoader.loadImage("../res/home_town.png"), 704, 576);
+        building = sheet.crop(0, 0, 1, 1);
+        sheet = new SpriteSheet(ImageLoader.loadImage("../res/morning_star.png"), 650, 750);
+        morning_star = sheet.crop(0, 0, 1, 1);
     }
 }

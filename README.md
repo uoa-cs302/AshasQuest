@@ -2,10 +2,32 @@
 Unicorn Dragon Studios
 Java game repository for M.Hassaan Mirza and Kimberley Evans-Parker
 
-`AshasQuest` Starting point of the code. Initializes window. 
-`Window` Chooses map that will be displayed. Reads map and creates tiles based of that using `Tile`. Draws components. 
-`Tile` Based on the room's terrain and type of tile needed, will grab an image from `Sprite` using the spritesheet name, tile_size and row and col coordinates. 
-`Sprite` Loads a subimage of the sprite or tile at the given location. 
+`Game` Starting point of the code. Initialises everything.
+`World` Loads all the different rooms and objects within the rooms. 
+`Handler` allows everything to connect to everything else
+`Display`, `FontLoader`, `ImageLoader` help with the displays. 
+
+`Assets` holds all images used in the game. Initialised at launch. 
+`Animation` used by player and creatures to load animation
+`Spritesheet` loads and crops spritesheets to tiles
+`Tile` Based on the room's terrain and type of tile needed, will grab an image from `Assets`. 
+`WallTile` implements `Tile`, but cannot be moved through
+
+`Building`, `Tree`, `Rock` and `Gargoyle` are all `StaticEnities` that drop items when destroyed
+`StaticEntities` impliments `Enitiy`
+`Player` is an entity. This also implements attacks and tracks movements for collision detection and new world loading
+`Creature` is also an entity, but moves and potentially causes damage
+`EntityManager` keeps track of all `Enities` 
+
+`Item` is an object that can be picked up (rock, wood, etc.)
+`ItemManager`keeps track of all `Items` that haven't been added to `Inventory`
+`Inventory` keeps track of everything the player has picked up
+
+`ClickListener`, `KeyManager`, `MouseInput` & `MouseManager` checks and deals with for inputs
+`GameCamera` allows the screen to move about
+
+`CommandList` is the menu shown which displays all available actions the player can do
+`Menu` is the main menu, which is displayed when the game first runs
 
 maps contains the different map layouts as txt files
 sprites contains the different spritesheets as png files
