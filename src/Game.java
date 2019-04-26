@@ -1,7 +1,10 @@
 
+import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.io.IOException;
@@ -23,7 +26,7 @@ public class Game extends Canvas implements Runnable {
     private Thread thread;
     //States
     public enum STATE{
-        MENU,GAME
+        MENU,GAME,CREDITS
     }
     public static Game.STATE States = Game.STATE.MENU;
 
@@ -178,7 +181,32 @@ public class Game extends Canvas implements Runnable {
             }
         } else if (States==STATE.MENU){
             menu.paintComponent(g);
+        } else if (States==STATE.CREDITS){
+            g.setColor(Color.black);
+            g.fillRect(0,0,1024,768);
+            g.setColor(Color.GRAY);
+            g.fillRect(200,150,600,400);
+
+            g.setColor(Color.WHITE);
+            Font fnt5 = new Font("Calibri",Font.BOLD,20);
+            g.setFont(fnt5);
+            g.drawString("UNICORN DRAGON STUDIOS", 380, 200);
+            Font fnt6 = new Font("Arial",Font.BOLD,15);
+            g.setFont(fnt6);
+            g.drawString("Co Founders: Kimberley Evans-Parker and M.Hassaan Mirza", 280, 250);
+            g.drawString("Here is our studio mascot, Midnight!", 360, 350);
+            try {
+                g.drawImage(new ImageIcon(ImageIO.read(new File("../res/midnight.png"))).getImage(), 430, 400, 120, 120, this);
+            } catch (IOException e) {}
+
+            g.setColor(Color.white);
+            g.fillRect(200,500,100,50);
+            g.setColor(Color.black);
+            g.drawString("Return to",210,520);
+            g.drawString("Menu",225,530);
+
         }
+
             //End Drawing!
             bs.show();
             g.dispose();
