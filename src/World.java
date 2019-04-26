@@ -368,12 +368,10 @@ public class World {
     }
 
     public void incNumOffSwitches(){
-        System.out.println(num_off_switches);
         num_off_switches++;
     }
 
     public void decNumOffSwitches(){
-        System.out.println(num_off_switches);
         num_off_switches--;
     }
 }
