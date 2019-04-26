@@ -133,7 +133,7 @@ public class Game extends Canvas implements Runnable {
     }
 
     private void save_score(int score) throws IOException {
-        String line = name + " " + Integer.toString(score) + "\n";
+        String line = Integer.toString(score)  + " " + name + "\n";
         FileWriter write = new FileWriter(path, true);
         PrintWriter print_line = new PrintWriter(write);
         print_line.printf("%s", line);
@@ -221,6 +221,7 @@ public class Game extends Canvas implements Runnable {
             g.setFont(fnt5);
             g.drawString("Scores", 450, 200);
             Font fnt6 = new Font("Arial",Font.BOLD,15);
+            g.setFont(fnt6);
 
             ArrayList<String[]> scores = getScores();
             if (scores.size() == 0){
@@ -228,10 +229,9 @@ public class Game extends Canvas implements Runnable {
             }
             else{
                 int y = 250;
-                g.setFont(fnt6);
                 for (String[] score : scores) {
-                    g.drawString(score[0], 250, y);
-                    g.drawString(score[1], 700, y);
+                    g.drawString(score[1], 250, y);
+                    g.drawString(score[0], 700, y);
                     y += 25;
                 }
             }
@@ -385,7 +385,7 @@ public class Game extends Canvas implements Runnable {
             BufferedReader reader = new BufferedReader(new FileReader(path));
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] score = line.split(" ");
+                String[] score = line.split(" ", 2);
                 scores.add(score);
             }
         }
