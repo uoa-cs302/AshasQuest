@@ -1,6 +1,7 @@
 import java.awt.Graphics;
 import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class World {
 
@@ -50,6 +51,14 @@ public class World {
         room5_entities.add(new Gargoyle(handler, 900, 500));
         room5_entities.add(new Gargoyle(handler, 300, 950));
         room5_entities.add(new Gargoyle(handler, 600, 950));
+        for (int y = 200; y < 8000; y += Tile.TILEHEIGHT) {
+            for (int x = 100; x < 800; x += Tile.TILEWIDTH) {
+                int n = ThreadLocalRandom.current().nextInt(4);
+                if (n > 0) {
+                    room5_entities.add(new PuzzleSwitch(handler, x, y));
+                }
+            }
+        }
         
         room8_entities = new ArrayList<Entity>();
         room8_entities.add(new Gargoyle(handler, 300, 0));
