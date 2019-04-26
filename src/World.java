@@ -23,6 +23,7 @@ public class World {
     private ArrayList<Entity> room2_entities;
     private ArrayList<Entity> room5_entities;
     private ArrayList<Entity> room8_entities;
+    private ArrayList<Entity> room11_entities;
 
     private void entity_init(){
         room1_entities = new ArrayList<Entity>();
@@ -55,6 +56,9 @@ public class World {
         room8_entities.add(new Gargoyle(handler, 600, 0));
         room8_entities.add(new Gargoyle(handler, 1100, 200));
         room8_entities.add(new Gargoyle(handler, 1100, 400));
+
+        room11_entities = new ArrayList<Entity>();
+        room11_entities.add(new MorningStar(handler, 610, 325));
     }
 
     public World(Handler handler){
@@ -125,6 +129,9 @@ public class World {
                 break;
             }
             case 11: {
+                for (Entity entity : room11_entities) {
+                    entityManager.addEntity(entity);
+                }
                 map_path = "../res/mapFinalRoom.txt";
                 break;
             }

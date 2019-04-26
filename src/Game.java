@@ -9,6 +9,7 @@ public class Game extends Canvas implements Runnable {
     private int width, height;
     private World world;
     public String title;
+    public boolean won = false;
     private static int sec = 0;
     private static int min = 0;
     //private boolean exiting = false;
@@ -86,6 +87,14 @@ public class Game extends Canvas implements Runnable {
     private void tick() {
         //Updates everything
         keyManager.tick();
+
+        if (won){
+            int score = 5 * 60 - sec - min * 60; //remaining seconds (from 5mins)
+            score += player.getInventory().getInventorySize() * 10; //gets 10 points for every item in the inventory
+            System.out.println(score);
+            //TODO: add score to file, with name (that we need to create/get)
+            won = false;
+        }
 
         //Below checks if we currently have a State that actually exists.
         if (States == STATE.GAME) {

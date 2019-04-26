@@ -114,4 +114,7 @@ public class Inventory extends KeyManager{
         return active;
     }
 
+    public int getInventorySize() {
+        return inventoryItems.size();
+    }
 }
