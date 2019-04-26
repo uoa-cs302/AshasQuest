@@ -54,6 +54,7 @@ public class World {
         room5_entities.add(new Gargoyle(handler, 900, 500));
         room5_entities.add(new Gargoyle(handler, 300, 950));
         room5_entities.add(new Gargoyle(handler, 600, 950));
+        room5_entities.add(new Door(handler, 425, 950));
         
         room8_entities = new ArrayList<Entity>();
         room8_entities.add(new Gargoyle(handler, 300, 0));
@@ -84,7 +85,7 @@ public class World {
         itemManager = new ItemManager(handler);
         entityManager = new EntityManager(handler, new Player(handler, 100, 100));
 
-        loadRoom(1, "C");
+        loadRoom(5, "C");
     }
 
     public void loadRoom(int room, String spawn_pos){
@@ -197,9 +198,6 @@ public class World {
         if (room == 5){
             for(PuzzleSwitch e : room5_buttons){
                 e.tick();
-            }
-            if (num_off_switches == 0){
-                System.out.println("Yay :)");
             }
         }
 

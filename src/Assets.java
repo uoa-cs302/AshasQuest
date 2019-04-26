@@ -21,7 +21,7 @@ public class Assets {
     public static BufferedImage[] player_down, player_up, player_left, player_right;
     public static BufferedImage[] zombie_down, zombie_up, zombie_left, zombie_right;
     public static BufferedImage[] attack_down, attack_up, attack_left, attack_right;
-    public static BufferedImage[] btn_start, button, tree;
+    public static BufferedImage[] btn_start, button, tree, door;
     public static BufferedImage inventoryScreen;
 
     //The following are hashmaps of each of the possible terrains that will be used
@@ -426,5 +426,13 @@ public class Assets {
         button[0] = sheet.crop(0, 0, 1, 1);
         sheet = new SpriteSheet(ImageLoader.loadImage("../res/button1.png"), 32, 32);
         button[1] = sheet.crop(0, 0, 1, 1);
+        
+        door = new BufferedImage[5];
+        sheet = new SpriteSheet(ImageLoader.loadImage("../res/door.png"), 48, 48);
+        door[0] = sheet.crop(0, 1, 1, 1);
+        door[1] = sheet.crop(0, 2, 1, 1);
+        door[2] = sheet.crop(0, 3, 1, 1);
+        door[3] = sheet.crop(0, 4, 1, 1);
+        door[4] = sheet.crop(0, 0, 1, 1);
     }
 }

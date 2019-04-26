@@ -44,7 +44,14 @@ public class EntityManager {
 
     public void render(Graphics g){
         for(Entity e : entities){
-            e.render(g);
+            if (! e.isOntop()){
+                e.render(g);
+            }
+        }
+        for(Entity e : entities){
+            if (e.isOntop()){
+                e.render(g);
+            }
         }
         player.postRender(g);
     }
