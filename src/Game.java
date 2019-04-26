@@ -94,8 +94,6 @@ public class Game extends Canvas implements Runnable {
 
         if (won){
             won = false;
-            int score = 5 * 60 - sec - min * 60; //remaining seconds (from 5mins)
-            score += player.getInventory().getInventorySize() * 10; //gets 10 points for every item in the inventory
             System.out.println(score);
             try{
                 save_score(score);
