@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.io.IOException;
 
 public class Game extends Canvas implements Runnable {
@@ -17,11 +19,6 @@ public class Game extends Canvas implements Runnable {
     private static int sec = 0;
     private static int min = 0;
     //private boolean exiting = false;
-//    public int thousands = 0;
-//    public int hundreds = 0;
-//    public int tens = 0;
-//    public int ones = 0;
-
 
     public boolean running = false;
     public boolean paused = false;
@@ -36,6 +33,8 @@ public class Game extends Canvas implements Runnable {
     private BufferStrategy bs;
     private Graphics g;
     private Player player;
+    public String path = "../res/scores.txt";
+    private String name = "Unknown";
     private String time = "00:00";
     private CommandList commandList;
 
@@ -79,14 +78,14 @@ public class Game extends Canvas implements Runnable {
         //Ensures that all sprites assigned to assets in the Assets class gets brought onto the Frame.
         Assets.init();
 
+        restart();
+    }
+
+    private void restart(){
         handler = new Handler(this);
         gameCamera = new GameCamera(handler, 0, 0);
-
-        // gameState = new GameState(handler);
         world = new World(handler);
         handler.setWorld(world);
-        // menuState = new MenuState(handler);
-        // State.setState(menuState);
     }
 
     private void tick() {
@@ -94,11 +93,20 @@ public class Game extends Canvas implements Runnable {
         keyManager.tick();
 
         if (won){
+            won = false;
             int score = 5 * 60 - sec - min * 60; //remaining seconds (from 5mins)
             score += player.getInventory().getInventorySize() * 10; //gets 10 points for every item in the inventory
             System.out.println(score);
+            try{
+                save_score(score);
+            }
+            catch (IOException e){
+                System.out.println("can't save score");
+            }
             //TODO: add score to file, with name (that we need to create/get)
-            won = false;
+            //TODO: score page
+            States = STATE.MENU;
+            restart();
         }
 
         //Below checks if we currently have a State that actually exists.
@@ -118,28 +126,39 @@ public class Game extends Canvas implements Runnable {
         }
     }
 
-    private void render(){
-            //Draws everything
-            //The Buffer Strategy is inside the Canvas of our display.
-            //We get the Canvas of the current window, and this sets whatever the buffer strategy is to be the
-            //same as our current one.
-            bs = display.getCanvas().getBufferStrategy();
-            //Buffer Strategy tells the computer how to draw things using buffers.
-            //A Buffer is a "hidden computer screen"(just memory) within the computer. We draw everything to one buffer,
-            //which moves to the next buffer, until it gets to the computer. This is to prevent flickering.
-            //Below, if there isn't already a Buffer Strategy, we initiate one.
-            if(bs == null){
-                display.getCanvas().createBufferStrategy(3);
-                return;
-            }
-            g = bs.getDrawGraphics();
-            //Clear Screen
-            g.clearRect(0, 0, width, height);
-            //Draw Here!
+    private void save_score(int score) throws IOException {
+        // FileWriter write = new FileWriter( path , append_to_file);
+        String line = name + " " + Integer.toString(score) + "\n";
+        FileWriter write = new FileWriter(path, true);
+        PrintWriter print_line = new PrintWriter(write);
+        print_line.printf("%s", line);
+        print_line.close();
+        // WriteFile data = new WriteFile(path, true);
+        // data.writeToFile(line);
+    }
 
-            //If we currently have a real state in place, then call the render function inside whatever state we're in.
-           //// if(State.getState() != null)
-              //  State.getState().render(g);
+    private void render(){
+        //Draws everything
+        //The Buffer Strategy is inside the Canvas of our display.
+        //We get the Canvas of the current window, and this sets whatever the buffer strategy is to be the
+        //same as our current one.
+        bs = display.getCanvas().getBufferStrategy();
+        //Buffer Strategy tells the computer how to draw things using buffers.
+        //A Buffer is a "hidden computer screen"(just memory) within the computer. We draw everything to one buffer,
+        //which moves to the next buffer, until it gets to the computer. This is to prevent flickering.
+        //Below, if there isn't already a Buffer Strategy, we initiate one.
+        if(bs == null){
+            display.getCanvas().createBufferStrategy(3);
+            return;
+        }
+        g = bs.getDrawGraphics();
+        //Clear Screen
+        g.clearRect(0, 0, width, height);
+        //Draw Here!
+
+        //If we currently have a real state in place, then call the render function inside whatever state we're in.
+        //// if(State.getState() != null)
+        //  State.getState().render(g);
         if (States==STATE.GAME) {
             world.render(g);
             Font fnt2 = new Font("arial",Font.BOLD,15);

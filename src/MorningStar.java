@@ -18,6 +18,11 @@ public class MorningStar extends StaticEntity {
     }
 
     @Override
+    public void hurt(int amt){
+        //object can't be destroyed
+    }
+
+    @Override
     public void tick() {
         if(handler.getWorld().getEntityManager().getPlayer().getCollisionBounds(0f, 0f).intersects(image_size)){
             handler.getGame().won = true;
