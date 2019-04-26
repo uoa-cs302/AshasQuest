@@ -15,7 +15,7 @@ public class Assets {
 
     //Here, we declare all of our assets that need images.
 
-    public static BufferedImage dirt, grass, stone, rock, wood, building;
+    public static BufferedImage dirt, grass, stone, rock, wood, building, morning_star;
     public static BufferedImage[] player_down, player_up, player_left, player_right;
     public static BufferedImage[] zombie_down, zombie_up, zombie_left, zombie_right;
     public static BufferedImage[] btn_start, tree;
@@ -191,5 +191,7 @@ public class Assets {
         
         sheet = new SpriteSheet(ImageLoader.loadImage("../res/home_town.png"), 704, 576);
         building = sheet.crop(0, 0, 1, 1);
+        sheet = new SpriteSheet(ImageLoader.loadImage("../res/morning_star.png"), 650, 750);
+        morning_star = sheet.crop(0, 0, 1, 1);
     }
 }
