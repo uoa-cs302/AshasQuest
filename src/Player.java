@@ -183,7 +183,6 @@ public class Player extends Creature {
                 return;
             }
         }
-
     }
 
     @Override
