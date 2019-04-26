@@ -1,4 +1,4 @@
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.ArrayList;
@@ -194,7 +194,14 @@ public class World {
         itemManager.tick();
         entityManager.tick();
         if  (handler.getKeyManager().keyJustPressed(KeyEvent.VK_PAGE_DOWN)){
+            boss_ready = !boss_ready;
+        }
+
+        if ((boss_ready)&&(handler.getKeyManager().keyJustPressed(KeyEvent.VK_Y))){
             loadRoom(10,"L");
+            boss_ready = false;
+        } else if((boss_ready)&&(handler.getKeyManager().keyJustPressed(KeyEvent.VK_N))){
+            boss_ready = false;
         }
 
         //the below checks if the player has reached one of the edges of the map
@@ -242,6 +249,7 @@ public class World {
         int yStart = (int) Math.max(0, handler.getGameCamera().getyOffset() / Tile.TILEHEIGHT);
         int yEnd = (int) Math.min(height, (handler.getGameCamera().getyOffset() + handler.getHeight()) / Tile.TILEHEIGHT + 1);
 
+
         //Loop extends from beginning of map to end of map
         for(int y = yStart;y < yEnd;y++){
             for(int x = xStart;x < xEnd;x++){
@@ -254,6 +262,19 @@ public class World {
         itemManager.render(g);
         //Entities
         entityManager.render(g);
+
+        if (boss_ready){
+            g.setColor(Color.black);
+            g.fillRect(305, 307,400, 70);
+            g.setColor(Color.LIGHT_GRAY);
+            g.drawRect(305, 307, 400, 70);
+            Font fnt3 = new Font("helvetica",Font.BOLD,20);
+            g.setFont(fnt3);
+            g.setColor(Color.white);
+            g.drawString("Ready to face the final boss Mikhael? " , 330, 327);
+            g.drawString("Y:Yes", 410, 357);
+            g.drawString("N:No", 490, 357);
+        }
     }
 
     public Tile getTile(int x, int y){
