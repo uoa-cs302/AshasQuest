@@ -1,1 +1,3 @@
 Unknown 255
+Unknown_with_a_longer_name 260
+Unknown name 2600
