@@ -73,14 +73,14 @@ public class Game extends Canvas implements Runnable {
         //Ensures that all sprites assigned to assets in the Assets class gets brought onto the Frame.
         Assets.init();
 
+        restart();
+    }
+
+    private void restart(){
         handler = new Handler(this);
         gameCamera = new GameCamera(handler, 0, 0);
-
-        // gameState = new GameState(handler);
         world = new World(handler);
         handler.setWorld(world);
-        // menuState = new MenuState(handler);
-        // State.setState(menuState);
     }
 
     private void tick() {
@@ -101,7 +101,7 @@ public class Game extends Canvas implements Runnable {
             //TODO: add score to file, with name (that we need to create/get)
             //TODO: score page
             States = STATE.MENU;
-            init();
+            restart();
         }
 
         //Below checks if we currently have a State that actually exists.
@@ -119,7 +119,7 @@ public class Game extends Canvas implements Runnable {
     private void save_score(int score) throws IOException {
         String path = "../res/scores.txt";
         // FileWriter write = new FileWriter( path , append_to_file);
-        String line = name + " " + Integer.toString(score);
+        String line = name + " " + Integer.toString(score) + "\n";
         FileWriter write = new FileWriter(path, true);
         PrintWriter print_line = new PrintWriter(write);
         print_line.printf("%s", line);
@@ -129,27 +129,27 @@ public class Game extends Canvas implements Runnable {
     }
 
     private void render(){
-            //Draws everything
-            //The Buffer Strategy is inside the Canvas of our display.
-            //We get the Canvas of the current window, and this sets whatever the buffer strategy is to be the
-            //same as our current one.
-            bs = display.getCanvas().getBufferStrategy();
-            //Buffer Strategy tells the computer how to draw things using buffers.
-            //A Buffer is a "hidden computer screen"(just memory) within the computer. We draw everything to one buffer,
-            //which moves to the next buffer, until it gets to the computer. This is to prevent flickering.
-            //Below, if there isn't already a Buffer Strategy, we initiate one.
-            if(bs == null){
-                display.getCanvas().createBufferStrategy(3);
-                return;
-            }
-            g = bs.getDrawGraphics();
-            //Clear Screen
-            g.clearRect(0, 0, width, height);
-            //Draw Here!
+        //Draws everything
+        //The Buffer Strategy is inside the Canvas of our display.
+        //We get the Canvas of the current window, and this sets whatever the buffer strategy is to be the
+        //same as our current one.
+        bs = display.getCanvas().getBufferStrategy();
+        //Buffer Strategy tells the computer how to draw things using buffers.
+        //A Buffer is a "hidden computer screen"(just memory) within the computer. We draw everything to one buffer,
+        //which moves to the next buffer, until it gets to the computer. This is to prevent flickering.
+        //Below, if there isn't already a Buffer Strategy, we initiate one.
+        if(bs == null){
+            display.getCanvas().createBufferStrategy(3);
+            return;
+        }
+        g = bs.getDrawGraphics();
+        //Clear Screen
+        g.clearRect(0, 0, width, height);
+        //Draw Here!
 
-            //If we currently have a real state in place, then call the render function inside whatever state we're in.
-           //// if(State.getState() != null)
-              //  State.getState().render(g);
+        //If we currently have a real state in place, then call the render function inside whatever state we're in.
+        //// if(State.getState() != null)
+        //  State.getState().render(g);
         if (States==STATE.GAME) {
             world.render(g);
             Font fnt2 = new Font("arial",Font.BOLD,15);
