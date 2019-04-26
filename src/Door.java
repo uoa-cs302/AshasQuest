@@ -15,6 +15,7 @@ public class Door extends StaticEntity {
         bounds.y = 0;
         bounds.width = width;
         bounds.height = height;
+        
         setOntop(false);
         setHealth(1000);//object can't be destroyed
     }
