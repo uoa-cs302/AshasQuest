@@ -36,6 +36,7 @@ public class Game extends Canvas implements Runnable {
     public String path = "../res/scores.txt";
     private String name = "Unknown";
     private String time = "00:00";
+    private static int score = 5 * 60;
     private CommandList commandList;
 
     //Input
@@ -94,8 +95,6 @@ public class Game extends Canvas implements Runnable {
 
         if (won){
             won = false;
-            int score = 5 * 60 - sec - min * 60; //remaining seconds (from 5mins)
-            score += player.getInventory().getInventorySize() * 10; //gets 10 points for every item in the inventory
             System.out.println(score);
             try{
                 save_score(score);
@@ -171,7 +170,9 @@ public class Game extends Canvas implements Runnable {
             g.drawRect(25, 10, 160, 20);
             g.setColor(Color.WHITE);
             g.drawString("Press C for Commands",5,50);
-            g.drawString(time,5,70);
+            g.drawString(time,5,90);
+            g.drawString(Integer.toString(score),50,70);
+            g.drawString("Score",5,70);
 
             if (paused){
                 Font fnt4 = new Font("helvetica",Font.BOLD, 60);
@@ -212,6 +213,9 @@ public class Game extends Canvas implements Runnable {
             g.dispose();
     }
     public static String updateTime() {
+        //score decreases as time increases
+        score--;
+
         String stringTime = "";
         if (sec < 59) { //Check min overflow
             sec++;
@@ -340,6 +344,10 @@ public class Game extends Canvas implements Runnable {
     public static void main(String[] args){
         Game game = new Game("Asha's Quest", 1024, 768);
         game.start();
+    }
+
+    public void incScore(int amount){
+        score += amount;
     }
 
 }
