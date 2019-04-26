@@ -1,6 +1,8 @@
 import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
+
+import static java.lang.Math.round;
 // import java.util.Map;
 
 
@@ -18,6 +20,7 @@ public class Assets {
     public static BufferedImage dirt, grass, stone, rock, wood, building, morning_star;
     public static BufferedImage[] player_down, player_up, player_left, player_right;
     public static BufferedImage[] zombie_down, zombie_up, zombie_left, zombie_right;
+    public static BufferedImage[] attack_down, attack_up, attack_left, attack_right;
     public static BufferedImage[] btn_start, tree;
     public static BufferedImage inventoryScreen;
 
@@ -116,6 +119,12 @@ public class Assets {
         //The spritesheet contains almost all of the images of the assets, so it makes sense to just load sub images
         //from the main image.
         SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("../res/sheet.png"), STD_TILE_SIZE, STD_TILE_SIZE);
+        SpriteSheet sheet_player_right = new SpriteSheet(ImageLoader.loadImage("../res/Asha/blue/Asha WR.png"),65,64);
+        SpriteSheet sheet_player_left = new SpriteSheet(ImageLoader.loadImage("../res/Asha/blue/Asha WL.png"),65,64);
+
+        SpriteSheet sheet_attack_left = new SpriteSheet(ImageLoader.loadImage("../res/Asha/blue/Asha AL.png"),61,64);
+        SpriteSheet sheet_attack_right = new SpriteSheet(ImageLoader.loadImage("../res/Asha/blue/Asha AR.png"),64,64);
+
 
         wood = sheet.crop(1, 1, 1, 1);
 
@@ -129,10 +138,13 @@ public class Assets {
         //Each direction of movement requires an array to describe it,
         //because each motion requires a "left and a right" motion
 
-        player_down = new BufferedImage[2];
-        player_up = new BufferedImage[2];
-        player_left = new BufferedImage[2];
-        player_right = new BufferedImage[2];
+        player_down = new BufferedImage[24];
+        player_up = new BufferedImage[24];
+      //  player_left = new BufferedImage[30];
+      //  player_right = new BufferedImage[30];
+
+         player_left = new BufferedImage[24];
+        player_right = new BufferedImage[24];
 
 
         //the STD_TILE_SIZE*4 or STD_TILE_SIZE*3 etc are relative to what grid space in the sprite sheet that particular image is.
@@ -140,14 +152,112 @@ public class Assets {
         //space, next to the first, with the same y value, it would be at x=STD_TILE_SIZE, y=0. If it was in the grid space next
         //to that, it would be STD_TILE_SIZE*2, y=0.
 
-        player_down[0] = sheet.crop(4, 0, 1, 1);
-        player_down[1] = sheet.crop(5, 0, 1, 1);
-        player_up[0] = sheet.crop(6, 0, 1, 1);
-        player_up[1] = sheet.crop(7, 0, 1, 1);
-        player_right[0] = sheet.crop(4, 1, 1, 1);
-        player_right[1] = sheet.crop(5, 1, 1, 1);
-        player_left[0] = sheet.crop(6, 1, 1, 1);
-        player_left[1] = sheet.crop(7, 1, 1, 1);
+        player_down[0] = sheet_player_right.crop(0, 0, 1, 1);
+        player_down[1] = sheet_player_right.crop(1, 0, 1, 1);
+        player_down[2] = sheet_player_right.crop(2, 0, 1, 1);
+        player_down[3] = sheet_player_right.crop(3, 0, 1, 1);
+        player_down[4] = sheet_player_right.crop(0, 1, 1, 1);
+        player_down[5] = sheet_player_right.crop(1, 1, 1, 1);
+        player_down[6] = sheet_player_right.crop(2, 1, 1, 1);
+        player_down[7] = sheet_player_right.crop(3, 1, 1, 1);
+        player_down[8] = sheet_player_right.crop(0, 2, 1, 1);
+        player_down[9] = sheet_player_right.crop(1, 2, 1, 1);
+        player_down[10] = sheet_player_right.crop(2, 2, 1, 1);
+        player_down[11] = sheet_player_right.crop(3, 2, 1, 1);
+        player_down[12] = sheet_player_right.crop(0, 3, 1, 1);
+        player_down[13] = sheet_player_right.crop(1, 3, 1, 1);
+        player_down[14] = sheet_player_right.crop(2, 3, 1, 1);
+        player_down[15] = sheet_player_right.crop(3, 3, 1, 1);
+        player_down[16] = sheet_player_right.crop(0, 4, 1, 1);
+        player_down[17] = sheet_player_right.crop(1, 4, 1, 1);
+        player_down[18] = sheet_player_right.crop(2, 4, 1, 1);
+        player_down[19] = sheet_player_right.crop(3, 4, 1, 1);
+        player_down[20] = sheet_player_right.crop(0, 5, 1, 1);
+        player_down[21] = sheet_player_right.crop(1, 5, 1, 1);
+        player_down[22] = sheet_player_right.crop(2, 5, 1, 1);
+        player_down[23] = sheet_player_right.crop(3, 5, 1, 1);
+
+
+        player_up[0] = sheet_player_left.crop(0, 0, 1,1);
+        player_up[1] = sheet_player_left.crop(1, 0, 1, 1);
+        player_up[2] = sheet_player_left.crop(2, 0, 1, 1);
+        player_up[3] = sheet_player_left.crop(3, 0, 1, 1);
+        player_up[4] = sheet_player_left.crop(0, 1, 1, 1);
+        player_up[5] = sheet_player_left.crop(1, 1, 1, 1);
+        player_up[6] = sheet_player_left.crop(2, 1, 1, 1);
+        player_up[7] = sheet_player_left.crop(3, 1, 1, 1);
+        player_up[8] = sheet_player_left.crop(0, 2, 1, 1);
+        player_up[9] = sheet_player_left.crop(1, 2, 1, 1);
+        player_up[10] = sheet_player_left.crop(2, 2, 1, 1);
+        player_up[11] = sheet_player_left.crop(3, 2, 1, 1);
+        player_up[12] = sheet_player_left.crop(0, 3, 1, 1);
+        player_up[13] = sheet_player_left.crop(1, 3, 1, 1);
+        player_up[14] = sheet_player_left.crop(2, 3, 1, 1);
+        player_up[15] = sheet_player_left.crop(3, 3, 1, 1);
+        player_up[16] = sheet_player_left.crop(0, 4, 1, 1);
+        player_up[17] = sheet_player_left.crop(1, 4, 1, 1);
+        player_up[18] = sheet_player_left.crop(2, 4, 1, 1);
+        player_up[19] = sheet_player_left.crop(3, 4, 1, 1);
+        player_up[20] = sheet_player_left.crop(0, 5, 1, 1);
+        player_up[21] = sheet_player_left.crop(1, 5, 1, 1);
+        player_up[22] = sheet_player_left.crop(2, 5, 1, 1);
+        player_up[23] = sheet_player_left.crop(3, 5, 1, 1);
+
+//        player_right[0] = sheet.crop(4, 1, 1, 1);
+//        player_right[1] = sheet.crop(5, 1, 1, 1);
+
+          player_right[0] = sheet_player_right.crop(0, 0, 1, 1);
+          player_right[1] = sheet_player_right.crop(1, 0, 1, 1);
+          player_right[2] = sheet_player_right.crop(2, 0, 1, 1);
+          player_right[3] = sheet_player_right.crop(3, 0, 1, 1);
+          player_right[4] = sheet_player_right.crop(0, 1, 1, 1);
+          player_right[5] = sheet_player_right.crop(1, 1, 1, 1);
+          player_right[6] = sheet_player_right.crop(2, 1, 1, 1);
+          player_right[7] = sheet_player_right.crop(3, 1, 1, 1);
+          player_right[8] = sheet_player_right.crop(0, 2, 1, 1);
+          player_right[9] = sheet_player_right.crop(1, 2, 1, 1);
+         player_right[10] = sheet_player_right.crop(2, 2, 1, 1);
+        player_right[11] = sheet_player_right.crop(3, 2, 1, 1);
+        player_right[12] = sheet_player_right.crop(0, 3, 1, 1);
+        player_right[13] = sheet_player_right.crop(1, 3, 1, 1);
+        player_right[14] = sheet_player_right.crop(2, 3, 1, 1);
+        player_right[15] = sheet_player_right.crop(3, 3, 1, 1);
+        player_right[16] = sheet_player_right.crop(0, 4, 1, 1);
+        player_right[17] = sheet_player_right.crop(1, 4, 1, 1);
+        player_right[18] = sheet_player_right.crop(2, 4, 1, 1);
+        player_right[19] = sheet_player_right.crop(3, 4, 1, 1);
+        player_right[20] = sheet_player_right.crop(0, 5, 1, 1);
+        player_right[21] = sheet_player_right.crop(1, 5, 1, 1);
+        player_right[22] = sheet_player_right.crop(2, 5, 1, 1);
+        player_right[23] = sheet_player_right.crop(3, 5, 1, 1);
+
+        //Player Left
+          player_left[0] = sheet_player_left.crop(0, 0, 1,1);
+          player_left[1] = sheet_player_left.crop(1, 0, 1, 1);
+          player_left[2] = sheet_player_left.crop(2, 0, 1, 1);
+          player_left[3] = sheet_player_left.crop(3, 0, 1, 1);
+          player_left[4] = sheet_player_left.crop(0, 1, 1, 1);
+          player_left[5] = sheet_player_left.crop(1, 1, 1, 1);
+          player_left[6] = sheet_player_left.crop(2, 1, 1, 1);
+          player_left[7] = sheet_player_left.crop(3, 1, 1, 1);
+          player_left[8] = sheet_player_left.crop(0, 2, 1, 1);
+          player_left[9] = sheet_player_left.crop(1, 2, 1, 1);
+         player_left[10] = sheet_player_left.crop(2, 2, 1, 1);
+         player_left[11] = sheet_player_left.crop(3, 2, 1, 1);
+         player_left[12] = sheet_player_left.crop(0, 3, 1, 1);
+         player_left[13] = sheet_player_left.crop(1, 2, 1, 1);
+         player_left[14] = sheet_player_left.crop(2, 3, 1, 1);
+         player_left[15] = sheet_player_left.crop(3, 3, 1, 1);
+         player_left[16] = sheet_player_left.crop(0, 4, 1, 1);
+         player_left[17] = sheet_player_left.crop(1, 4, 1, 1);
+         player_left[18] = sheet_player_left.crop(2, 4, 1, 1);
+         player_left[19] = sheet_player_left.crop(3, 4, 1, 1);
+         player_left[20] = sheet_player_left.crop(0, 5, 1, 1);
+         player_left[21] = sheet_player_left.crop(1, 5, 1, 1);
+         player_left[22] = sheet_player_left.crop(2, 5, 1, 1);
+         player_left[23] = sheet_player_left.crop(3, 5, 1, 1);
+
+         //Zombie movements
 
         zombie_down = new BufferedImage[2];
         zombie_up = new BufferedImage[2];
@@ -163,10 +273,126 @@ public class Assets {
         zombie_left[0] = sheet.crop(6, 3, 1, 1);
         zombie_left[1] = sheet.crop(7, 3, 1, 1);
 
+        //Background Assets
+
         dirt = sheet.crop(1, 0, 1, 1);
         grass = sheet.crop(2, 0, 1, 1);
         stone = sheet.crop(3, 0, 1, 1);
         rock = sheet.crop(0, 2, 1, 1);
+
+        //Attack Animations
+        attack_up = new BufferedImage[24];
+        attack_down = new BufferedImage[24];
+        attack_left = new BufferedImage[24];
+        attack_right = new BufferedImage[24];
+
+
+        //Attacking Up
+        attack_up[0] = sheet_attack_left.crop(0, 0, 1,1);
+        attack_up[1] = sheet_attack_left.crop(1, 0, 1, 1);
+        attack_up[2] = sheet_attack_left.crop(2, 0, 1, 1);
+        attack_up[3] = sheet_attack_left.crop(3, 0, 1, 1);
+        attack_up[4] = sheet_attack_left.crop(0, 1, 1, 1);
+        attack_up[5] = sheet_attack_left.crop(1, 1, 1, 1);
+        attack_up[6] = sheet_attack_left.crop(2, 1, 1, 1);
+        attack_up[7] = sheet_attack_left.crop(3, 1, 1, 1);
+        attack_up[8] = sheet_attack_left.crop(0, 2, 1, 1);
+        attack_up[9] = sheet_attack_left.crop(1, 2, 1, 1);
+        attack_up[10] = sheet_attack_left.crop(2, 2, 1, 1);
+        attack_up[11] = sheet_attack_left.crop(3, 2, 1, 1);
+        attack_up[12] = sheet_attack_left.crop(0, 3, 1, 1);
+        attack_up[13] = sheet_attack_left.crop(1, 2, 1, 1);
+        attack_up[14] = sheet_attack_left.crop(2, 3, 1, 1);
+        attack_up[15] = sheet_attack_left.crop(3, 3, 1, 1);
+        attack_up[16] = sheet_attack_left.crop(0, 4, 1, 1);
+        attack_up[17] = sheet_attack_left.crop(1, 4, 1, 1);
+        attack_up[18] = sheet_attack_left.crop(2, 4, 1, 1);
+        attack_up[19] = sheet_attack_left.crop(3, 4, 1, 1);
+        attack_up[20] = sheet_attack_left.crop(0, 5, 1, 1);
+        attack_up[21] = sheet_attack_left.crop(1, 5, 1, 1);
+        attack_up[22] = sheet_attack_left.crop(2, 5, 1, 1);
+        attack_up[23] = sheet_attack_left.crop(3, 5, 1, 1);
+
+        //Attacking Left
+        attack_left[0] = sheet_attack_left.crop(0, 0, 1,1);
+        attack_left[1] = sheet_attack_left.crop(1, 0, 1, 1);
+        attack_left[2] = sheet_attack_left.crop(2, 0, 1, 1);
+        attack_left[3] = sheet_attack_left.crop(3, 0, 1, 1);
+        attack_left[4] = sheet_attack_left.crop(0, 1, 1, 1);
+        attack_left[5] = sheet_attack_left.crop(1, 1, 1, 1);
+        attack_left[6] = sheet_attack_left.crop(2, 1, 1, 1);
+        attack_left[7] = sheet_attack_left.crop(3, 1, 1, 1);
+        attack_left[8] = sheet_attack_left.crop(0, 2, 1, 1);
+        attack_left[9] = sheet_attack_left.crop(1, 2, 1, 1);
+        attack_left[10] = sheet_attack_left.crop(2, 2, 1, 1);
+        attack_left[11] = sheet_attack_left.crop(3, 2, 1, 1);
+        attack_left[12] = sheet_attack_left.crop(0, 3, 1, 1);
+        attack_left[13] = sheet_attack_left.crop(1, 2, 1, 1);
+        attack_left[14] = sheet_attack_left.crop(2, 3, 1, 1);
+        attack_left[15] = sheet_attack_left.crop(3, 3, 1, 1);
+        attack_left[16] = sheet_attack_left.crop(0, 4, 1, 1);
+        attack_left[17] = sheet_attack_left.crop(1, 4, 1, 1);
+        attack_left[18] = sheet_attack_left.crop(2, 4, 1, 1);
+        attack_left[19] = sheet_attack_left.crop(3, 4, 1, 1);
+        attack_left[20] = sheet_attack_left.crop(0, 5, 1, 1);
+        attack_left[21] = sheet_attack_left.crop(1, 5, 1, 1);
+        attack_left[22] = sheet_attack_left.crop(2, 5, 1, 1);
+        attack_left[23] = sheet_attack_left.crop(3, 5, 1, 1);
+
+        //Attacking Down
+
+        attack_down[0] = sheet_attack_right.crop(0, 0, 1,1);
+        attack_down[1] = sheet_attack_right.crop(1, 0, 1, 1);
+        attack_down[2] = sheet_attack_right.crop(2, 0, 1, 1);
+        attack_down[3] = sheet_attack_right.crop(3, 0, 1, 1);
+        attack_down[4] = sheet_attack_right.crop(0, 1, 1, 1);
+        attack_down[5] = sheet_attack_right.crop(1, 1, 1, 1);
+        attack_down[6] = sheet_attack_right.crop(2, 1, 1, 1);
+        attack_down[7] = sheet_attack_right.crop(3, 1, 1, 1);
+        attack_down[8] = sheet_attack_right.crop(0, 2, 1, 1);
+        attack_down[9] = sheet_attack_right.crop(1, 2, 1, 1);
+        attack_down[10] = sheet_attack_right.crop(2, 2, 1, 1);
+        attack_down[11] = sheet_attack_right.crop(3, 2, 1, 1);
+        attack_down[12] = sheet_attack_right.crop(0, 3, 1, 1);
+        attack_down[13] = sheet_attack_right.crop(1, 2, 1, 1);
+        attack_down[14] = sheet_attack_right.crop(2, 3, 1, 1);
+        attack_down[15] = sheet_attack_right.crop(3, 3, 1, 1);
+        attack_down[16] = sheet_attack_right.crop(0, 4, 1, 1);
+        attack_down[17] = sheet_attack_right.crop(1, 4, 1, 1);
+        attack_down[18] = sheet_attack_right.crop(2, 4, 1, 1);
+        attack_down[19] = sheet_attack_right.crop(3, 4, 1, 1);
+        attack_down[20] = sheet_attack_right.crop(0, 5, 1, 1);
+        attack_down[21] = sheet_attack_right.crop(1, 5, 1, 1);
+        attack_down[22] = sheet_attack_right.crop(2, 5, 1, 1);
+        attack_down[23] = sheet_attack_right.crop(3, 5, 1, 1);
+
+        //Attacking Right
+
+        attack_right[0] = sheet_attack_right.crop(0, 0, 1,1);
+        attack_right[1] = sheet_attack_right.crop(1, 0, 1, 1);
+        attack_right[2] = sheet_attack_right.crop(2, 0, 1, 1);
+        attack_right[3] = sheet_attack_right.crop(3, 0, 1, 1);
+        attack_right[4] = sheet_attack_right.crop(0, 1, 1, 1);
+        attack_right[5] = sheet_attack_right.crop(1, 1, 1, 1);
+        attack_right[6] = sheet_attack_right.crop(2, 1, 1, 1);
+        attack_right[7] = sheet_attack_right.crop(3, 1, 1, 1);
+        attack_right[8] = sheet_attack_right.crop(0, 2, 1, 1);
+        attack_right[9] = sheet_attack_right.crop(1, 2, 1, 1);
+        attack_right[10] = sheet_attack_right.crop(2, 2, 1, 1);
+        attack_right[11] = sheet_attack_right.crop(3, 2, 1, 1);
+        attack_right[12] = sheet_attack_right.crop(0, 3, 1, 1);
+        attack_right[13] = sheet_attack_right.crop(1, 2, 1, 1);
+        attack_right[14] = sheet_attack_right.crop(2, 3, 1, 1);
+        attack_right[15] = sheet_attack_right.crop(3, 3, 1, 1);
+        attack_right[16] = sheet_attack_right.crop(0, 4, 1, 1);
+        attack_right[17] = sheet_attack_right.crop(1, 4, 1, 1);
+        attack_right[18] = sheet_attack_right.crop(2, 4, 1, 1);
+        attack_right[19] = sheet_attack_right.crop(3, 4, 1, 1);
+        attack_right[20] = sheet_attack_right.crop(0, 5, 1, 1);
+        attack_right[21] = sheet_attack_right.crop(1, 5, 1, 1);
+        attack_right[22] = sheet_attack_right.crop(2, 5, 1, 1);
+        attack_right[23] = sheet_attack_right.crop(3, 5, 1, 1);
+
 
         tree = new BufferedImage[14];
         sheet = new SpriteSheet(ImageLoader.loadImage("../res/trees.png"), 55, 64);

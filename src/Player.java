@@ -6,6 +6,7 @@ public class Player extends Creature {
 
     //Animations
     private Animation animDown, animUp, animLeft, animRight;
+    public Animation anim_attack_down, anim_attack_up, anim_attack_left,anim_attack_right;
     public boolean exiting = false;
     public boolean return_to_menu = false;
 
@@ -30,11 +31,15 @@ public class Player extends Creature {
         bounds.height = 19;
 
         //Animatons
-        animDown = new Animation(500, Assets.player_down);
-        animUp = new Animation(500, Assets.player_up);
-        animLeft = new Animation(500, Assets.player_left);
-        animRight = new Animation(500, Assets.player_right);
+        animDown = new Animation(300, Assets.player_down);
+        animUp = new Animation(300, Assets.player_up);
+        animLeft = new Animation(300, Assets.player_left);
+        animRight = new Animation(300, Assets.player_right);
         //Animations for Asha when she's attacking
+        anim_attack_up = new Animation(200, Assets.attack_up);
+        anim_attack_down = new Animation(200, Assets.attack_down);
+        anim_attack_left = new Animation(200, Assets.attack_left);
+        anim_attack_right = new Animation(200, Assets.attack_right);
 
         inventory = new Inventory(handler);
      //  game = new Game("Ashas Quest", 1024, 768);
@@ -73,6 +78,12 @@ public class Player extends Creature {
         animUp.tick();
         animRight.tick();
         animLeft.tick();
+
+        //Attack Animations
+        anim_attack_down.tick();
+        anim_attack_up.tick();
+        anim_attack_right.tick();
+        anim_attack_left.tick();
         //Movement
         getInput();
         move();
@@ -133,18 +144,22 @@ public class Player extends Creature {
             ar.x = cb.x + cb.width / 2 - arSize / 2;
             //right above the collision bound.
             ar.y = cb.y - arSize;
+            xAttacking = 1;
 
         }else if(handler.getKeyManager().aDown){
             ar.x = cb.x + cb.width / 2 - arSize / 2;
             //now it will be just below the collision bound.
             ar.y = cb.y + cb.height;
+            yAttacking= 2;
         }else if(handler.getKeyManager().aLeft){
             ar.x = cb.x - arSize;
             //must change y to centre it.
             ar.y = cb.y + cb.height / 2 - arSize / 2;
+            xAttacking =1;
         }else if(handler.getKeyManager().aRight){
             ar.x = cb.x + cb.width;
             ar.y = cb.y + cb.height / 2 - arSize / 2;
+            xAttacking = 2;
         }else{
             //if none of the attack buttons are pressed and not attacking, don't run the rest of the code.
             return;
@@ -174,6 +189,8 @@ public class Player extends Creature {
     private void getInput(){
         xMove = 0;
         yMove = 0;
+        yAttacking = 0;
+        xAttacking = 0;
 
         if(inventory.isActive()||commandList.isExit_menu_active()||exiting||return_to_menu)
             return;
@@ -186,6 +203,18 @@ public class Player extends Creature {
             xMove = -speed;
         if(handler.getKeyManager().right)
             xMove = speed;
+
+        if(handler.getKeyManager().aUp)
+            yAttacking = 1;
+        if(handler.getKeyManager().aDown)
+            yAttacking = 2;
+        if(handler.getKeyManager().aLeft)
+            xAttacking = 1;
+        if(handler.getKeyManager().aRight)
+            xAttacking = 2;
+
+
+
     }
 
     @Override
@@ -231,7 +260,17 @@ public class Player extends Creature {
             return animRight.getCurrentFrame();
         }else if(yMove < 0){
             return animUp.getCurrentFrame();
-        }else{
+      //  }else if (yMove > 0){
+       //     return animDown.getCurrentFrame();
+        } else if (xAttacking == 1){
+            return anim_attack_left.getCurrentFrame();
+        } else if (xAttacking==2){
+            return anim_attack_right.getCurrentFrame();
+        } else if (yAttacking == 1){
+            return anim_attack_up.getCurrentFrame();
+        } else if (yAttacking == 2){
+            return anim_attack_down.getCurrentFrame();
+        } else {
             return animDown.getCurrentFrame();
         }
     }

@@ -197,7 +197,7 @@ public class Game extends Canvas implements Runnable {
         //to have the game run at the same speed on any machine that it's on.
 
         //fps = Frames Per Second. How many times each second we want tick and render to run.
-        int fps = 60;
+        int fps = 100;
         //i billion /fps. As there are 1 billion nanoseconds in 1 second.
         //The below gets us the max amount of time we are allowed to run tick and render per second.
         double timePerTick = 1000000000 / fps;

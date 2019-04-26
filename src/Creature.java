@@ -7,12 +7,18 @@ public abstract class Creature extends Entity {
     protected float speed;
     protected float xMove, yMove;
 
+    protected float xAttacking, yAttacking;
+
     //This is for Enemies and Players, which are able to move around.
     public Creature(Handler handler, float x, float y, int width, int height) {
         super(handler, x, y, width, height);
         speed = DEFAULT_SPEED;
         xMove = 0;
         yMove = 0;
+
+        xAttacking = 0;
+        yAttacking = 0;
+
     }
 
     public void move(){
@@ -91,6 +97,14 @@ public abstract class Creature extends Entity {
         this.xMove = xMove;
     }
 
+    public float getxAttacking(){
+        return xAttacking;
+    }
+
+    public void setxAttacking(float xAttacking){
+        this.xAttacking = xAttacking;
+    }
+
     public float getyMove() {
         return yMove;
     }
@@ -98,6 +112,16 @@ public abstract class Creature extends Entity {
     public void setyMove(float yMove) {
         this.yMove = yMove;
     }
+
+    public float getyAttacking(){
+        return yAttacking;
+    }
+
+    public void setyAttacking(float yAttacking){
+        this.yAttacking = yAttacking;
+    }
+
+
 
     public int getHealth() {
         return health;
