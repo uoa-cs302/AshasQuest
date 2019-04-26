@@ -95,7 +95,7 @@ public class Player extends Creature {
         //Command List
         commandList.tick();
         //Exit Menu
-        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_Q)){
+        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)){
             //System.exit(1);
             exiting = !exiting;
         }
@@ -133,7 +133,7 @@ public class Player extends Creature {
         //ar = attack rectangle
         Rectangle ar = new Rectangle();
         //if player is within 20 pixels of an entity, they will hit them
-        int arSize = 20;
+        int arSize = 50;
         ar.width = arSize;
         ar.height = arSize;
 
