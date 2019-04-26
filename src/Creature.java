@@ -14,6 +14,8 @@ public abstract class Creature extends Entity {
 
     protected float xMove, yMove;
 
+    protected float xAttacking, yAttacking;
+
 
 
     //This is for Enemies and Players, which are able to move around.
@@ -26,6 +28,9 @@ public abstract class Creature extends Entity {
         xMove = 0;
 
         yMove = 0;
+
+        xAttacking = 0;
+        yAttacking = 0;
 
     }
 
@@ -176,6 +181,13 @@ public abstract class Creature extends Entity {
 
     }
 
+    public float getxAttacking(){
+        return xAttacking;
+    }
+
+    public void setxAttacking(float xAttacking){
+        this.xAttacking = xAttacking;
+    }
 
 
     public float getyMove() {
@@ -190,6 +202,14 @@ public abstract class Creature extends Entity {
 
         this.yMove = yMove;
 
+    }
+
+    public float getyAttacking(){
+        return yAttacking;
+    }
+
+    public void setyAttacking(float yAttacking){
+        this.yAttacking = yAttacking;
     }
 
 
