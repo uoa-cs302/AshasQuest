@@ -53,9 +53,10 @@ public class CommandList {
                 g.drawString("A: Move Left", 320, 377);
                 g.drawString("S: Move Down", 320, 397);
                 g.drawString("D: Move Right", 320, 417);
-                g.drawString("Q: Exit Game", 320, 437);
+                g.drawString("Esc: Exit Game", 320, 437);
                 g.drawString("M: Exit to Menu", 320, 457);
                 g.drawString("I: Call Inventory", 320, 477);
+                g.drawString("P:Pause Game", 320, 497);
 
                 //Right column
                 g.drawString("B: Use Alucard Shield",470, 357);

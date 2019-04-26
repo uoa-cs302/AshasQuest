@@ -20,6 +20,8 @@ public class Player extends Creature {
     //private Game game;
     private CommandList commandList;
 
+    public boolean paused = false;
+
     public Player(Handler handler, float x, float y) {
         super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
         setHealth(10);
@@ -95,7 +97,7 @@ public class Player extends Creature {
         //Command List
         commandList.tick();
         //Exit Menu
-        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_Q)){
+        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)){
             //System.exit(1);
             exiting = !exiting;
         }
@@ -107,6 +109,9 @@ public class Player extends Creature {
         }
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_M)){
             return_to_menu = !return_to_menu;
+        }
+        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_P)){
+            paused= !paused;
         }
         if (return_to_menu&&handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)){
             return_to_menu=false;
@@ -126,14 +131,14 @@ public class Player extends Creature {
         if(attackTimer < attackCooldown)
             return;
 
-        if(inventory.isActive() || commandList.isExit_menu_active()||exiting||return_to_menu)
+        if(inventory.isActive() || commandList.isExit_menu_active()||exiting||return_to_menu||paused)
             return;
 
         Rectangle cb = getCollisionBounds(0, 0);
         //ar = attack rectangle
         Rectangle ar = new Rectangle();
         //if player is within 20 pixels of an entity, they will hit them
-        int arSize = 20;
+        int arSize = 50;
         ar.width = arSize;
         ar.height = arSize;
 
@@ -192,7 +197,7 @@ public class Player extends Creature {
         yAttacking = 0;
         xAttacking = 0;
 
-        if(inventory.isActive()||commandList.isExit_menu_active()||exiting||return_to_menu)
+        if(inventory.isActive()||commandList.isExit_menu_active()||exiting||return_to_menu||paused)
             return;
 
         if(handler.getKeyManager().up)
