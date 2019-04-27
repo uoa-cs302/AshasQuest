@@ -13,13 +13,8 @@ public class Assets {
 
     //Here, we declare all of our assets that need images.
 
-
-    public static BufferedImage dirt, grass, stone, rock, wood, building, morning_star,heart;
-    public static BufferedImage[] player_down, player_up, player_left, player_right;
-
-    public static BufferedImage rock, wood, building, morning_star;
+    public static BufferedImage rock, wood, building, morning_star, heart;
     public static BufferedImage[] player_down, player_up, player_left, player_right, player_outfits;
-
     public static BufferedImage[] zombie_down, zombie_up, zombie_left, zombie_right;
     public static BufferedImage[] boss_down, boss_up, boss_left, boss_right;
     public static BufferedImage[] attack_down, attack_up, attack_left, attack_right;
@@ -192,6 +187,9 @@ public class Assets {
 
         //Background Assets
         rock = sheet.crop(0, 2, 1, 1);
+        
+        sheet = new SpriteSheet(ImageLoader.loadImage("../res/heart.png"),125,125);
+        heart=sheet.crop(0,0,1,1);
 
         tree = new BufferedImage[14];
         sheet = new SpriteSheet(ImageLoader.loadImage("../res/trees.png"), 55, 64);
