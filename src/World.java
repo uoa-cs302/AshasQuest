@@ -84,7 +84,7 @@ public class World {
         room8_entities.add(new Zombie(handler, 1075, 60, 64, 64));
 
         room10_entities = new ArrayList<Entity>();
-        room10_entities.add(new Boss(handler, 850, 300, 128, 128));
+        room10_entities.add(new Boss(handler, 700, 320, 128, 128));
 
 
         room11_entities = new ArrayList<Entity>();
