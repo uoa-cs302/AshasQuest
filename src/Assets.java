@@ -193,6 +193,9 @@ public class Assets {
 
         //Background Assets
         rock = sheet.crop(0, 2, 1, 1);
+        
+        sheet = new SpriteSheet(ImageLoader.loadImage("../res/heart.png"),125,125);
+        heart=sheet.crop(0,0,1,1);
 
         sheet = new SpriteSheet(ImageLoader.loadImage("../res/morning_star.png"), 650, 750);
         morning_star = sheet.crop(0, 0, 1, 1);
