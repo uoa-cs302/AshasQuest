@@ -6,6 +6,8 @@ public class Zombie extends Enemy {
     private BufferedImage texture;
     public Animation zomDown, zomUp, zomLeft, zomRight;
     public boolean paused = false;
+    private boolean count = true;
+    public int attack_counter = 0;
     public int pursuitTimer;
     private boolean isMoving;
     public Player player;
@@ -25,10 +27,10 @@ public class Zombie extends Enemy {
         this.isMoving = false;
 
         //Below decides the dimensions for the creature's collision box.
-        bounds.x = 22;
-        bounds.y = 44;
-        bounds.width = 19;
-        bounds.height = 19;
+        bounds.x = 0;
+        bounds.y = 0;
+        bounds.width = width;
+        bounds.height = height;
 
         //Movement animations
         zomDown = new Animation(300, Assets.zombie_down);
@@ -51,6 +53,9 @@ public class Zombie extends Enemy {
             paused = !paused;
         }
 
+        // Path();
+        move();
+
         this.x += this.xMove;
         this.y += this.yMove;
 
@@ -67,24 +72,39 @@ public class Zombie extends Enemy {
             //    e.hurt(1);
             //    return;
             if (e.equals(this.handler.getWorld().getEntityManager().getPlayer())) {
-                isMoving = true;
+              //  isMoving = true;
+                this.turnBack();
+              //  isMoving = false;
+            //    if (count)
+            //        attack_counter++;
+
+             //   if (attack_counter == 5)
                 if (this.isMoving) {
                     this.pursuePlayer(this.handler.getWorld().getEntityManager().getPlayer());
+                    attack_counter = 0;
+                    count = false;
 
                 }
             }
+            if (this.pursuitTimer >= 20) {
+                this.isMoving = true;
+                this.pursuitTimer = 0;
+            }
         }
+
+
         //Animations
         zomDown.tick();
         zomUp.tick();
         zomRight.tick();
         zomLeft.tick();
 
-       // Path();
-         move();
+        // Path();
+       // move();
     }
 
     private void turnBack() {
+        count = true;
         this.xMove *= -1;
         this.yMove *= -1;
     }
@@ -94,6 +114,7 @@ public class Zombie extends Enemy {
         if (paused){
             return;
         }
+
         if(this.x - player.x  < 400 && this.y - player.y < 400) {
             if (this.x > player.getX()) {
                 this.xMove = -1;
@@ -128,6 +149,7 @@ public class Zombie extends Enemy {
     @Override
     public void die() {
         handler.getWorld().getItemManager().addItem(Item.woodItem.createNew((int) x, (int) y));
+        handler.getGame().incScore(50);
 
     }
     private BufferedImage getCurrentAnimationFrame(){
