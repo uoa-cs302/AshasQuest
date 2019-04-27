@@ -148,6 +148,7 @@ public class World {
             }
             case 10: {
                 map_path = "../res/mapFinalBoss.txt";
+                // handler.getGame().changeSound("crawler");
                 break;
             }
             case 11: {
@@ -169,6 +170,9 @@ public class World {
         if (spawn_pos.equals("L")){
             entityManager.getPlayer().setX(Tile.TILEWIDTH / 2);
             entityManager.getPlayer().setY(5 *  Tile.TILEHEIGHT);
+            // if (room == 4 || room == 7 || room == 10){
+            //     handler.getGame().changeSound("crawler");
+            // }
         }
         if (spawn_pos.equals("R")){
             if (room == 1){
@@ -183,6 +187,9 @@ public class World {
                 entityManager.getPlayer().setX((width - 1) * Tile.TILEWIDTH - Tile.TILEWIDTH / 2);
                 entityManager.getPlayer().setY(5 *  Tile.TILEHEIGHT);
             }
+            // if (room == 3 || room == 6 || room == 9){
+            //     handler.getGame().changeSound("crawler");
+            // }
         }
         if (spawn_pos.equals("T")){
             entityManager.getPlayer().setX((8) * Tile.TILEWIDTH);
