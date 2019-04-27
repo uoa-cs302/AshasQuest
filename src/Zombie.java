@@ -118,6 +118,9 @@ public class Zombie extends Enemy {
         attackTimer += System.currentTimeMillis() - lastAttackTimer;
         lastAttackTimer = System.currentTimeMillis();
 
+        if(attackTimer < attackCooldown)
+            return;
+
         Rectangle cb = getCollisionBounds(0, 0);
         //ar = attack rectangle
         Rectangle ar = new Rectangle();
@@ -162,9 +165,9 @@ public class Zombie extends Enemy {
             //make sure entity isn't ourselves
             if(e.equals(this))
                 continue;
-            //below means we have hit that entity. We are hurting them with a value of 1.
+            //below means we have hit that entity. We are hurting them with a value of 3.
             if(e.getCollisionBounds(0, 0).intersects(ar)){
-                e.hurt(50);
+                e.hurt(3);
                 return;
             }
         }
