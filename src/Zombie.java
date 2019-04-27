@@ -125,9 +125,12 @@ public class Zombie extends Enemy {
         //ar = attack rectangle
         Rectangle ar = new Rectangle();
         //if player is within 20 pixels of an entity, they will hit them
-        int arSize = 20;
-        ar.width = arSize;
-        ar.height = arSize;
+        int arSize = 50;
+        ar.width = arSize*2;
+        ar.height = arSize*2;
+//        ar.x = cb.x + cb.width;
+//        ar.y = cb.y + cb.height;
+        System.out.println("They're coming to get you, Barbara");
 
         if(yAttacking == 1){
             System.out.println("Kill me up");

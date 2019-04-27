@@ -122,9 +122,9 @@ public class Boss extends Enemy {
         //ar = attack rectangle
         Rectangle ar = new Rectangle();
         //if player is within 20 pixels of an entity, they will hit them
-        int arSize = 60;
-        ar.width = arSize;
-        ar.height = arSize;
+        int arSize = 120;
+        ar.width = arSize*2;
+        ar.height = arSize*2;
 
         if(yAttacking == 1){
             System.out.println("Kill me up");
