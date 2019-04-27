@@ -21,6 +21,7 @@ public class World {
     public int room = 1;
     private String map_path;
     public boolean boss_ready = false;
+    private boolean boss_alive = true;
 
     private ArrayList<Entity> room1_entities;
     private ArrayList<Entity> room2_entities;
@@ -152,11 +153,17 @@ public class World {
             case 4:
             case 7: {
                 map_path = "../res/mapBoss.txt";
+                // if (room4_entities.size() != 0) {
+                    handler.getGame().changeSound("boss");
+                // }
                 break;
             }
             case 10: {
                 for (Entity entity : room10_entities) {
                     entityManager.addEntity(entity);
+                }
+                if (boss_alive) {
+                    handler.getGame().changeSound("boss");
                 }
                 map_path = "../res/mapFinalBoss.txt";
                 break;
@@ -180,6 +187,9 @@ public class World {
         if (spawn_pos.equals("L")){
             entityManager.getPlayer().setX(Tile.TILEWIDTH / 2);
             entityManager.getPlayer().setY(5 *  Tile.TILEHEIGHT);
+            if (room == 11){
+                handler.getGame().changeSound("crawler");
+            }
         }
         if (spawn_pos.equals("R")){
             if (room == 1){
@@ -193,6 +203,9 @@ public class World {
             else{
                 entityManager.getPlayer().setX((width - 1) * Tile.TILEWIDTH - Tile.TILEWIDTH / 2);
                 entityManager.getPlayer().setY(5 *  Tile.TILEHEIGHT);
+            }
+            if (room == 3 || room == 6 || room == 9){
+                handler.getGame().changeSound("crawler");
             }
         }
         if (spawn_pos.equals("T")){
@@ -410,5 +423,9 @@ public class World {
 
     public void decNumOffSwitches(){
         num_off_switches--;
+    }
+
+    public void setBossAlive(boolean boss_alive){
+        this.boss_alive = boss_alive;
     }
 }

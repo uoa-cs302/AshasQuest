@@ -149,8 +149,11 @@ public class Boss extends Enemy {
     @Override
     public void die() {
         handler.getWorld().getItemManager().addItem(Item.woodItem.createNew((int) x, (int) y));
+
         handler.getGame().incScore(200);
 
+        handler.getGame().changeSound("crawler");
+        handler.getWorld().setBossAlive(false);
     }
     private BufferedImage getCurrentAnimationFrame(){
         if(xMove < 0){
