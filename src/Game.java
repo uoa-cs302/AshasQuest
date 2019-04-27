@@ -38,7 +38,7 @@ public class Game extends Canvas implements Runnable {
     private Thread thread;
     //States
     public enum STATE{
-        MENU,GAME,CREDITS,SCORE
+        MENU,GAME,CREDITS,SCORE,OUTFIT
     }
     public static Game.STATE States = Game.STATE.MENU;
 
@@ -46,6 +46,7 @@ public class Game extends Canvas implements Runnable {
     private Graphics g;
     private Player player;
     private String music;
+    private String outfit;
     public String path = "../res/scores.txt";
     private String name = "Unknown";
     private String time = "00:00";
@@ -107,7 +108,7 @@ public class Game extends Canvas implements Runnable {
         playSound("title");
     }
 
-    private void restart(){
+    public void restart(){
         handler = new Handler(this);
         gameCamera = new GameCamera(handler, 0, 0);
         world = new World(handler);
@@ -146,6 +147,12 @@ public class Game extends Canvas implements Runnable {
                    handler.getKeyManager().keyJustPressed(KeyEvent.VK_I)||handler.getKeyManager().keyJustPressed(KeyEvent.VK_PAGE_DOWN)){
                 ticking = !ticking;
             }
+           if (handler.getWorld().getEntityManager().getPlayer().dead){
+               if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_Q)){
+                   States = STATE.MENU;
+                   restart();
+               }
+           }
         }
     }
 
@@ -184,7 +191,7 @@ public class Game extends Canvas implements Runnable {
             g.setColor(Color.white);
             g.drawString("HP: " , 5, 25);
             g.setColor(Color.green);
-            g.fillRect(25, 10,player.getHealth()* 16, 20);
+            g.fillRect(25, 10,handler.getWorld().getEntityManager().getPlayer().getHealth()* 16, 20);
             g.setColor(Color.black);
             g.drawRect(25, 10, 320, 20);
             g.setColor(Color.WHITE);
@@ -201,6 +208,40 @@ public class Game extends Canvas implements Runnable {
             }
         } else if (States==STATE.MENU){
             menu.paintComponent(g);
+        } else if (States==STATE.OUTFIT){
+            g.setColor(Color.black);
+            g.fillRect(0,0,1024,768);
+            g.setColor(Color.GRAY);
+            g.fillRect(100,100,800,600);
+
+            g.setColor(Color.WHITE);
+            Font fnt5 = new Font("Calibri",Font.BOLD,30);
+            g.setFont(fnt5);
+            g.drawString("Choose your outfit", 380, 600);
+            int image_size = 150;
+            int image_height = 200;
+            int image_left = 125;
+            int font_height = image_height + image_size + 50;
+            int font_left = image_left + 60;
+            Font fnt6 = new Font("Arial",Font.BOLD,15);
+            g.setFont(fnt6);
+            g.drawString("Blue", font_left, font_height);
+            g.drawImage(Assets.player_outfits[0], image_left, image_height, image_size, image_size, null);
+            g.drawString("Dark", font_left + image_size, font_height);
+            g.drawImage(Assets.player_outfits[1], image_left + image_size, image_height, image_size, image_size, null);
+            g.drawString("Green", font_left + image_size * 2, font_height);
+            g.drawImage(Assets.player_outfits[2], image_left + image_size * 2, image_height, image_size, image_size, null);
+            g.drawString("Pastel", font_left + image_size * 3, font_height);
+            g.drawImage(Assets.player_outfits[3], image_left + image_size * 3, image_height, image_size, image_size, null);
+            g.drawString("Purple", font_left + image_size * 4, font_height);
+            g.drawImage(Assets.player_outfits[4], image_left + image_size * 4, image_height, image_size, image_size, null);
+
+            g.setColor(Color.white);
+            g.fillRect(100,650,100,50);
+            g.setColor(Color.black);
+            g.drawString("Return to",110,670);
+            g.drawString("Menu",125,690);
+            
         } else if (States==STATE.CREDITS){
             g.setColor(Color.black);
             g.fillRect(0,0,1024,768);
@@ -358,6 +399,14 @@ public class Game extends Canvas implements Runnable {
 
     public int getHeight(){
         return height;
+    }
+
+    public String getOutfit(){
+        return outfit;
+    }
+
+    public void setOutfit(String outfit){
+        this.outfit = outfit;
     }
 
     public synchronized void start(){
