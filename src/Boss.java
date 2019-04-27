@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 public class Boss extends Enemy {
     private BufferedImage texture;
     public Animation zomDown, zomUp, zomLeft, zomRight;
+    private long lastAttackTimer, attackCooldown = 800, attackTimer = attackCooldown;
     public boolean paused = false;
     private boolean count = true;
     public int attack_counter = 0;
@@ -27,10 +28,14 @@ public class Boss extends Enemy {
         this.isMoving = false;
 
         //Below decides the dimensions for the creature's collision box.
-        bounds.x = 0;
-        bounds.y = 0;
-        bounds.width = width;
-        bounds.height = height;
+//        bounds.x = 0;
+//        bounds.y = 0;
+//        bounds.width = width;
+//        bounds.height = height;
+        bounds.x = 22;
+        bounds.y = 44;
+        bounds.width = 19;
+        bounds.height = 19;
 
         //Movement animations
         zomDown = new Animation(350, Assets.boss_down);
@@ -55,6 +60,7 @@ public class Boss extends Enemy {
 
         // Path();
         move();
+        checkAttacks();
 
         this.x += this.xMove;
         this.y += this.yMove;
@@ -101,6 +107,67 @@ public class Boss extends Enemy {
 
         // Path();
         // move();
+    }
+
+    public void checkAttacks(){
+        System.out.println("Kill");
+        attackTimer += System.currentTimeMillis() - lastAttackTimer;
+        lastAttackTimer = System.currentTimeMillis();
+
+        if(attackTimer < attackCooldown)
+            return;
+
+        Rectangle cb = getCollisionBounds(0, 0);
+        //ar = attack rectangle
+        Rectangle ar = new Rectangle();
+        //if player is within 20 pixels of an entity, they will hit them
+        int arSize = 20;
+        ar.width = arSize;
+        ar.height = arSize;
+
+        if(yAttacking == 1){
+            System.out.println("Kill me up");
+            //the x of the attack rectangle gets us the centre point of the collision rectangle.
+            ar.x = cb.x + cb.width / 2 - arSize / 2;
+            //right above the collision bound.
+            ar.y = cb.y - arSize;
+            // xAttacking = 1;
+
+        }else if(yAttacking==2){
+            System.out.println("Kill me down");
+            ar.x = cb.x + cb.width / 2 - arSize / 2;
+            //now it will be just below the collision bound.
+            ar.y = cb.y + cb.height;
+            //yAttacking= 2;
+        }else if(xAttacking==1){
+            System.out.println("Kill me left");
+            ar.x = cb.x - arSize;
+            //must change y to centre it.
+            ar.y = cb.y + cb.height / 2 - arSize / 2;
+            // xAttacking =1;
+        }else if(xAttacking ==2){
+            System.out.println("Kill me right");
+            ar.x = cb.x + cb.width;
+            ar.y = cb.y + cb.height / 2 - arSize / 2;
+            //xAttacking = 2;
+        }else{
+            //if none of the attack buttons are pressed and not attacking, don't run the rest of the code.
+            return;
+        }
+
+        attackTimer = 0;
+
+        for(Entity e : handler.getWorld().getEntityManager().getEntities()){
+            //make sure entity isn't ourselves
+            if(e.equals(this))
+                continue;
+            //below means we have hit that entity. We are hurting them with a value of 3.
+            if(e.getCollisionBounds(0, 0).intersects(ar)){
+                e.hurt(6);
+                return;
+            }
+        }
+
     }
 
     private void turnBack() {
@@ -157,18 +224,22 @@ public class Boss extends Enemy {
     }
     private BufferedImage getCurrentAnimationFrame(){
         if(xMove < 0){
+            xAttacking = 1;
             return zomLeft.getCurrentFrame();
         }else if(xMove > 0){
+            xAttacking = 2;
             return zomRight.getCurrentFrame();
         }else if(yMove < 0){
+            yAttacking = 1;
             return zomUp.getCurrentFrame();
+
             //  }else if (yMove > 0){
             //     return animDown.getCurrentFrame();
         } else {
+            yAttacking= 2;
             return zomDown.getCurrentFrame();
         }
     }
-
 //    private void Path(){
 //        xMove = 0;
 //        yMove = 0;
