@@ -170,6 +170,12 @@ public class Game extends Canvas implements Runnable {
                    handler.getKeyManager().keyJustPressed(KeyEvent.VK_I)||handler.getKeyManager().keyJustPressed(KeyEvent.VK_PAGE_DOWN)){
                 ticking = !ticking;
             }
+           if (handler.getWorld().getEntityManager().getPlayer().dead){
+               if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_Q)){
+                   States = STATE.MENU;
+                   restart();
+               }
+           }
         }
     }
 
