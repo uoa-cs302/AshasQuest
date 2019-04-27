@@ -12,8 +12,14 @@ public class Assets {
     public static Font font28;
 
     //Here, we declare all of our assets that need images.
+
+
+    public static BufferedImage dirt, grass, stone, rock, wood, building, morning_star,heart;
+    public static BufferedImage[] player_down, player_up, player_left, player_right;
+
     public static BufferedImage rock, wood, building, morning_star;
     public static BufferedImage[] player_down, player_up, player_left, player_right, player_outfits;
+
     public static BufferedImage[] zombie_down, zombie_up, zombie_left, zombie_right;
     public static BufferedImage[] boss_down, boss_up, boss_left, boss_right;
     public static BufferedImage[] attack_down, attack_up, attack_left, attack_right;
@@ -445,5 +451,57 @@ public class Assets {
         attack_right[21] = sheet_attack_right.crop(1, 5, 1, 1);
         attack_right[22] = sheet_attack_right.crop(2, 5, 1, 1);
         attack_right[23] = sheet_attack_right.crop(3, 5, 1, 1);
+
+        tree = new BufferedImage[14];
+        sheet = new SpriteSheet(ImageLoader.loadImage("../res/trees.png"), 55, 64);
+        tree[0] = sheet.crop(0, 0, 1, 1);
+        tree[1] = sheet.crop(0, 1, 1, 1);
+        tree[2] = sheet.crop(0, 2, 1, 1);
+        sheet = new SpriteSheet(ImageLoader.loadImage("../res/trees2.png"), 40, 64);
+        tree[3] = sheet.crop(0, 0, 1, 1);
+        tree[4] = sheet.crop(0, 1, 1, 1);
+        tree[5] = sheet.crop(0, 2, 1, 1);
+        sheet = new SpriteSheet(ImageLoader.loadImage("../res/trees3.png"), 35, 64);
+        tree[6] = sheet.crop(0, 0, 1, 1);
+        tree[7] = sheet.crop(0, 1, 1, 1);
+        tree[8] = sheet.crop(0, 2, 1, 1);
+        sheet = new SpriteSheet(ImageLoader.loadImage("../res/trees4.png"), 30, 64);
+        tree[9] = sheet.crop(0, 0, 1, 1);
+        tree[10] = sheet.crop(0, 1, 1, 1);
+        tree[11] = sheet.crop(0, 2, 1, 1);
+        sheet = new SpriteSheet(ImageLoader.loadImage("../res/pinktrees.png"), 64, 64);
+        tree[12] = sheet.crop(0, 0, 1, 1);
+        tree[13] = sheet.crop(1, 0, 1, 1);
+        
+        sheet = new SpriteSheet(ImageLoader.loadImage("../res/home_town.png"), 704, 576);
+        building = sheet.crop(0, 0, 1, 1);
+        sheet = new SpriteSheet(ImageLoader.loadImage("../res/morning_star.png"), 650, 750);
+        morning_star = sheet.crop(0, 0, 1, 1);
+
+        sheet = new SpriteSheet(ImageLoader.loadImage("../res/heart.png"),125,125);
+        heart=sheet.crop(0,0,1,1);
+
+        
+        // 0 is off, 1 is on
+        button = new BufferedImage[2];
+        sheet = new SpriteSheet(ImageLoader.loadImage("../res/button0.png"), 32, 32);
+        button[0] = sheet.crop(0, 0, 1, 1);
+        sheet = new SpriteSheet(ImageLoader.loadImage("../res/button1.png"), 32, 32);
+        button[1] = sheet.crop(0, 0, 1, 1);
+        
+        door = new BufferedImage[5];
+        sheet = new SpriteSheet(ImageLoader.loadImage("../res/door.png"), 48, 48);
+        door[0] = sheet.crop(0, 1, 1, 1);
+        door[1] = sheet.crop(0, 2, 1, 1);
+        door[2] = sheet.crop(0, 3, 1, 1);
+        door[3] = sheet.crop(0, 4, 1, 1);
+        door[4] = sheet.crop(0, 0, 1, 1);
+        
+        portal = new BufferedImage[2];
+        sheet = new SpriteSheet(ImageLoader.loadImage("../res/portal1.png"), 360, 600);
+        portal[0] = sheet.crop(0, 0, 1, 1);
+        sheet = new SpriteSheet(ImageLoader.loadImage("../res/portal2.png"), 285, 450);
+        portal[1] = sheet.crop(0, 0, 1, 1);
+
     }
 }

@@ -8,6 +8,7 @@ public class Item {
     public static Item[] items = new Item[256];
     public static Item woodItem = new Item(Assets.wood, "Wood", 0);
     public static Item rockItem = new Item(Assets.rock, "Rock", 1);
+    public static Item healthdrop = new Item(Assets.heart, "Health Drop",2);
 
     // Class
 
@@ -36,10 +37,18 @@ public class Item {
 
     public void tick(){
         //  Below checks to see if the player has collided with the item. If they have, they will pick up the item
-        if(handler.getWorld().getEntityManager().getPlayer().getCollisionBounds(0f, 0f).intersects(bounds)){
-            pickedUp = true;
-            //After picking up the item, they will add the item to their inventory
-            handler.getWorld().getEntityManager().getPlayer().getInventory().addItem(this);
+        if(handler.getWorld().getEntityManager().getPlayer().getCollisionBounds(0f, 0f).intersects(bounds)) {
+            if (this.id != 2) {
+                pickedUp = true;
+                //After picking up the item, they will add the item to their inventory
+
+                handler.getWorld().getEntityManager().getPlayer().getInventory().addItem(this);
+            }
+            else {
+                handler.getWorld().getEntityManager().getPlayer().setHealth(20);
+                pickedUp = true;
+
+            }
         }
     }
 
