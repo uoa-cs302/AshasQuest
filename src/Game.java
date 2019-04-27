@@ -12,6 +12,26 @@ import java.io.PrintWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.image.BufferStrategy;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
+
+import java.io.IOException;
+
+import javax.swing.Timer;
+
+
 public class Game extends Canvas implements Runnable {
 
     private Display display;
@@ -55,20 +75,35 @@ public class Game extends Canvas implements Runnable {
     //Handler
     private Handler handler;
 
+    private MediaPlayer mediaPlayer;
+    private Thread soundThread;
+    private Timer soundTimer;
+
     public static void main(String[] args){
         Game game = new Game("Asha's Quest", 1024, 768);
         game.start();
     }
 
     public Game(String title, int width, int height){
+        com.sun.javafx.application.PlatformImpl.startup(()->{});
+
+        // Timer tim = new Timer(15000, new ActionListener(){
+        //     @Override
+        //     public void actionPerformed(ActionEvent e) {
+        //         stopSound();
+        //     }
+        // });
+        // tim.start();
+
         //Takes in the 3 variables that are passed to the Display and initialises the key and mouse manager.
         this.width = width;
         this.height = height;
         this.title = title;
+        handler = new Handler(this);
+        menu = new Menu();
         keyManager = new KeyManager();
       //  mouseManager = new MouseManager();
-        mouseInput = new MouseInput();
-        menu = new Menu();
+        mouseInput = new MouseInput(handler);
         player = new Player(handler,0,0);
         commandList = new CommandList(handler);
     }
@@ -86,7 +121,11 @@ public class Game extends Canvas implements Runnable {
         //Ensures that all sprites assigned to assets in the Assets class gets brought onto the Frame.
         Assets.init();
 
-        restart();
+        // handler = new Handler(this);
+        gameCamera = new GameCamera(handler, 0, 0);
+        world = new World(handler);
+        handler.setWorld(world);
+        playSound("title");
     }
 
     private void restart(){
@@ -94,6 +133,7 @@ public class Game extends Canvas implements Runnable {
         gameCamera = new GameCamera(handler, 0, 0);
         world = new World(handler);
         handler.setWorld(world);
+        changeSound("title");
     }
 
     private void tick() {
@@ -396,6 +436,47 @@ public class Game extends Canvas implements Runnable {
 
     public void incScore(int amount){
         score += amount;
+    }
+
+    public void changeSound(String file){
+        stopSound();
+        soundTimer = new Timer(500, new ActionListener(){
+        
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                playSound(file);
+            }
+        });
+        soundTimer.setRepeats(false);
+        soundTimer.start();
+    }
+    
+    public void playSound(String file) {
+        soundThread = new Thread(new Runnable(){
+        
+            @Override
+            public void run() {
+                try {
+                    File f = new File("../res/" + file + ".wav");
+                    Media hit = new Media(f.toURI().toString());
+                    mediaPlayer = new MediaPlayer(hit);
+                    mediaPlayer.play();
+                    mediaPlayer.setOnEndOfMedia(new Runnable() {
+                        public void run() {
+                          mediaPlayer.seek(Duration.ZERO);
+                        }
+                    });
+                } catch(Exception ex) {
+                    ex.printStackTrace();
+                    System.out.println("Exception: " + ex.getMessage());
+                }
+            }
+        });
+        soundThread.start();
+    }
+
+    public void stopSound() {
+        mediaPlayer.stop();
     }
 
 }

@@ -3,9 +3,13 @@ import java.awt.event.MouseListener;
 
 public class MouseInput implements MouseListener {
 
+    private Handler handler;
+
+    public MouseInput(Handler handler){
+        this.handler = handler;
+    }
+
     public void mouseClicked(MouseEvent e) {
-
-
     }
 
     @Override
@@ -20,6 +24,7 @@ public class MouseInput implements MouseListener {
             if (my >= 400 && my <= 480){
                 //Pressed PlayButton
                 Game.States  = Game.STATE.GAME;
+                // handler.getGame().changeSound("crawler");
             }
         }
 
