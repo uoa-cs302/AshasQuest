@@ -56,6 +56,7 @@ public class Game extends Canvas implements Runnable {
     private BufferStrategy bs;
     private Graphics g;
     private Player player;
+    private String music;
     public String path = "../res/scores.txt";
     private String name = "Unknown";
     private String time = "00:00";
@@ -439,6 +440,11 @@ public class Game extends Canvas implements Runnable {
     }
 
     public void changeSound(String file){
+        //if the it is already that music, don't change it
+        if (file.equals(music)){
+            return;
+        }
+        music = file;
         stopSound();
         soundTimer = new Timer(500, new ActionListener(){
         
