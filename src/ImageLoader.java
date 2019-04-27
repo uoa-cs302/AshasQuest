@@ -16,7 +16,6 @@ public class ImageLoader {
     public static BufferedImage loadImage(String path){
 
         try {
-            System.out.println(path);
             return ImageIO.read(new File(path)); //this should be as stream right um yes
                                                                               // umm, apparently no? maybe?
 

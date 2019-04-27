@@ -1,7 +1,22 @@
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
+
+import java.io.IOException;
+
+import javax.swing.Timer;
 
 public class Game extends Canvas implements Runnable {
 
@@ -46,8 +61,70 @@ public class Game extends Canvas implements Runnable {
     //Handler
     private Handler handler;
 
+    private Thread soundThread;
+    private MediaPlayer mediaPlayer;
+
+
+    public void playSound() {
+        soundThread = new Thread(new Runnable(){
+        
+            @Override
+            public void run() {
+                try {
+                    File f = new File("../res/magic-chime-01.wav");
+                    Media hit = new Media(f.toURI().toString());
+                    mediaPlayer = new MediaPlayer(hit);
+                    mediaPlayer.play();
+                    mediaPlayer.setOnEndOfMedia(new Runnable() {
+                        public void run() {
+                          mediaPlayer.seek(Duration.ZERO);
+                        }
+                    });
+                } catch(Exception ex) {
+                    ex.printStackTrace();
+                    System.out.println("Exception: " + ex.getMessage());
+                }
+            }
+        });
+        soundThread.start();
+    }
+
+    public void stopSound() {
+        mediaPlayer.stop();
+    }
 
     public Game(String title, int width, int height){
+        com.sun.javafx.application.PlatformImpl.startup(()->{});
+        playSound();
+
+        Timer tim = new Timer(15000, new ActionListener(){
+        
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                stopSound();
+            }
+        });
+        tim.start();
+
+        // try{
+        //     //** add this into your application code as appropriate
+        //     // Open an input stream  to the audio file.
+        //     AudioInputStream in = AudioSystem.getAudioInputStream(new File("../res/title.wav").getAbsoluteFile());
+        //     // Create an AudioStream object from the input stream.
+        //     AudioStream as = new AudioStream(in);         
+        //     // Use the static class member "player" from class AudioPlayer to play
+        //     // clip.
+        //     AudioPlayer.player.start(as);            
+        //     // Similarly, to stop the audio.
+        //     // AudioPlayer.player.stop(as);
+        // }
+        // catch(IOException error){
+        //     System.out.print("file not found");
+        // }
+        // catch(Exception ex) {
+        //     System.out.println("Error with playing sound.");
+        //     ex.printStackTrace();
+        // }
         //Takes in the 3 variables that are passed to the Display and initialises the key and mouse manager.
         this.width = width;
         this.height = height;
