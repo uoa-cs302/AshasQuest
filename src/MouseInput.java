@@ -23,8 +23,7 @@ public class MouseInput implements MouseListener {
         //PlayButton
         if (mx >= 670 && mx <= right_x){
             if (my >= 455 && my <= 455 + height){
-                Game.States = Game.STATE.GAME;
-                handler.getGame().changeSound("crawler");
+                Game.States = Game.STATE.OUTFIT;
             }
         }
         //Score button
@@ -50,6 +49,43 @@ public class MouseInput implements MouseListener {
             if (mx>=200 && mx<=300){
                 if (my>=500 && my<=550){
                     Game.States = Game.STATE.MENU;
+                }
+            }
+        }
+        //During Outfit
+        if (Game.States==Game.STATE.OUTFIT){
+            if (my>=300 && my<=550){
+                int start = 125;
+                int space = 150;
+                if (mx>=start && mx<=start + space){
+                    handler.getGame().setOutfit("blue");
+                    Assets.initAsha("blue");
+                    Game.States = Game.STATE.GAME;
+                    handler.getGame().changeSound("crawler");
+                }
+                else if (mx>=start + space && mx<=start + space * 2){
+                    handler.getGame().setOutfit("dark");
+                    Assets.initAsha("dark");
+                    Game.States = Game.STATE.GAME;
+                    handler.getGame().changeSound("crawler");
+                }
+                else if (mx>=start + space * 2 && mx<=start + space * 3){
+                    handler.getGame().setOutfit("green");
+                    Assets.initAsha("green");
+                    Game.States = Game.STATE.GAME;
+                    handler.getGame().changeSound("crawler");
+                }
+                else if (mx>=start + space * 3 && mx<=start + space * 4){
+                    handler.getGame().setOutfit("pastel");
+                    Assets.initAsha("pastel");
+                    Game.States = Game.STATE.GAME;
+                    handler.getGame().changeSound("crawler");
+                }
+                else if (mx>=start + space * 4 && mx<=start + space * 5){
+                    handler.getGame().setOutfit("purple");
+                    Assets.initAsha("purple");
+                    Game.States = Game.STATE.GAME;
+                    handler.getGame().changeSound("crawler");
                 }
             }
         }

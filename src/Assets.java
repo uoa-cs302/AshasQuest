@@ -128,15 +128,15 @@ public class Assets {
         initAsha("blue");
         
         SpriteSheet outfit = new SpriteSheet(ImageLoader.loadImage("../res/Asha/blue/Asha WL.png"),65,64);
-        player_down[0] = outfit.crop(0, 0, 1, 1);
+        player_outfits[0] = outfit.crop(0, 0, 1, 1);
         outfit = new SpriteSheet(ImageLoader.loadImage("../res/Asha/dark/Asha WL.png"),65,64);
-        player_down[1] = outfit.crop(0, 0, 1, 1);
+        player_outfits[1] = outfit.crop(0, 0, 1, 1);
         outfit = new SpriteSheet(ImageLoader.loadImage("../res/Asha/green/Asha WL.png"),65,64);
-        player_down[2] = outfit.crop(0, 0, 1, 1);
+        player_outfits[2] = outfit.crop(0, 0, 1, 1);
         outfit = new SpriteSheet(ImageLoader.loadImage("../res/Asha/pastel/Asha WL.png"),65,64);
-        player_down[3] = outfit.crop(0, 0, 1, 1);
+        player_outfits[3] = outfit.crop(0, 0, 1, 1);
         outfit = new SpriteSheet(ImageLoader.loadImage("../res/Asha/purple/Asha WL.png"),65,64);
-        player_down[4] = outfit.crop(0, 0, 1, 1);
+        player_outfits[4] = outfit.crop(0, 0, 1, 1);
 
         font28 = new Font("arial",Font.BOLD,28);
         inventoryScreen = ImageLoader.loadImage("../res/inventoryScreen.png");
