@@ -107,7 +107,7 @@ public class Game extends Canvas implements Runnable {
         playSound("title");
     }
 
-    private void restart(){
+    public void restart(){
         handler = new Handler(this);
         gameCamera = new GameCamera(handler, 0, 0);
         world = new World(handler);
@@ -184,7 +184,7 @@ public class Game extends Canvas implements Runnable {
             g.setColor(Color.white);
             g.drawString("HP: " , 5, 25);
             g.setColor(Color.green);
-            g.fillRect(25, 10,player.getHealth()* 16, 20);
+            g.fillRect(25, 10,handler.getWorld().getEntityManager().getPlayer().getHealth()* 16, 20);
             g.setColor(Color.black);
             g.drawRect(25, 10, 320, 20);
             g.setColor(Color.WHITE);

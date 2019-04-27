@@ -10,6 +10,8 @@ public class Player extends Creature {
     public boolean exiting = false;
     public boolean return_to_menu = false;
     public boolean boss_ready = false;
+    public boolean dead = false;
+    public int dead_count = 0;
 
     // Attack timer, limits speed at which player can attack
     //wait 800 milliseconds to attack again
@@ -127,6 +129,12 @@ public class Player extends Creature {
             Game.States  = Game.STATE.MENU;
         }
 
+        if (dead){
+            dead = false;
+            Game.States = Game.STATE.MENU;
+            handler.getGame().restart();
+        }
+
 
     }
 
@@ -194,8 +202,10 @@ public class Player extends Creature {
 
     @Override
     public void die(){
+        dead = true;
+        dead_count++;
         System.out.println("You lose");
-        System.exit(1);
+      //  System.exit(1);
     }
 
     private void getInput(){
@@ -227,6 +237,10 @@ public class Player extends Creature {
 
 
 
+    }
+    @Override
+    public int getHealth(){
+        return health;
     }
 
     @Override
@@ -262,6 +276,13 @@ public class Player extends Creature {
             g.drawString("the title screen?", 420,357);
             g.drawString("Y:Yes", 440, 387);
             g.drawString("N:No", 520, 387);
+        }
+        if (dead){
+            Font fnt7 = new Font("helvetica",Font.BOLD, 60);
+            g.setFont(fnt7);
+            g.setColor(Color.white);
+            g.drawString("YOU    LOSE", 240, 400);
+            dead_count++;
         }
     }
 
