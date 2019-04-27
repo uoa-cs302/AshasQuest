@@ -26,6 +26,7 @@ public class World {
     private ArrayList<Entity> room2_entities;
     private ArrayList<Entity> room5_entities;
     private ArrayList<Entity> room8_entities;
+    private ArrayList<Entity> room10_entities;
     private ArrayList<Entity> room11_entities;
     
     private int num_off_switches = 0;
@@ -74,10 +75,17 @@ public class World {
         room8_entities.add(new Gargoyle(handler, 600, 0));
         room8_entities.add(new Gargoyle(handler, 1250, 200));
         room8_entities.add(new Gargoyle(handler, 1250, 400));
-        room8_entities.add(new Portal(handler, 50, 100, 1200, 700, Assets.portal[0]));
+        room8_entities.add(new Zombie(handler, 100, 200, 64, 64));
+        room8_entities.add(new Portal(handler, 50, 100, 1200, 700, Assets.portal[0]));//PURPLE
         room8_entities.add(new Portal(handler, 1250, 700, 150, 100, Assets.portal[0]));
-        room8_entities.add(new Portal(handler, 50, 600, 1200, 75, Assets.portal[1]));
+        room8_entities.add(new Zombie(handler, 1075, 650, 64, 64));
+        room8_entities.add(new Portal(handler, 50, 600, 1200, 75, Assets.portal[1]));//GREEN
         room8_entities.add(new Portal(handler, 1250, 75, 150, 600, Assets.portal[1]));
+        room8_entities.add(new Zombie(handler, 1075, 60, 64, 64));
+
+        room10_entities = new ArrayList<Entity>();
+        room10_entities.add(new Boss(handler, 850, 300, 128, 128));
+
 
         room11_entities = new ArrayList<Entity>();
         room11_entities.add(new MorningStar(handler, 610, 325));
@@ -147,6 +155,9 @@ public class World {
                 break;
             }
             case 10: {
+                for (Entity entity : room10_entities) {
+                    entityManager.addEntity(entity);
+                }
                 map_path = "../res/mapFinalBoss.txt";
                 break;
             }
