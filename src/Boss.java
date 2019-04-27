@@ -227,7 +227,7 @@ public class Boss extends Enemy {
 
     @Override
     public void die() {
-        handler.getWorld().getItemManager().addItem(Item.woodItem.createNew((int) x, (int) y));
+        handler.getWorld().getItemManager().addItem(Item.healthdrop.createNew((int) x, (int) y));
 
         handler.getGame().incScore(200);
 

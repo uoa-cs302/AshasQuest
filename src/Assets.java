@@ -12,7 +12,8 @@ public class Assets {
     public static Font font28;
 
     //Here, we declare all of our assets that need images.
-    public static BufferedImage rock, wood, building, morning_star;
+
+    public static BufferedImage rock, wood, building, morning_star, heart;
     public static BufferedImage[] player_down, player_up, player_left, player_right, player_outfits;
     public static BufferedImage[] attack_down, attack_up, attack_left, attack_right;
     public static BufferedImage[] shield_right, shield_left;
@@ -193,6 +194,9 @@ public class Assets {
         //Background Assets
         rock = sheet.crop(0, 2, 1, 1);
 
+        sheet = new SpriteSheet(ImageLoader.loadImage("../res/morning_star.png"), 650, 750);
+        morning_star = sheet.crop(0, 0, 1, 1);
+
         tree = new BufferedImage[14];
         sheet = new SpriteSheet(ImageLoader.loadImage("../res/trees.png"), 55, 64);
         tree[0] = sheet.crop(0, 0, 1, 1);
@@ -216,10 +220,10 @@ public class Assets {
         
         sheet = new SpriteSheet(ImageLoader.loadImage("../res/home_town.png"), 704, 576);
         building = sheet.crop(0, 0, 1, 1);
-
+      
         sheet = new SpriteSheet(ImageLoader.loadImage("../res/morning_star.png"), 650, 750);
         morning_star = sheet.crop(0, 0, 1, 1);
-        
+
         // 0 is off, 1 is on
         button = new BufferedImage[2];
         sheet = new SpriteSheet(ImageLoader.loadImage("../res/button0.png"), 32, 32);
@@ -368,6 +372,7 @@ public class Assets {
         player_left[21] = sheet_player_left.crop(1, 5, 1, 1);
         player_left[22] = sheet_player_left.crop(2, 5, 1, 1);
         player_left[23] = sheet_player_left.crop(3, 5, 1, 1);
+      
         //Attacking Up
         attack_up[0] = sheet_attack_left.crop(0, 0, 1,1);
         attack_up[1] = sheet_attack_left.crop(1, 0, 1, 1);
