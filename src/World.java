@@ -25,7 +25,9 @@ public class World {
 
     private ArrayList<Entity> room1_entities;
     private ArrayList<Entity> room2_entities;
+    private ArrayList<Entity> room4_entities;
     private ArrayList<Entity> room5_entities;
+    private ArrayList<Entity> room7_entities;
     private ArrayList<Entity> room8_entities;
     private ArrayList<Entity> room10_entities;
     private ArrayList<Entity> room11_entities;
@@ -51,6 +53,10 @@ public class World {
         room2_entities.add(new Tree(handler, 300, 590, 15));
         room2_entities.add(new Tree(handler, 700, 500, 14));
         room2_entities.add(new Zombie(handler, 800, 400, 64, 64));
+
+        room4_entities = new ArrayList<Entity>();
+        room4_entities.add(new Reaper(handler,800,400,32,32));
+
         
         room5_entities = new ArrayList<Entity>();
         room5_entities.add(new Gargoyle(handler, 300, 0));
@@ -70,6 +76,9 @@ public class World {
                 }
             }
         }
+
+        room7_entities = new ArrayList<Entity>();
+        room7_entities.add(new Exterminator(handler, 800, 400, 64, 64));
         
         room8_entities = new ArrayList<Entity>();
         room8_entities.add(new Gargoyle(handler, 300, 0));
@@ -150,8 +159,19 @@ public class World {
                 map_path = "../res/mapHoldingRoom.txt";
                 break;
             }
-            case 4:
+            case 4: {
+                for (Entity entity : room4_entities) {
+                    entityManager.addEntity(entity);
+                }
+                map_path = "../res/mapBoss.txt";
+                break;
+            }
+
+
             case 7: {
+                for (Entity entity : room7_entities) {
+                    entityManager.addEntity(entity);
+                }
                 map_path = "../res/mapBoss.txt";
                 // if (room4_entities.size() != 0) {
                     handler.getGame().changeSound("boss");

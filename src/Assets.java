@@ -20,7 +20,10 @@ public class Assets {
     public static BufferedImage dirt, grass, stone, rock, wood, building, morning_star,heart;
     public static BufferedImage[] player_down, player_up, player_left, player_right;
     public static BufferedImage[] zombie_down, zombie_up, zombie_left, zombie_right;
+    public static BufferedImage[] dalek_down,dalek_up,dalek_left,dalek_right;
     public static BufferedImage[] boss_down, boss_up, boss_left, boss_right;
+    public static BufferedImage[] grim_down, grim_up, grim_left, grim_right;
+
 
     public static BufferedImage[] attack_down, attack_up, attack_left, attack_right;
     public static BufferedImage[] btn_start, button, tree, door, portal;
@@ -127,6 +130,9 @@ public class Assets {
         SpriteSheet sheet_attack_left = new SpriteSheet(ImageLoader.loadImage("../res/Asha/blue/Asha AL.png"),61,64);
         SpriteSheet sheet_attack_right = new SpriteSheet(ImageLoader.loadImage("../res/Asha/blue/Asha AR.png"),64,64);
         SpriteSheet boss_sheet = new SpriteSheet(ImageLoader.loadImage("../res/boss_sheet.png"),64,64);
+        SpriteSheet who_sheet = new SpriteSheet(ImageLoader.loadImage("../res/davros.png"),32,32);
+        SpriteSheet grim_sheet = new SpriteSheet(ImageLoader.loadImage("../res/grim.png"),64,72);
+
 
 
         wood = sheet.crop(1, 1, 1, 1);
@@ -276,6 +282,21 @@ public class Assets {
         zombie_left[0] = sheet.crop(6, 3, 1, 1);
         zombie_left[1] = sheet.crop(7, 3, 1, 1);
 
+        //Cerberus
+        grim_down = new BufferedImage[2];
+        grim_up = new BufferedImage[2];
+        grim_left = new BufferedImage[2];
+        grim_right = new BufferedImage[2];
+
+        grim_down[0] = grim_sheet.crop(0,0,1,1);
+        grim_down[1] = grim_sheet.crop(0,0,1,1);
+        grim_up[0] = grim_sheet.crop(0,3,1,1);
+        grim_up[1] = grim_sheet.crop(0,3,1,1);
+        grim_left[0] = grim_sheet.crop(0,1,1,1);
+        grim_left[1] = grim_sheet.crop(0,1,1,1);
+        grim_right[0] = grim_sheet.crop(0,2,1,1);
+        grim_right[1] = grim_sheet.crop(0,2,1,1);
+
 
         //Zombie movements
 
@@ -292,6 +313,24 @@ public class Assets {
         boss_right[1] = boss_sheet.crop(1, 2, 1, 1);
         boss_left[0] = boss_sheet.crop(0, 3, 1, 1);
         boss_left[1] = boss_sheet.crop(1, 3, 1, 1);
+
+        //Dalek movements
+        dalek_down = new BufferedImage[2];
+        dalek_up = new BufferedImage[2];
+        dalek_left = new BufferedImage[2];
+        dalek_right = new BufferedImage[2];
+
+        dalek_down[0] = who_sheet.crop(0, 0, 1, 1);
+        dalek_down[1] = who_sheet.crop(0, 0, 1, 1);
+        dalek_up[0] = who_sheet.crop(0, 3, 1, 1);
+        dalek_up[1] = who_sheet.crop(0, 3, 1, 1);
+        dalek_right[0] = who_sheet.crop(0, 2, 1, 1);
+        dalek_right[1] = who_sheet.crop(0, 2, 1, 1);
+        dalek_left[0] = who_sheet.crop(0, 1, 1, 1);
+        dalek_left[1] = who_sheet.crop(0, 1, 1, 1);
+
+
+
 
         //Background Assets
 
