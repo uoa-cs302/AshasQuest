@@ -11,24 +11,13 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferStrategy;
-
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileWriter;
-import java.io.PrintWriter;
-
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
-
-import java.io.IOException;
-
 import javax.swing.Timer;
 
 
@@ -49,7 +38,7 @@ public class Game extends Canvas implements Runnable {
     private Thread thread;
     //States
     public enum STATE{
-        MENU,GAME,CREDITS,SCORE
+        MENU,GAME,CREDITS,SCORE,OUTFIT
     }
     public static Game.STATE States = Game.STATE.MENU;
 
@@ -57,6 +46,7 @@ public class Game extends Canvas implements Runnable {
     private Graphics g;
     private Player player;
     private String music;
+    private String outfit;
     public String path = "../res/scores.txt";
     private String name = "Unknown";
     private String time = "00:00";
@@ -86,15 +76,8 @@ public class Game extends Canvas implements Runnable {
     }
 
     public Game(String title, int width, int height){
+        //sound setup
         com.sun.javafx.application.PlatformImpl.startup(()->{});
-
-        // Timer tim = new Timer(15000, new ActionListener(){
-        //     @Override
-        //     public void actionPerformed(ActionEvent e) {
-        //         stopSound();
-        //     }
-        // });
-        // tim.start();
 
         //Takes in the 3 variables that are passed to the Display and initialises the key and mouse manager.
         this.width = width;
@@ -114,10 +97,6 @@ public class Game extends Canvas implements Runnable {
         //in built commands regarding adding Mouse and Key Listeners, as seen below.
         display = new Display(title, width, height);
         display.getFrame().addKeyListener(keyManager);
-      //  display.getFrame().addMouseListener(mouseManager);
-       // display.getFrame().addMouseMotionListener(mouseManager);
-       // display.getCanvas().addMouseListener(mouseManager);
-       // display.getCanvas().addMouseMotionListener(mouseManager);
         display.getCanvas().addMouseListener(mouseInput);
         //Ensures that all sprites assigned to assets in the Assets class gets brought onto the Frame.
         Assets.init();
@@ -150,8 +129,6 @@ public class Game extends Canvas implements Runnable {
             catch (IOException e){
                 System.out.println("can't save score");
             }
-            //TODO: add score to file, with name (that we need to create/get)
-            //TODO: score page
             States = STATE.MENU;
             restart();
         }
@@ -207,8 +184,6 @@ public class Game extends Canvas implements Runnable {
         //Draw Here!
 
         //If we currently have a real state in place, then call the render function inside whatever state we're in.
-        //// if(State.getState() != null)
-        //  State.getState().render(g);
         if (States==STATE.GAME) {
             world.render(g);
             Font fnt2 = new Font("arial",Font.BOLD,15);
@@ -233,31 +208,65 @@ public class Game extends Canvas implements Runnable {
             }
         } else if (States==STATE.MENU){
             menu.paintComponent(g);
-        // } else if (States==STATE.CREDITS){
-        //     g.setColor(Color.black);
-        //     g.fillRect(0,0,1024,768);
-        //     g.setColor(Color.GRAY);
-        //     g.fillRect(200,150,600,400);
+        } else if (States==STATE.OUTFIT){
+            g.setColor(Color.black);
+            g.fillRect(0,0,1024,768);
+            g.setColor(Color.GRAY);
+            g.fillRect(100,100,800,600);
 
-        //     g.setColor(Color.WHITE);
-        //     Font fnt5 = new Font("Calibri",Font.BOLD,20);
-        //     g.setFont(fnt5);
-        //     g.drawString("UNICORN DRAGON STUDIOS", 380, 200);
-        //     Font fnt6 = new Font("Arial",Font.BOLD,15);
-        //     g.setFont(fnt6);
-        //     g.drawString("Co Founders: Kimberley Evans-Parker and M.Hassaan Mirza", 280, 250);
-        //     g.drawString("Here is our studio mascot, Midnight!", 360, 350);
-        //     try {
-        //         g.drawImage(new ImageIcon(ImageIO.read(new File("../res/midnight.png"))).getImage(), 430, 400, 120, 120, this);
-        //     } catch (IOException e) {}
+            g.setColor(Color.WHITE);
+            Font fnt5 = new Font("Calibri",Font.BOLD,30);
+            g.setFont(fnt5);
+            g.drawString("Choose your outfit", 380, 600);
+            int image_size = 150;
+            int image_height = 200;
+            int image_left = 125;
+            int font_height = image_height + image_size + 50;
+            int font_left = image_left + 60;
+            Font fnt6 = new Font("Arial",Font.BOLD,15);
+            g.setFont(fnt6);
+            g.drawString("Blue", font_left, font_height);
+            g.drawImage(Assets.player_outfits[0], image_left, image_height, image_size, image_size, null);
+            g.drawString("Dark", font_left + image_size, font_height);
+            g.drawImage(Assets.player_outfits[1], image_left + image_size, image_height, image_size, image_size, null);
+            g.drawString("Green", font_left + image_size * 2, font_height);
+            g.drawImage(Assets.player_outfits[2], image_left + image_size * 2, image_height, image_size, image_size, null);
+            g.drawString("Pastel", font_left + image_size * 3, font_height);
+            g.drawImage(Assets.player_outfits[3], image_left + image_size * 3, image_height, image_size, image_size, null);
+            g.drawString("Purple", font_left + image_size * 4, font_height);
+            g.drawImage(Assets.player_outfits[4], image_left + image_size * 4, image_height, image_size, image_size, null);
 
-        //     g.setColor(Color.white);
-        //     g.fillRect(200,500,100,50);
-        //     g.setColor(Color.black);
-        //     g.drawString("Return to",210,520);
-        //     g.drawString("Menu",225,540);
-
+            g.setColor(Color.white);
+            g.fillRect(100,650,100,50);
+            g.setColor(Color.black);
+            g.drawString("Return to",110,670);
+            g.drawString("Menu",125,690);
+            
         } else if (States==STATE.CREDITS){
+            g.setColor(Color.black);
+            g.fillRect(0,0,1024,768);
+            g.setColor(Color.GRAY);
+            g.fillRect(200,150,600,400);
+
+            g.setColor(Color.WHITE);
+            Font fnt5 = new Font("Calibri",Font.BOLD,20);
+            g.setFont(fnt5);
+            g.drawString("UNICORN DRAGON STUDIOS", 380, 200);
+            Font fnt6 = new Font("Arial",Font.BOLD,15);
+            g.setFont(fnt6);
+            g.drawString("Co Founders: Kimberley Evans-Parker and M.Hassaan Mirza", 280, 250);
+            g.drawString("Here is our studio mascot, Midnight!", 360, 350);
+            try {
+                g.drawImage(new ImageIcon(ImageIO.read(new File("../res/midnight.png"))).getImage(), 430, 380, 120, 150, this);
+            } catch (IOException e) {}
+
+            g.setColor(Color.white);
+            g.fillRect(200,500,100,50);
+            g.setColor(Color.black);
+            g.drawString("Return to",210,520);
+            g.drawString("Menu",225,540);
+
+        } else if (States==STATE.SCORE){
             g.setColor(Color.black);
             g.fillRect(0,0,1024,768);
             g.setColor(Color.GRAY);
@@ -340,9 +349,6 @@ public class Game extends Canvas implements Runnable {
 
 
         while(running){
-           // if (commandList.isExit_menu_active()){
-               // return;
-           // } else {
             if (ticking){
                 if ((System.currentTimeMillis() - lastClockTime > 1000) && (States == STATE.GAME)) {//Only call every second
                     time = updateTime(); //Update
@@ -383,10 +389,6 @@ public class Game extends Canvas implements Runnable {
         return keyManager;
     }
 
-   //// public MouseManager getMouseManager(){
-   //     return mouseManager;
-  ///  }
-
     public GameCamera getGameCamera(){
         return gameCamera;
     }
@@ -398,9 +400,14 @@ public class Game extends Canvas implements Runnable {
     public int getHeight(){
         return height;
     }
-//    public boolean isExit_menu_active() {
-//        return exit_menu_active;
-//    }
+
+    public String getOutfit(){
+        return outfit;
+    }
+
+    public void setOutfit(String outfit){
+        this.outfit = outfit;
+    }
 
     public synchronized void start(){
         //When we call start, we need to check if the game is previously running.
