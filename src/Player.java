@@ -226,6 +226,20 @@ public class Player extends Creature {
     }
 
     @Override
+    public void hurt(int amt){
+        //if shield is up, don't take damage
+        if (shield_count > 0){
+            return;
+        }
+        //How much damage each of these entities takes.
+        health -= amt;
+        if(health <= 0){
+            active = false;
+            die();
+        }
+    }
+
+    @Override
     public void die(){
         dead = true;
       //  dead_count++;
