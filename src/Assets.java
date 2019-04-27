@@ -14,9 +14,10 @@ public class Assets {
     //Here, we declare all of our assets that need images.
     public static BufferedImage rock, wood, building, morning_star;
     public static BufferedImage[] player_down, player_up, player_left, player_right, player_outfits;
+    public static BufferedImage[] attack_down, attack_up, attack_left, attack_right;
+    public static BufferedImage[] shield_right, shield_left;
     public static BufferedImage[] zombie_down, zombie_up, zombie_left, zombie_right;
     public static BufferedImage[] boss_down, boss_up, boss_left, boss_right;
-    public static BufferedImage[] attack_down, attack_up, attack_left, attack_right;
     public static BufferedImage[] btn_start, button, tree, door, portal;
     public static BufferedImage inventoryScreen;
 
@@ -125,8 +126,13 @@ public class Assets {
         attack_left = new BufferedImage[24];
         attack_right = new BufferedImage[24];
 
+        //Shield animations
+        shield_left = new BufferedImage[7];
+        shield_right = new BufferedImage[7];
+
         initAsha("blue");
         
+        //outfits (preview)
         SpriteSheet outfit = new SpriteSheet(ImageLoader.loadImage("../res/Asha/blue/Asha WL.png"),65,64);
         player_outfits[0] = outfit.crop(0, 0, 1, 1);
         outfit = new SpriteSheet(ImageLoader.loadImage("../res/Asha/dark/Asha WL.png"),65,64);
@@ -241,6 +247,24 @@ public class Assets {
         SpriteSheet sheet_player_left = new SpriteSheet(ImageLoader.loadImage("../res/Asha/" + type + "/Asha WL.png"),65,64);
         SpriteSheet sheet_attack_left = new SpriteSheet(ImageLoader.loadImage("../res/Asha/" + type + "/Asha AL.png"),61,64);
         SpriteSheet sheet_attack_right = new SpriteSheet(ImageLoader.loadImage("../res/Asha/" + type + "/Asha AR.png"),64,64);
+        SpriteSheet sheet_shield_left = new SpriteSheet(ImageLoader.loadImage("../res/Asha/" + type + "/Asha SL.png"),64,64);
+        SpriteSheet sheet_shield_right = new SpriteSheet(ImageLoader.loadImage("../res/Asha/" + type + "/Asha SR.png"),64,64);
+
+        shield_left[0] = sheet_shield_left.crop(0, 0, 1, 1);
+        shield_left[1] = sheet_shield_left.crop(1, 0, 1, 1);
+        shield_left[2] = sheet_shield_left.crop(2, 0, 1, 1);
+        shield_left[3] = sheet_shield_left.crop(3, 0, 1, 1);
+        shield_left[4] = sheet_shield_left.crop(4, 0, 1, 1);
+        shield_left[5] = sheet_shield_left.crop(5, 0, 1, 1);
+        shield_left[6] = sheet_shield_left.crop(6, 0, 1, 1);
+
+        shield_right[0] = sheet_shield_right.crop(0, 0, 1, 1);
+        shield_right[1] = sheet_shield_right.crop(1, 0, 1, 1);
+        shield_right[2] = sheet_shield_right.crop(2, 0, 1, 1);
+        shield_right[3] = sheet_shield_right.crop(3, 0, 1, 1);
+        shield_right[4] = sheet_shield_right.crop(4, 0, 1, 1);
+        shield_right[5] = sheet_shield_right.crop(5, 0, 1, 1);
+        shield_right[6] = sheet_shield_right.crop(6, 0, 1, 1);
 
         player_down[0] = sheet_player_right.crop(0, 0, 1, 1);
         player_down[1] = sheet_player_right.crop(1, 0, 1, 1);
