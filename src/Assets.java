@@ -243,13 +243,14 @@ public class Assets {
     }
 
     public static void initAsha(String type){
-        SpriteSheet sheet_player_right = new SpriteSheet(ImageLoader.loadImage("../res/Asha/" + type + "/Asha WR.png"),65,64);
-        SpriteSheet sheet_player_left = new SpriteSheet(ImageLoader.loadImage("../res/Asha/" + type + "/Asha WL.png"),65,64);
-        SpriteSheet sheet_attack_left = new SpriteSheet(ImageLoader.loadImage("../res/Asha/" + type + "/Asha AL.png"),61,64);
+        SpriteSheet sheet_player_right = new SpriteSheet(ImageLoader.loadImage("../res/Asha/" + type + "/Asha WR.png"),64,64);
+        SpriteSheet sheet_player_left = new SpriteSheet(ImageLoader.loadImage("../res/Asha/" + type + "/Asha WL.png"),64,64);
+        SpriteSheet sheet_attack_left = new SpriteSheet(ImageLoader.loadImage("../res/Asha/" + type + "/Asha AL.png"),64,64);
         SpriteSheet sheet_attack_right = new SpriteSheet(ImageLoader.loadImage("../res/Asha/" + type + "/Asha AR.png"),64,64);
         SpriteSheet sheet_shield_left = new SpriteSheet(ImageLoader.loadImage("../res/Asha/" + type + "/Asha SL.png"),64,64);
         SpriteSheet sheet_shield_right = new SpriteSheet(ImageLoader.loadImage("../res/Asha/" + type + "/Asha SR.png"),64,64);
 
+        //shield
         shield_left[0] = sheet_shield_left.crop(0, 0, 1, 1);
         shield_left[1] = sheet_shield_left.crop(1, 0, 1, 1);
         shield_left[2] = sheet_shield_left.crop(2, 0, 1, 1);
@@ -266,6 +267,7 @@ public class Assets {
         shield_right[5] = sheet_shield_right.crop(5, 0, 1, 1);
         shield_right[6] = sheet_shield_right.crop(6, 0, 1, 1);
 
+        //walking
         player_down[0] = sheet_player_right.crop(0, 0, 1, 1);
         player_down[1] = sheet_player_right.crop(1, 0, 1, 1);
         player_down[2] = sheet_player_right.crop(2, 0, 1, 1);
@@ -380,7 +382,7 @@ public class Assets {
         attack_up[10] = sheet_attack_left.crop(2, 2, 1, 1);
         attack_up[11] = sheet_attack_left.crop(3, 2, 1, 1);
         attack_up[12] = sheet_attack_left.crop(0, 3, 1, 1);
-        attack_up[13] = sheet_attack_left.crop(1, 2, 1, 1);
+        attack_up[13] = sheet_attack_left.crop(1, 3, 1, 1);
         attack_up[14] = sheet_attack_left.crop(2, 3, 1, 1);
         attack_up[15] = sheet_attack_left.crop(3, 3, 1, 1);
         attack_up[16] = sheet_attack_left.crop(0, 4, 1, 1);
@@ -406,7 +408,7 @@ public class Assets {
         attack_left[10] = sheet_attack_left.crop(2, 2, 1, 1);
         attack_left[11] = sheet_attack_left.crop(3, 2, 1, 1);
         attack_left[12] = sheet_attack_left.crop(0, 3, 1, 1);
-        attack_left[13] = sheet_attack_left.crop(1, 2, 1, 1);
+        attack_left[13] = sheet_attack_left.crop(1, 3, 1, 1);
         attack_left[14] = sheet_attack_left.crop(2, 3, 1, 1);
         attack_left[15] = sheet_attack_left.crop(3, 3, 1, 1);
         attack_left[16] = sheet_attack_left.crop(0, 4, 1, 1);
@@ -432,7 +434,7 @@ public class Assets {
         attack_down[10] = sheet_attack_right.crop(2, 2, 1, 1);
         attack_down[11] = sheet_attack_right.crop(3, 2, 1, 1);
         attack_down[12] = sheet_attack_right.crop(0, 3, 1, 1);
-        attack_down[13] = sheet_attack_right.crop(1, 2, 1, 1);
+        attack_down[13] = sheet_attack_right.crop(1, 3, 1, 1);
         attack_down[14] = sheet_attack_right.crop(2, 3, 1, 1);
         attack_down[15] = sheet_attack_right.crop(3, 3, 1, 1);
         attack_down[16] = sheet_attack_right.crop(0, 4, 1, 1);
@@ -458,7 +460,7 @@ public class Assets {
         attack_right[10] = sheet_attack_right.crop(2, 2, 1, 1);
         attack_right[11] = sheet_attack_right.crop(3, 2, 1, 1);
         attack_right[12] = sheet_attack_right.crop(0, 3, 1, 1);
-        attack_right[13] = sheet_attack_right.crop(1, 2, 1, 1);
+        attack_right[13] = sheet_attack_right.crop(1, 3, 1, 1);
         attack_right[14] = sheet_attack_right.crop(2, 3, 1, 1);
         attack_right[15] = sheet_attack_right.crop(3, 3, 1, 1);
         attack_right[16] = sheet_attack_right.crop(0, 4, 1, 1);

@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 public class Player extends Creature {
 
     //Animations
-    private int animation_speed = 75;//the smaller the number, the faster the anmation
+    private int animation_speed = 15;//the smaller the number, the faster the anmation
     private Animation animDown, animUp, animLeft, animRight;
     public Animation anim_attack_down, anim_attack_up, anim_attack_left,anim_attack_right;
     public Animation anim_shield_left, anim_shield_right;
@@ -50,8 +50,8 @@ public class Player extends Creature {
         anim_attack_left = new Animation(animation_speed, Assets.attack_left);
         anim_attack_right = new Animation(animation_speed, Assets.attack_right);
         //Shield
-        anim_shield_left = new Animation(animation_speed, Assets.shield_left);
-        anim_shield_right = new Animation(animation_speed, Assets.shield_right);
+        anim_shield_left = new Animation(75, Assets.shield_left);
+        anim_shield_right = new Animation(75, Assets.shield_right);
 
         inventory = new Inventory(handler);
      //  game = new Game("Ashas Quest", 1024, 768);
@@ -333,8 +333,10 @@ public class Player extends Creature {
             return animRight.getCurrentFrame();
         }else if(yMove < 0){
             return animUp.getCurrentFrame();
-        } else {
+        } else if (yMove > 0){
             return animDown.getCurrentFrame();
+        }else{
+            return Assets.player_right[0];
         }
     }
 
