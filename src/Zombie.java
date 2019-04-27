@@ -133,26 +133,34 @@ public class Zombie extends Enemy {
             System.out.println("Kill me up");
             //the x of the attack rectangle gets us the centre point of the collision rectangle.
             ar.x = cb.x + cb.width / 2 - arSize / 2;
+            System.out.println(ar.x);
             //right above the collision bound.
             ar.y = cb.y - arSize;
+            System.out.println(ar.y);
            // xAttacking = 1;
 
         }else if(yAttacking==2){
             System.out.println("Kill me down");
             ar.x = cb.x + cb.width / 2 - arSize / 2;
+            System.out.println(ar.x);
             //now it will be just below the collision bound.
             ar.y = cb.y + cb.height;
+            System.out.println(ar.y);
             //yAttacking= 2;
         }else if(xAttacking==1){
             System.out.println("Kill me left");
             ar.x = cb.x - arSize;
+            System.out.println(ar.x);
             //must change y to centre it.
             ar.y = cb.y + cb.height / 2 - arSize / 2;
+            System.out.println(ar.y);
            // xAttacking =1;
         }else if(xAttacking ==2){
             System.out.println("Kill me right");
             ar.x = cb.x + cb.width;
+            System.out.println(ar.x);
             ar.y = cb.y + cb.height / 2 - arSize / 2;
+            System.out.println(ar.y);
             //xAttacking = 2;
         }else{
             //if none of the attack buttons are pressed and not attacking, don't run the rest of the code.

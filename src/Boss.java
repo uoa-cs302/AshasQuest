@@ -122,7 +122,7 @@ public class Boss extends Enemy {
         //ar = attack rectangle
         Rectangle ar = new Rectangle();
         //if player is within 20 pixels of an entity, they will hit them
-        int arSize = 20;
+        int arSize = 60;
         ar.width = arSize;
         ar.height = arSize;
 

@@ -12,6 +12,7 @@ public class Player extends Creature {
     public boolean boss_ready = false;
     public boolean dead = false;
     public int dead_count = 0;
+    public boolean retry = false;
 
     // Attack timer, limits speed at which player can attack
     //wait 800 milliseconds to attack again
@@ -100,43 +101,55 @@ public class Player extends Creature {
         //Command List
         commandList.tick();
         //Exit Menu
-        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)){
+        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
             //System.exit(1);
             exiting = !exiting;
         }
-        if (exiting&&handler.getKeyManager().keyJustPressed(KeyEvent.VK_Y)){
+        if (exiting && handler.getKeyManager().keyJustPressed(KeyEvent.VK_Y)) {
             System.exit(1);
         }
-        if (exiting&&handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)){
-            exiting=false;
+        if (exiting && handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)) {
+            exiting = false;
         }
-        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_M)){
+        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_M)) {
             return_to_menu = !return_to_menu;
         }
-        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_P)){
-            paused= !paused;
+        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_P)) {
+            paused = !paused;
         }
-        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_PAGE_DOWN)){
+        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_PAGE_DOWN)) {
             boss_ready = !boss_ready;
         }
-        if (boss_ready &&((handler.getKeyManager().keyJustPressed(KeyEvent.VK_Y))||(handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)))){
+        if (boss_ready && ((handler.getKeyManager().keyJustPressed(KeyEvent.VK_Y)) || (handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)))) {
             boss_ready = false;
         }
-        if (return_to_menu&&handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)){
-            return_to_menu=false;
+        if (return_to_menu && handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)) {
+            return_to_menu = false;
         }
-        if (return_to_menu&&handler.getKeyManager().keyJustPressed(KeyEvent.VK_Y)){
-            Game.States  = Game.STATE.MENU;
-        }
-
-        if (dead){
-            dead = false;
+        if (return_to_menu && handler.getKeyManager().keyJustPressed(KeyEvent.VK_Y)) {
             Game.States = Game.STATE.MENU;
-            handler.getGame().restart();
+        }
+
+        if (dead) {
+            if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_Q)) {
+                // if (dead){
+                //  retry = true;
+                Game.States = Game.STATE.MENU;
+                handler.getGame().restart();
+            }
         }
 
 
+
+//        if (retry) {
+//            // dead = false;
+//            Game.States = Game.STATE.MENU;
+//            handler.getGame().restart();
+//        }
     }
+
+
+
 
     private void checkAttacks(){
         //time elapsed between now and the previous attack
@@ -203,7 +216,7 @@ public class Player extends Creature {
     @Override
     public void die(){
         dead = true;
-        dead_count++;
+      //  dead_count++;
         System.out.println("You lose");
       //  System.exit(1);
     }
@@ -281,7 +294,8 @@ public class Player extends Creature {
             Font fnt7 = new Font("helvetica",Font.BOLD, 60);
             g.setFont(fnt7);
             g.setColor(Color.white);
-            g.drawString("YOU    LOSE", 240, 400);
+            g.drawString("YOU    LOSE", 300, 400);
+            g.drawString("Press Q to continue", 200, 490);
             dead_count++;
         }
     }
