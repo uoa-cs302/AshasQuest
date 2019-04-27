@@ -3,6 +3,9 @@ import java.awt.event.MouseListener;
 
 public class MouseInput implements MouseListener {
 
+    public int right_x = 940;
+    public int height = 55;
+    
     private Handler handler;
 
     public MouseInput(Handler handler){
@@ -16,43 +19,81 @@ public class MouseInput implements MouseListener {
     public void mousePressed(MouseEvent e) {
         int mx = e.getX();
         int my = e.getY();
-//       public Rectangle playButton = new Rectangle(WIDTH/2+120,150,100,50);
-//        public Rectangle helpButton = new Rectangle(WIDTH/2+120,250,100,50);
-//        public Rectangle quitButton = new Rectangle(WIDTH/2+120,350,100,50);
+
         //PlayButton
-        if (mx >= 672 && mx <= 992){
-            if (my >= 400 && my <= 480){
-                //Pressed PlayButton
-                Game.States  = Game.STATE.GAME;
-                handler.getGame().changeSound("crawler");
+        if (mx >= 670 && mx <= right_x){
+            if (my >= 455 && my <= 455 + height){
+                Game.States = Game.STATE.OUTFIT;
             }
         }
-
+        //Score button
+        if (mx >= 810 && mx <= right_x){
+            if (my >= 515 && my <= 515 + height){
+                Game.States = Game.STATE.SCORE;
+            }
+        }
+        //Credits button
+        if (mx >= 790 && mx <= right_x){
+            if (my >= 580 && my <= 580 + height){
+                Game.States = Game.STATE.CREDITS;
+            }
+        }
         //QuitButton
-        //Functionally the quit button is complete
-        //For this reason, the rectangle for it is no longer necessary
-        if (mx >= 832 && mx <= 992){
-            if (my >= 672 && my <= 800){
-                //Pressed QuitButton
+        if (mx >= 835 && mx <= right_x){
+            if (my >= 645 && my <= 645 + height){
                 System.exit(1);
             }
         }
-        if (mx >= 800 && mx<=952){
-            if (my>=560 && my<= 616){
-                Game.States= Game.STATE.CREDITS;
-            }
-        }
-
-        if (Game.States==Game.STATE.CREDITS){
+        //back button
+        if (Game.States==Game.STATE.CREDITS || Game.States == Game.STATE.SCORE){
             if (mx>=200 && mx<=300){
                 if (my>=500 && my<=550){
                     Game.States = Game.STATE.MENU;
                 }
             }
-
         }
-
-
+        //During Outfit Selection
+        if (Game.States==Game.STATE.OUTFIT){
+            if (my>=200 && my<=450){
+                int start = 125;
+                int space = 150;
+                if (mx>=start && mx<=start + space){
+                    handler.getGame().setOutfit("blue");
+                    Assets.initAsha("blue");
+                    Game.States = Game.STATE.GAME;
+                    handler.getGame().changeSound("crawler");
+                }
+                else if (mx>=start + space && mx<=start + space * 2){
+                    handler.getGame().setOutfit("dark");
+                    Assets.initAsha("dark");
+                    Game.States = Game.STATE.GAME;
+                    handler.getGame().changeSound("crawler");
+                }
+                else if (mx>=start + space * 2 && mx<=start + space * 3){
+                    handler.getGame().setOutfit("green");
+                    Assets.initAsha("green");
+                    Game.States = Game.STATE.GAME;
+                    handler.getGame().changeSound("crawler");
+                }
+                else if (mx>=start + space * 3 && mx<=start + space * 4){
+                    handler.getGame().setOutfit("pastel");
+                    Assets.initAsha("pastel");
+                    Game.States = Game.STATE.GAME;
+                    handler.getGame().changeSound("crawler");
+                }
+                else if (mx>=start + space * 4 && mx<=start + space * 5){
+                    handler.getGame().setOutfit("purple");
+                    Assets.initAsha("purple");
+                    Game.States = Game.STATE.GAME;
+                    handler.getGame().changeSound("crawler");
+                }
+            }
+            if (mx>=200 && mx<=300){
+                if (my>=650 && my<=700){
+                    Game.States = Game.STATE.MENU;
+                }
+            }
+        }
 
     }
 

@@ -7,12 +7,13 @@ import java.io.File;
 import java.io.IOException;
 
 public class Menu extends JPanel implements MouseListener {
-
     boolean started = false;
-    // public Rectangle playButton = new Rectangle(672,400,320,80);
-    public Rectangle scoreButton = new Rectangle(824,560,128,56);
-    public Rectangle creditsButton = new Rectangle(800,640,160,56);
-    //  public Rectangle quitButton = new Rectangle(832,672,240,40);
+    // public int right_x = 940;
+    // public int height = 55;
+    //  public Rectangle playButton = new Rectangle(670,455,270,height);
+    // public Rectangle scoreButton = new Rectangle(810,515,130,height);
+    // public Rectangle creditsButton = new Rectangle(790,580,150,height);
+    //  public Rectangle quitButton = new Rectangle(835,645,105,height);
 
     public Menu() {
 
@@ -73,21 +74,20 @@ public class Menu extends JPanel implements MouseListener {
         super.paintComponent(g);
         if (!started) {
             try {
-            g.drawImage(new ImageIcon(ImageIO.read(new File("../res/title-screen.png"))).getImage(), 0, 0, 1024, 768, this);
+            g.drawImage(new ImageIcon(ImageIO.read(new File("../res/title_screen.png"))).getImage(), 0, 0, 1024, 768, this);
             } catch (IOException e) {}
             Graphics2D g2d = (Graphics2D) g;
             Font fnt1 = new Font("arial",Font.BOLD,15);
             g.setFont(fnt1);
-            g.setColor(Color.WHITE);
+            // g.setColor(Color.WHITE);
             // g.drawString("Play",playButton.x+19,playButton.y+30);
             // g2d.draw(playButton);
-            g.drawString("Score",scoreButton.x+19,scoreButton.y+30);
-            g2d.draw(scoreButton);
-            g.drawString("Credits",creditsButton.x+19,creditsButton.y+30);
-            g2d.draw(creditsButton);
-
-//                g.drawString("Quit",quitButton.x+19,quitButton.y+30);
-//                g2d.draw(quitButton);
+            // g.drawString("Score",scoreButton.x+19,scoreButton.y+30);
+            // g2d.draw(scoreButton);
+            // g.drawString("Credits",creditsButton.x+19,creditsButton.y+30);
+            // g2d.draw(creditsButton);
+            // g.drawString("Quit",quitButton.x+19,quitButton.y+30);
+            // g2d.draw(quitButton);
 
 
         }else{
