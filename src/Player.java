@@ -25,7 +25,7 @@ public class Player extends Creature {
 
     public Player(Handler handler, float x, float y) {
         super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
-        setHealth(10);
+        setHealth(20);
 
         //Below decides the dimensions for the player's collision box.
         bounds.x = 22;
@@ -195,6 +195,7 @@ public class Player extends Creature {
     @Override
     public void die(){
         System.out.println("You lose");
+        System.exit(1);
     }
 
     private void getInput(){

@@ -6,6 +6,9 @@ public class Zombie extends Enemy {
     private BufferedImage texture;
     public Animation zomDown, zomUp, zomLeft, zomRight;
     public boolean paused = false;
+    private boolean count = true;
+    private long lastAttackTimer, attackCooldown = 800, attackTimer = attackCooldown;
+    public int attack_counter = 0;
     public int pursuitTimer;
     private boolean isMoving;
     public Player player;
@@ -25,6 +28,10 @@ public class Zombie extends Enemy {
         this.isMoving = false;
 
         //Below decides the dimensions for the creature's collision box.
+//        bounds.x = 0;
+//        bounds.y = 0;
+//        bounds.width = width;
+//        bounds.height = height;
         bounds.x = 22;
         bounds.y = 44;
         bounds.width = 19;
@@ -51,6 +58,10 @@ public class Zombie extends Enemy {
             paused = !paused;
         }
 
+        // Path();
+        move();
+        checkAttacks();
+
         this.x += this.xMove;
         this.y += this.yMove;
 
@@ -67,24 +78,104 @@ public class Zombie extends Enemy {
             //    e.hurt(1);
             //    return;
             if (e.equals(this.handler.getWorld().getEntityManager().getPlayer())) {
-                isMoving = true;
+              //  isMoving = true;
+                this.turnBack();
+              //  isMoving = false;
+            //    if (count)
+            //        attack_counter++;
+
+             //   if (attack_counter == 5)
                 if (this.isMoving) {
                     this.pursuePlayer(this.handler.getWorld().getEntityManager().getPlayer());
+                    attack_counter = 0;
+                    count = false;
+                    System.out.println("Follow");
 
                 }
+//                if(e.getCollisionBounds(0, 0).intersects(bounds)) {
+//                    e.hurt(50);
+//                    return;
+//                }
+            }
+            if (this.pursuitTimer >= 20) {
+                this.isMoving = true;
+                this.pursuitTimer = 0;
             }
         }
+
+
         //Animations
         zomDown.tick();
         zomUp.tick();
         zomRight.tick();
         zomLeft.tick();
 
-       // Path();
-         move();
+        // Path();
+       // move();
+    }
+    public void checkAttacks(){
+        System.out.println("Kill");
+        attackTimer += System.currentTimeMillis() - lastAttackTimer;
+        lastAttackTimer = System.currentTimeMillis();
+
+        if(attackTimer < attackCooldown)
+            return;
+
+        Rectangle cb = getCollisionBounds(0, 0);
+        //ar = attack rectangle
+        Rectangle ar = new Rectangle();
+        //if player is within 20 pixels of an entity, they will hit them
+        int arSize = 20;
+        ar.width = arSize;
+        ar.height = arSize;
+
+        if(yAttacking == 1){
+            System.out.println("Kill me up");
+            //the x of the attack rectangle gets us the centre point of the collision rectangle.
+            ar.x = cb.x + cb.width / 2 - arSize / 2;
+            //right above the collision bound.
+            ar.y = cb.y - arSize;
+           // xAttacking = 1;
+
+        }else if(yAttacking==2){
+            System.out.println("Kill me down");
+            ar.x = cb.x + cb.width / 2 - arSize / 2;
+            //now it will be just below the collision bound.
+            ar.y = cb.y + cb.height;
+            //yAttacking= 2;
+        }else if(xAttacking==1){
+            System.out.println("Kill me left");
+            ar.x = cb.x - arSize;
+            //must change y to centre it.
+            ar.y = cb.y + cb.height / 2 - arSize / 2;
+           // xAttacking =1;
+        }else if(xAttacking ==2){
+            System.out.println("Kill me right");
+            ar.x = cb.x + cb.width;
+            ar.y = cb.y + cb.height / 2 - arSize / 2;
+            //xAttacking = 2;
+        }else{
+            //if none of the attack buttons are pressed and not attacking, don't run the rest of the code.
+            return;
+        }
+
+        attackTimer = 0;
+
+        for(Entity e : handler.getWorld().getEntityManager().getEntities()){
+            //make sure entity isn't ourselves
+            if(e.equals(this))
+                continue;
+            //below means we have hit that entity. We are hurting them with a value of 3.
+            if(e.getCollisionBounds(0, 0).intersects(ar)){
+                e.hurt(3);
+                return;
+            }
+        }
+
     }
 
     private void turnBack() {
+        count = true;
         this.xMove *= -1;
         this.yMove *= -1;
     }
@@ -94,6 +185,7 @@ public class Zombie extends Enemy {
         if (paused){
             return;
         }
+
         if(this.x - player.x  < 400 && this.y - player.y < 400) {
             if (this.x > player.getX()) {
                 this.xMove = -1;
@@ -128,18 +220,24 @@ public class Zombie extends Enemy {
     @Override
     public void die() {
         handler.getWorld().getItemManager().addItem(Item.woodItem.createNew((int) x, (int) y));
+        handler.getGame().incScore(50);
 
     }
     private BufferedImage getCurrentAnimationFrame(){
         if(xMove < 0){
+            xAttacking = 1;
             return zomLeft.getCurrentFrame();
         }else if(xMove > 0){
+            xAttacking = 2;
             return zomRight.getCurrentFrame();
         }else if(yMove < 0){
+            yAttacking = 1;
             return zomUp.getCurrentFrame();
+
             //  }else if (yMove > 0){
             //     return animDown.getCurrentFrame();
         } else {
+            yAttacking= 2;
             return zomDown.getCurrentFrame();
         }
     }
