@@ -16,7 +16,7 @@ public class Player extends Creature {
 
     // Attack timer, limits speed at which player can attack
     //wait 800 milliseconds to attack again
-    private long lastAttackTimer, attackCooldown = 800, attackTimer = attackCooldown;
+    private long lastAttackTimer, attackCooldown = 100, attackTimer = attackCooldown;
 
     // Inventory
     private Inventory inventory;
