@@ -5,9 +5,12 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.io.File;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Game extends Canvas implements Runnable {
 
@@ -26,7 +29,7 @@ public class Game extends Canvas implements Runnable {
     private Thread thread;
     //States
     public enum STATE{
-        MENU,GAME,CREDITS
+        MENU,GAME,CREDITS,SCORE
     }
     public static Game.STATE States = Game.STATE.MENU;
 
@@ -52,6 +55,10 @@ public class Game extends Canvas implements Runnable {
     //Handler
     private Handler handler;
 
+    public static void main(String[] args){
+        Game game = new Game("Asha's Quest", 1024, 768);
+        game.start();
+    }
 
     public Game(String title, int width, int height){
         //Takes in the 3 variables that are passed to the Display and initialises the key and mouse manager.
@@ -126,14 +133,11 @@ public class Game extends Canvas implements Runnable {
     }
 
     private void save_score(int score) throws IOException {
-        // FileWriter write = new FileWriter( path , append_to_file);
-        String line = name + " " + Integer.toString(score) + "\n";
+        String line = Integer.toString(score)  + " " + name + "\n";
         FileWriter write = new FileWriter(path, true);
         PrintWriter print_line = new PrintWriter(write);
         print_line.printf("%s", line);
         print_line.close();
-        // WriteFile data = new WriteFile(path, true);
-        // data.writeToFile(line);
     }
 
     private void render(){
@@ -182,6 +186,30 @@ public class Game extends Canvas implements Runnable {
             }
         } else if (States==STATE.MENU){
             menu.paintComponent(g);
+        // } else if (States==STATE.CREDITS){
+        //     g.setColor(Color.black);
+        //     g.fillRect(0,0,1024,768);
+        //     g.setColor(Color.GRAY);
+        //     g.fillRect(200,150,600,400);
+
+        //     g.setColor(Color.WHITE);
+        //     Font fnt5 = new Font("Calibri",Font.BOLD,20);
+        //     g.setFont(fnt5);
+        //     g.drawString("UNICORN DRAGON STUDIOS", 380, 200);
+        //     Font fnt6 = new Font("Arial",Font.BOLD,15);
+        //     g.setFont(fnt6);
+        //     g.drawString("Co Founders: Kimberley Evans-Parker and M.Hassaan Mirza", 280, 250);
+        //     g.drawString("Here is our studio mascot, Midnight!", 360, 350);
+        //     try {
+        //         g.drawImage(new ImageIcon(ImageIO.read(new File("../res/midnight.png"))).getImage(), 430, 400, 120, 120, this);
+        //     } catch (IOException e) {}
+
+        //     g.setColor(Color.white);
+        //     g.fillRect(200,500,100,50);
+        //     g.setColor(Color.black);
+        //     g.drawString("Return to",210,520);
+        //     g.drawString("Menu",225,540);
+
         } else if (States==STATE.CREDITS){
             g.setColor(Color.black);
             g.fillRect(0,0,1024,768);
@@ -189,22 +217,30 @@ public class Game extends Canvas implements Runnable {
             g.fillRect(200,150,600,400);
 
             g.setColor(Color.WHITE);
-            Font fnt5 = new Font("Calibri",Font.BOLD,20);
+            Font fnt5 = new Font("Calibri",Font.BOLD,30);
             g.setFont(fnt5);
-            g.drawString("UNICORN DRAGON STUDIOS", 380, 200);
+            g.drawString("Scores", 450, 200);
             Font fnt6 = new Font("Arial",Font.BOLD,15);
             g.setFont(fnt6);
-            g.drawString("Co Founders: Kimberley Evans-Parker and M.Hassaan Mirza", 280, 250);
-            g.drawString("Here is our studio mascot, Midnight!", 360, 350);
-            try {
-                g.drawImage(new ImageIcon(ImageIO.read(new File("../res/midnight.png"))).getImage(), 430, 400, 120, 120, this);
-            } catch (IOException e) {}
+
+            ArrayList<String[]> scores = getScores();
+            if (scores.size() == 0){
+                g.drawString("No previous scores",210,220);
+            }
+            else{
+                int y = 250;
+                for (String[] score : scores) {
+                    g.drawString(score[1], 250, y);
+                    g.drawString(score[0], 700, y);
+                    y += 25;
+                }
+            }
 
             g.setColor(Color.white);
             g.fillRect(200,500,100,50);
             g.setColor(Color.black);
             g.drawString("Return to",210,520);
-            g.drawString("Menu",225,530);
+            g.drawString("Menu",225,540);
 
         }
 
@@ -341,9 +377,21 @@ public class Game extends Canvas implements Runnable {
             e.printStackTrace();
         }
     }
-    public static void main(String[] args){
-        Game game = new Game("Asha's Quest", 1024, 768);
-        game.start();
+
+    
+    public ArrayList<String[]> getScores(){
+        ArrayList<String[]> scores = new ArrayList<>();
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(path));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] score = line.split(" ", 2);
+                scores.add(score);
+            }
+        }
+        catch(IOException e) {}
+        
+        return scores;
     }
 
     public void incScore(int amount){
