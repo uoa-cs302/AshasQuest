@@ -215,13 +215,13 @@ public class Game extends Canvas implements Runnable {
             g.fillRect(100,100,800,600);
 
             g.setColor(Color.WHITE);
-            Font fnt5 = new Font("Calibri",Font.BOLD,20);
+            Font fnt5 = new Font("Calibri",Font.BOLD,30);
             g.setFont(fnt5);
-            g.drawString("Choose your outfit:", 380, 200);
+            g.drawString("Choose your outfit", 380, 600);
             int image_size = 150;
-            int image_height = 300;
+            int image_height = 200;
             int image_left = 125;
-            int font_height = 500;
+            int font_height = image_height + image_size + 50;
             int font_left = image_left + 60;
             Font fnt6 = new Font("Arial",Font.BOLD,15);
             g.setFont(fnt6);
