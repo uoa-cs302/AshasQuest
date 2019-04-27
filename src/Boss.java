@@ -6,6 +6,8 @@ public class Boss extends Enemy {
     private BufferedImage texture;
     public Animation zomDown, zomUp, zomLeft, zomRight;
     public boolean paused = false;
+    private boolean count = true;
+    public int attack_counter = 0;
     public int pursuitTimer;
     private boolean isMoving;
     public Player player;
@@ -18,23 +20,23 @@ public class Boss extends Enemy {
     public Boss(Handler handler, float x, float y, int width, int height) {
         super(handler, x, y, 128, 128);
 
-        setHealth(3);
+        setHealth(6);
 
         this.pursuitTimer= 0;
         this.handler = handler;
         this.isMoving = false;
 
         //Below decides the dimensions for the creature's collision box.
-        bounds.x = 22;
-        bounds.y = 44;
-        bounds.width = 19;
-        bounds.height = 19;
+        bounds.x = 0;
+        bounds.y = 0;
+        bounds.width = width;
+        bounds.height = height;
 
         //Movement animations
-        zomDown = new Animation(300, Assets.boss_down);
-        zomUp = new Animation(300, Assets.boss_up);
-        zomLeft = new Animation(300, Assets.boss_left);
-        zomRight = new Animation(300, Assets.boss_right);
+        zomDown = new Animation(350, Assets.boss_down);
+        zomUp = new Animation(350, Assets.boss_up);
+        zomLeft = new Animation(350, Assets.boss_left);
+        zomRight = new Animation(350, Assets.boss_right);
 //        this.player = this.handler.getWorld().getEntityManager().getPlayer();
     }
 
@@ -50,6 +52,9 @@ public class Boss extends Enemy {
                 handler.getKeyManager().keyJustPressed(KeyEvent.VK_PAGE_DOWN)){
             paused = !paused;
         }
+
+        // Path();
+        move();
 
         this.x += this.xMove;
         this.y += this.yMove;
@@ -67,13 +72,27 @@ public class Boss extends Enemy {
             //    e.hurt(1);
             //    return;
             if (e.equals(this.handler.getWorld().getEntityManager().getPlayer())) {
-                isMoving = true;
+                //  isMoving = true;
+                this.turnBack();
+                //  isMoving = false;
+                //    if (count)
+                //        attack_counter++;
+
+                //   if (attack_counter == 5)
                 if (this.isMoving) {
                     this.pursuePlayer(this.handler.getWorld().getEntityManager().getPlayer());
+                    attack_counter = 0;
+                    count = false;
 
                 }
             }
+            if (this.pursuitTimer >= 20) {
+                this.isMoving = true;
+                this.pursuitTimer = 0;
+            }
         }
+
+
         //Animations
         zomDown.tick();
         zomUp.tick();
@@ -81,10 +100,11 @@ public class Boss extends Enemy {
         zomLeft.tick();
 
         // Path();
-        move();
+        // move();
     }
 
     private void turnBack() {
+        count = true;
         this.xMove *= -1;
         this.yMove *= -1;
     }
@@ -94,6 +114,7 @@ public class Boss extends Enemy {
         if (paused){
             return;
         }
+
         if(this.x - player.x  < 400 && this.y - player.y < 400) {
             if (this.x > player.getX()) {
                 this.xMove = -1;
@@ -128,6 +149,9 @@ public class Boss extends Enemy {
     @Override
     public void die() {
         handler.getWorld().getItemManager().addItem(Item.woodItem.createNew((int) x, (int) y));
+
+        handler.getGame().incScore(200);
+
         handler.getGame().changeSound("crawler");
         handler.getWorld().setBossAlive(false);
     }
