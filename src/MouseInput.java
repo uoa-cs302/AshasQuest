@@ -52,9 +52,9 @@ public class MouseInput implements MouseListener {
                 }
             }
         }
-        //During Outfit
+        //During Outfit Selection
         if (Game.States==Game.STATE.OUTFIT){
-            if (my>=300 && my<=550){
+            if (my>=200 && my<=450){
                 int start = 125;
                 int space = 150;
                 if (mx>=start && mx<=start + space){
@@ -86,6 +86,11 @@ public class MouseInput implements MouseListener {
                     Assets.initAsha("purple");
                     Game.States = Game.STATE.GAME;
                     handler.getGame().changeSound("crawler");
+                }
+            }
+            if (mx>=200 && mx<=300){
+                if (my>=650 && my<=700){
+                    Game.States = Game.STATE.MENU;
                 }
             }
         }
