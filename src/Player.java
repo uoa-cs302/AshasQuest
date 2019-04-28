@@ -5,14 +5,17 @@ import java.awt.image.BufferedImage;
 public class Player extends Creature {
 
     //Animations
+    private int animation_speed = 15;//the smaller the number, the faster the anmation
     private Animation animDown, animUp, animLeft, animRight;
     public Animation anim_attack_down, anim_attack_up, anim_attack_left,anim_attack_right;
+    public Animation anim_shield_left, anim_shield_right;
     public boolean exiting = false;
     public boolean return_to_menu = false;
     public boolean boss_ready = false;
     public boolean dead = false;
     public int dead_count = 0;
     public boolean retry = false;
+    private int shield_count = 0;
 
     // Attack timer, limits speed at which player can attack
     //wait 800 milliseconds to attack again
@@ -27,7 +30,7 @@ public class Player extends Creature {
     public boolean paused = false;
 
     public Player(Handler handler, float x, float y) {
-        super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
+        super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH * 3/2, Creature.DEFAULT_CREATURE_HEIGHT * 3/2);
         setHealth(20);
 
         //Below decides the dimensions for the player's collision box.
@@ -37,15 +40,18 @@ public class Player extends Creature {
         bounds.height = 19;
 
         //Animatons
-        animDown = new Animation(300, Assets.player_down);
-        animUp = new Animation(300, Assets.player_up);
-        animLeft = new Animation(300, Assets.player_left);
-        animRight = new Animation(300, Assets.player_right);
+        animDown = new Animation(animation_speed, Assets.player_down);
+        animUp = new Animation(animation_speed, Assets.player_up);
+        animLeft = new Animation(animation_speed, Assets.player_left);
+        animRight = new Animation(animation_speed, Assets.player_right);
         //Animations for Asha when she's attacking
-        anim_attack_up = new Animation(200, Assets.attack_up);
-        anim_attack_down = new Animation(200, Assets.attack_down);
-        anim_attack_left = new Animation(200, Assets.attack_left);
-        anim_attack_right = new Animation(200, Assets.attack_right);
+        anim_attack_up = new Animation(animation_speed, Assets.attack_up);
+        anim_attack_down = new Animation(animation_speed, Assets.attack_down);
+        anim_attack_left = new Animation(animation_speed, Assets.attack_left);
+        anim_attack_right = new Animation(animation_speed, Assets.attack_right);
+        //Shield
+        anim_shield_left = new Animation(75, Assets.shield_left);
+        anim_shield_right = new Animation(75, Assets.shield_right);
 
         inventory = new Inventory(handler);
      //  game = new Game("Ashas Quest", 1024, 768);
@@ -90,6 +96,14 @@ public class Player extends Creature {
         anim_attack_up.tick();
         anim_attack_right.tick();
         anim_attack_left.tick();
+
+        //Shield animations
+        anim_shield_left.tick();
+        anim_shield_right.tick();
+        if (shield_count != 0){
+            shield_count--;
+        }
+
         //Movement
         getInput();
         move();
@@ -132,23 +146,11 @@ public class Player extends Creature {
 
         if (dead) {
             if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_Q)) {
-                // if (dead){
-                //  retry = true;
                 Game.States = Game.STATE.MENU;
                 handler.getGame().restart();
             }
         }
-
-
-
-//        if (retry) {
-//            // dead = false;
-//            Game.States = Game.STATE.MENU;
-//            handler.getGame().restart();
-//        }
     }
-
-
 
 
     private void checkAttacks(){
@@ -194,7 +196,10 @@ public class Player extends Creature {
             ar.y = cb.y + cb.height / 2 - arSize / 2;
             xAttacking = 2;
         }else{
-            //if none of the attack buttons are pressed and not attacking, don't run the rest of the code.
+            //if none of the attack buttons are pressed and not attacking, check shield, but don't run the rest of the code.
+
+            checkShield();
+            //check shield
             return;
         }
 
@@ -210,6 +215,27 @@ public class Player extends Creature {
                 e.hurt(1);
                 return;
             }
+        }
+    }
+
+    private void checkShield(){
+        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_SHIFT)) {
+            shield_count = 100;
+        }
+
+    }
+
+    @Override
+    public void hurt(int amt){
+        //if shield is up, don't take damage
+        if (shield_count > 0){
+            return;
+        }
+        //How much damage each of these entities takes.
+        health -= amt;
+        if(health <= 0){
+            active = false;
+            die();
         }
     }
 
@@ -259,7 +285,6 @@ public class Player extends Creature {
     @Override
     public void render(Graphics g) {
         g.drawImage(getCurrentAnimationFrame(), (int) (x - handler.getGameCamera().getxOffset()), (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
-
     }
 
     public void postRender(Graphics g){
@@ -301,15 +326,7 @@ public class Player extends Creature {
     }
 
     private BufferedImage getCurrentAnimationFrame(){
-        if(xMove < 0){
-            return animLeft.getCurrentFrame();
-        }else if(xMove > 0){
-            return animRight.getCurrentFrame();
-        }else if(yMove < 0){
-            return animUp.getCurrentFrame();
-      //  }else if (yMove > 0){
-       //     return animDown.getCurrentFrame();
-        } else if (xAttacking == 1){
+        if (xAttacking == 1){
             return anim_attack_left.getCurrentFrame();
         } else if (xAttacking==2){
             return anim_attack_right.getCurrentFrame();
@@ -317,8 +334,23 @@ public class Player extends Creature {
             return anim_attack_up.getCurrentFrame();
         } else if (yAttacking == 2){
             return anim_attack_down.getCurrentFrame();
-        } else {
+        } else if (shield_count > 0){
+            if (xMove < 0) {
+                return anim_shield_left.getCurrentFrame();
+            }
+            else{
+                return anim_shield_right.getCurrentFrame();
+            }
+        }else if(xMove < 0){
+            return animLeft.getCurrentFrame();
+        }else if(xMove > 0){
+            return animRight.getCurrentFrame();
+        }else if(yMove < 0){
+            return animUp.getCurrentFrame();
+        } else if (yMove > 0){
             return animDown.getCurrentFrame();
+        }else{
+            return Assets.player_right[0];
         }
     }
 
