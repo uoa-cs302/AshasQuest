@@ -315,9 +315,9 @@ public class World {
 
         if (boss_ready){
             g.setColor(Color.black);
-            g.fillRect(305, 307,400, 70);
+            g.fillRect(305, 307,450, 70);
             g.setColor(Color.LIGHT_GRAY);
-            g.drawRect(305, 307, 400, 70);
+            g.drawRect(305, 307, 450, 70);
             Font fnt3 = new Font("helvetica",Font.BOLD,20);
             g.setFont(fnt3);
             g.setColor(Color.white);

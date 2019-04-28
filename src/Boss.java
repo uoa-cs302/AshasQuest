@@ -17,7 +17,7 @@ public class Boss extends Enemy {
     public Boss(Handler handler, float x, float y, int width, int height) {
         super(handler, x, y, 200, 200);
 
-        setHealth(12);
+        setHealth(33);
         speed = 1.0f;
 
         this.pursuitTimer= 0;

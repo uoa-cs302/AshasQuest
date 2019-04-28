@@ -167,32 +167,34 @@ public class Player extends Creature {
         //ar = attack rectangle
         Rectangle ar = new Rectangle();
         //if player is within 20 pixels of an entity, they will hit them
-        int arSize = 150;
-        ar.width = arSize;
-        ar.height = arSize;
+        
+        int arSize = 175;
+        ar.width = Creature.DEFAULT_CREATURE_WIDTH * 2;
+        ar.height = Creature.DEFAULT_CREATURE_HEIGHT * 2;
 
         //handler.getKeyManager() checks which direction the player wants to attack in
         //So this will check where to draw the attack rectangle
         if(handler.getKeyManager().aUp){
             //the x of the attack rectangle gets us the centre point of the collision rectangle.
-            ar.x = cb.x + cb.width / 2 - arSize / 2;
             //right above the collision bound.
-            ar.y = cb.y - arSize;
+            ar.x = cb.x - Creature.DEFAULT_CREATURE_WIDTH / 2;
+            ar.y = cb.y - Creature.DEFAULT_CREATURE_HEIGHT;
             xAttacking = 1;
 
         }else if(handler.getKeyManager().aDown){
             ar.x = cb.x + cb.width / 2 - arSize / 2;
             //now it will be just below the collision bound.
-            ar.y = cb.y + cb.height;
+            ar.x = cb.x - Creature.DEFAULT_CREATURE_WIDTH / 2;
+            ar.y = cb.y;
             yAttacking= 2;
         }else if(handler.getKeyManager().aLeft){
-            ar.x = cb.x - arSize;
             //must change y to centre it.
-            ar.y = cb.y + cb.height / 2 - arSize / 2;
+            ar.x = cb.x - Creature.DEFAULT_CREATURE_WIDTH;
+            ar.y = cb.y - Creature.DEFAULT_CREATURE_HEIGHT / 2;
             xAttacking =1;
         }else if(handler.getKeyManager().aRight){
-            ar.x = cb.x + cb.width;
-            ar.y = cb.y + cb.height / 2 - arSize / 2;
+            ar.x = cb.x;
+            ar.y = cb.y - Creature.DEFAULT_CREATURE_HEIGHT / 2;
             xAttacking = 2;
         }else{
             //check shield if they are not attacking

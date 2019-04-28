@@ -185,7 +185,7 @@ public class Zombie extends Enemy {
     public void die() {
         //boss has a 75% chance of dropping an item
         int n = ThreadLocalRandom.current().nextInt(4);
-        if (n != 0){
+        if (n != 1){
             handler.getWorld().getItemManager().addItem(Item.healthdrop.createNew((int) x, (int) y));
         }
         handler.getGame().incScore(50);
