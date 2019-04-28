@@ -19,13 +19,15 @@ public abstract class Creature extends Entity {
 
         xAttacking = 0;
         yAttacking = 0;
+
+        setSolid(false);
     }
 
     public void move(){
         //If the entity isn't currently colliding with something, allow it to move.
-        if(!checkEntityCollisions(xMove, 0f))
+        if(!checkSolidEntityCollisions(xMove, 0f))
             moveX();
-        if(!checkEntityCollisions(0f, yMove))
+        if(!checkSolidEntityCollisions(0f, yMove))
             moveY();
     }
 
