@@ -3,10 +3,8 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 public class Zombie extends Enemy {
-    private BufferedImage texture;
     public Animation zomDown, zomUp, zomLeft, zomRight;
     public boolean paused = false;
-    private boolean count = true;
     private long lastAttackTimer, attackCooldown = 800, attackTimer = attackCooldown;
     public int attack_counter = 0;
     public int pursuitTimer;
@@ -192,10 +190,14 @@ public class Zombie extends Enemy {
 
     @Override
     public void die() {
-        handler.getWorld().getItemManager().addItem(Item.healthdrop.createNew((int) x, (int) y));
+        //boss has a 75% chance of dropping an item
+        int n = ThreadLocalRandom.current().nextInt(4);
+        if (n != 0){
+            handler.getWorld().getItemManager().addItem(Item.healthdrop.createNew((int) x, (int) y));
+        }
         handler.getGame().incScore(50);
-
     }
+
     private BufferedImage getCurrentAnimationFrame(){
         if(xMove < 0){
             xAttacking = 1;
