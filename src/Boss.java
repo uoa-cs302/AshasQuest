@@ -15,9 +15,9 @@ public class Boss extends Enemy {
 
 
     public Boss(Handler handler, float x, float y, int width, int height) {
-        super(handler, x, y, 128, 128);
+        super(handler, x, y, 200, 200);
 
-        setHealth(6);
+        setHealth(12);
         speed = 1.0f;
 
         this.pursuitTimer= 0;
@@ -129,7 +129,7 @@ public class Boss extends Enemy {
                 continue;
             //below means we have hit that entity. We are hurting them with a value of 3.
             if(e.getCollisionBounds(0, 0).intersects(ar)){
-                e.hurt(6);
+                e.hurt(2);
                 return;
             }
         }

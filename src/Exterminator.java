@@ -15,7 +15,7 @@ public class Exterminator extends Enemy {
     public Player player;
 
     public Exterminator(Handler handler, float x, float y, int width, int height) {
-        super(handler, x, y, 64, 64);
+        super(handler, x, y, 64, 96);
 
         setHealth(3);
         speed = 1.0f;

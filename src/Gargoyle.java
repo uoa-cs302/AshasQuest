@@ -19,7 +19,7 @@ public class Gargoyle extends StaticEntity {
     @Override
     public void die(){
         //The below line indicates that if this static entity dies, to drop the item that the player can pick up
-        handler.getWorld().getItemManager().addItem(Item.rockItem.createNew((int) x + width / 2, (int) y + height / 2));
+        handler.getWorld().getItemManager().addItem(Item.rockItem.createNew((int) x + width / 3, (int) y + height / 2));
     }
 
     @Override

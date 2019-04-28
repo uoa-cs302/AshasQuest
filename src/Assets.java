@@ -177,7 +177,7 @@ public class Assets {
         boss_left[1] = boss_sheet.crop(1, 3, 1, 1);
 
         //Boss 2
-        SpriteSheet who_sheet = new SpriteSheet(ImageLoader.loadImage("../res/davros.png"),32,32);
+        SpriteSheet who_sheet = new SpriteSheet(ImageLoader.loadImage("../res/davros.png"),32,48);
         //Dalek movements
         dalek_down = new BufferedImage[2];
         dalek_up = new BufferedImage[2];

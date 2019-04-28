@@ -176,7 +176,7 @@ public class Reaper extends Enemy {
         handler.getWorld().getItemManager().addItem(Item.healthdrop.createNew((int) x, (int) y));
         handler.getGame().incScore(200);
         handler.getGame().changeSound("crawler");
-        handler.getWorld().setBoss2Alive(false);
+        handler.getWorld().setBoss1Alive(false);
     }
     private BufferedImage getCurrentAnimationFrame(){
         if(xMove < 0){
