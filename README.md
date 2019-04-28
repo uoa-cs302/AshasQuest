@@ -5,7 +5,7 @@ Java game repository for M.Hassaan Mirza and Kimberley Evans-Parker
 ---
 **To run the game:**
 
-cd into the scr folder: `$ cd scr`
+cd into the src folder: `$ cd src`
 
 compile all java files: `$ javac *.java`
 
