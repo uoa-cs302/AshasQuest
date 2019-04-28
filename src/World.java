@@ -21,7 +21,9 @@ public class World {
     public int room = 1;
     private String map_path;
     public boolean boss_ready = false;
-    private boolean boss_alive = true;
+    private boolean boss1_alive = true;
+    private boolean boss2_alive = true;
+    private boolean boss3_alive = true;
 
     private ArrayList<Entity> room1_entities;
     private ArrayList<Entity> room2_entities;
@@ -164,25 +166,26 @@ public class World {
                     entityManager.addEntity(entity);
                 }
                 map_path = "../res/mapBoss.txt";
+                if (boss1_alive) {
+                    handler.getGame().changeSound("boss");
+                }
                 break;
             }
-
-
             case 7: {
                 for (Entity entity : room7_entities) {
                     entityManager.addEntity(entity);
                 }
                 map_path = "../res/mapBoss.txt";
-                // if (room4_entities.size() != 0) {
+                if (boss2_alive) {
                     handler.getGame().changeSound("boss");
-                // }
+                }
                 break;
             }
             case 10: {
                 for (Entity entity : room10_entities) {
                     entityManager.addEntity(entity);
                 }
-                if (boss_alive) {
+                if (boss3_alive) {
                     handler.getGame().changeSound("boss");
                 }
                 map_path = "../res/mapFinalBoss.txt";
@@ -445,7 +448,7 @@ public class World {
         num_off_switches--;
     }
 
-    public void setBossAlive(boolean boss_alive){
-        this.boss_alive = boss_alive;
+    public void setBoss3Alive(boolean boss_alive){
+        this.boss3_alive = boss_alive;
     }
 }
