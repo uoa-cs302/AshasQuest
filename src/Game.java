@@ -31,7 +31,7 @@ public class Game extends Canvas implements Runnable {
     private int width, height;
     private World world;
     public String title;
-    public boolean won = false;
+    public static boolean won = false;
     private static int sec = 0;
     private static int min = 0;
 
@@ -139,7 +139,7 @@ public class Game extends Canvas implements Runnable {
                 States = STATE.MENU;
                 restart();
             }
-        return;
+            return;
         }
 
         //Below checks if we currently have a State that actually exists.
@@ -319,16 +319,21 @@ public class Game extends Canvas implements Runnable {
             g.dispose();
     }
     public static String updateTime() {
-        //score decreases as time increases
-        score--;
-
         String stringTime = "";
-        if (sec < 59) { //Check min overflow
-            sec++;
-        } else {
-            sec = 0;
-            min++;
+        
+        //if you've won, freeze time and score
+        if (! won){
+            //score decreases as time increases
+            score--;
+    
+            if (sec < 59) { //Check min overflow
+                sec++;
+            } else {
+                sec = 0;
+                min++;
+            }
         }
+
         if (sec < 10) { //Formatting
             stringTime += "0";
         }
