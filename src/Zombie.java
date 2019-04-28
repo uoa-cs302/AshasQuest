@@ -23,8 +23,8 @@ public class Zombie extends Enemy {
         //Below decides the dimensions for the creature's collision box.
         bounds.x = 22;
         bounds.y = 44;
-        bounds.width = 19;
-        bounds.height = 19;
+        bounds.width = 1;
+        bounds.height = 1;
 
         //Movement animations
         zomDown = new Animation(300, Assets.zombie_down);

@@ -168,7 +168,7 @@ public class Player extends Creature {
         //ar = attack rectangle
         Rectangle ar = new Rectangle();
         //if player is within 20 pixels of an entity, they will hit them
-        int arSize = 100;
+        int arSize = 150;
         ar.width = arSize;
         ar.height = arSize;
 
