@@ -40,13 +40,13 @@ public class Player extends Creature {
         bounds.height = 19;
 
         //Animatons
-        animDown = new Animation(animation_speed, Assets.player_down);
-        animUp = new Animation(animation_speed, Assets.player_up);
+        animDown = new Animation(animation_speed, Assets.player_right);
+        animUp = new Animation(animation_speed, Assets.player_left);
         animLeft = new Animation(animation_speed, Assets.player_left);
         animRight = new Animation(animation_speed, Assets.player_right);
         //Animations for Asha when she's attacking
-        anim_attack_up = new Animation(animation_speed, Assets.attack_up);
-        anim_attack_down = new Animation(animation_speed, Assets.attack_down);
+        anim_attack_up = new Animation(animation_speed, Assets.attack_left);
+        anim_attack_down = new Animation(animation_speed, Assets.attack_right);
         anim_attack_left = new Animation(animation_speed, Assets.attack_left);
         anim_attack_right = new Animation(animation_speed, Assets.attack_right);
         //Shield
