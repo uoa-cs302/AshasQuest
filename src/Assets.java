@@ -129,7 +129,7 @@ public class Assets {
         attack_left = new BufferedImage[24];
         attack_right = new BufferedImage[24];
 
-        initAsha("blue");//tmp
+        
         //Shield animations
         shield_left = new BufferedImage[7];
         shield_right = new BufferedImage[7];
