@@ -15,10 +15,17 @@ public class Assets {
 
     public static BufferedImage rock, wood, building, morning_star, heart;
     public static BufferedImage[] player_down, player_up, player_left, player_right, player_outfits;
+
     public static BufferedImage[] attack_down, attack_up, attack_left, attack_right;
     public static BufferedImage[] shield_right, shield_left;
+
     public static BufferedImage[] zombie_down, zombie_up, zombie_left, zombie_right;
+    public static BufferedImage[] dalek_down,dalek_up,dalek_left,dalek_right;
     public static BufferedImage[] boss_down, boss_up, boss_left, boss_right;
+
+    public static BufferedImage[] grim_down, grim_up, grim_left, grim_right;
+    public static BufferedImage[] attack_down, attack_up, attack_left, attack_right;
+
     public static BufferedImage[] btn_start, button, tree, door, portal;
     public static BufferedImage inventoryScreen;
 
@@ -127,6 +134,7 @@ public class Assets {
         attack_left = new BufferedImage[24];
         attack_right = new BufferedImage[24];
 
+        initAsha("blue");//tmp
         //Shield animations
         shield_left = new BufferedImage[7];
         shield_right = new BufferedImage[7];
@@ -174,7 +182,7 @@ public class Assets {
         zombie_left[0] = sheet.crop(6, 3, 1, 1);
         zombie_left[1] = sheet.crop(7, 3, 1, 1);
 
-        //Boss
+        //Boss 3
         boss_down = new BufferedImage[2];
         boss_up = new BufferedImage[2];
         boss_left = new BufferedImage[2];
@@ -191,6 +199,59 @@ public class Assets {
         boss_left[0] = boss_sheet.crop(0, 3, 1, 1);
         boss_left[1] = boss_sheet.crop(1, 3, 1, 1);
 
+        //Boss 2
+        SpriteSheet who_sheet = new SpriteSheet(ImageLoader.loadImage("../res/davros.png"),32,32);
+        //Dalek movements
+        dalek_down = new BufferedImage[2];
+        dalek_up = new BufferedImage[2];
+        dalek_left = new BufferedImage[2];
+        dalek_right = new BufferedImage[2];
+
+        dalek_down[0] = who_sheet.crop(0, 0, 1, 1);
+        dalek_down[1] = who_sheet.crop(0, 0, 1, 1);
+        dalek_up[0] = who_sheet.crop(0, 3, 1, 1);
+        dalek_up[1] = who_sheet.crop(0, 3, 1, 1);
+        dalek_right[0] = who_sheet.crop(0, 2, 1, 1);
+        dalek_right[1] = who_sheet.crop(0, 2, 1, 1);
+        dalek_left[0] = who_sheet.crop(0, 1, 1, 1);
+        dalek_left[1] = who_sheet.crop(0, 1, 1, 1);
+
+        //boss 1
+        SpriteSheet grim_sheet = new SpriteSheet(ImageLoader.loadImage("../res/grim.png"),64,72);
+ 
+        grim_down = new BufferedImage[2];
+        grim_up = new BufferedImage[2];
+        grim_left = new BufferedImage[2];
+        grim_right = new BufferedImage[2];
+
+        grim_down[0] = grim_sheet.crop(0,0,1,1);
+        grim_down[1] = grim_sheet.crop(0,0,1,1);
+        grim_up[0] = grim_sheet.crop(0,3,1,1);
+        grim_up[1] = grim_sheet.crop(0,3,1,1);
+        grim_left[0] = grim_sheet.crop(0,1,1,1);
+        grim_left[1] = grim_sheet.crop(0,1,1,1);
+        grim_right[0] = grim_sheet.crop(0,2,1,1);
+        grim_right[1] = grim_sheet.crop(0,2,1,1);
+
+
+         //Zombie movements
+
+         zombie_down = new BufferedImage[2];
+         zombie_up = new BufferedImage[2];
+         zombie_left = new BufferedImage[2];
+         zombie_right = new BufferedImage[2];
+ 
+         zombie_down[0] = sheet.crop(4, 2, 1, 1);
+         zombie_down[1] = sheet.crop(5, 2, 1, 1);
+         zombie_up[0] = sheet.crop(6, 2, 1, 1);
+         zombie_up[1] = sheet.crop(7, 2, 1, 1);
+         zombie_right[0] = sheet.crop(4, 3, 1, 1);
+         zombie_right[1] = sheet.crop(5, 3, 1, 1);
+         zombie_left[0] = sheet.crop(6, 3, 1, 1);
+         zombie_left[1] = sheet.crop(7, 3, 1, 1);
+ 
+ 
+
         //Background Assets
         rock = sheet.crop(0, 2, 1, 1);
         
@@ -199,6 +260,9 @@ public class Assets {
 
         sheet = new SpriteSheet(ImageLoader.loadImage("../res/morning_star.png"), 650, 750);
         morning_star = sheet.crop(0, 0, 1, 1);
+
+        sheet = new SpriteSheet(ImageLoader.loadImage("../res/heart.png"),125,125);
+        heart=sheet.crop(0,0,1,1);
 
         tree = new BufferedImage[14];
         sheet = new SpriteSheet(ImageLoader.loadImage("../res/trees.png"), 55, 64);
@@ -375,7 +439,7 @@ public class Assets {
         player_left[21] = sheet_player_left.crop(1, 5, 1, 1);
         player_left[22] = sheet_player_left.crop(2, 5, 1, 1);
         player_left[23] = sheet_player_left.crop(3, 5, 1, 1);
-      
+
         //Attacking Up
         attack_up[0] = sheet_attack_left.crop(0, 0, 1,1);
         attack_up[1] = sheet_attack_left.crop(1, 0, 1, 1);
