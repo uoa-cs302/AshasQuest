@@ -139,12 +139,7 @@ public class Game extends Canvas implements Runnable {
             if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_P)){
                 paused = !paused;
             }
-           if ((handler.getKeyManager().keyJustPressed(KeyEvent.VK_C))||
-                   (handler.getKeyManager().keyJustPressed(KeyEvent.VK_P))||
-                   (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE))||
-                   handler.getKeyManager().keyJustPressed(KeyEvent.VK_M)||
-                   handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)||
-                   handler.getKeyManager().keyJustPressed(KeyEvent.VK_I)||handler.getKeyManager().keyJustPressed(KeyEvent.VK_PAGE_DOWN)){
+           if ((handler.getKeyManager().keyJustPressed(KeyEvent.VK_P))){
                 ticking = !ticking;
             }
            if (handler.getWorld().getEntityManager().getPlayer().dead){
