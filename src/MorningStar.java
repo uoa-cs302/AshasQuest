@@ -13,8 +13,6 @@ public class MorningStar extends StaticEntity {
         bounds.width = 0;
         bounds.height = 0;
         image_size = new Rectangle((int)x, (int)y, width, height);
-
-        setHealth(1000);//object can't be destroyed
     }
 
     @Override

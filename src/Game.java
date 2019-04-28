@@ -122,12 +122,10 @@ public class Game extends Canvas implements Runnable {
 
         if (won){
             won = false;
-            System.out.println(score);
             try{
                 save_score(score);
             }
             catch (IOException e){
-                System.out.println("can't save score");
             }
             States = STATE.MENU;
             restart();
@@ -371,7 +369,6 @@ public class Game extends Canvas implements Runnable {
             if(timer >= 1000000000){
                 //Below just checks how many times tick and render are being called, to confirm the code works
                 //This reset happens when the timer reaches 1 billion nanoseconds
-                //System.out.println("Ticks and Frames: " + ticks);
                 ticks = 0;
                 timer = 0;
             }
@@ -481,8 +478,6 @@ public class Game extends Canvas implements Runnable {
                         }
                     });
                 } catch(Exception ex) {
-                    ex.printStackTrace();
-                    System.out.println("Exception: " + ex.getMessage());
                 }
             }
         });

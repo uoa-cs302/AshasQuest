@@ -40,10 +40,8 @@ public class Door extends StaticEntity {
 
     @Override
     public void tick() {
-        // System.out.println(handler.getWorld().getNumOffSwitches());
         if (handler.getWorld().getNumOffSwitches() == 0){
             open();
-            // System.out.println("Yay :)");
         }
         if (count){
             wait ++;

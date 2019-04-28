@@ -40,13 +40,13 @@ public class Player extends Creature {
         bounds.height = 19;
 
         //Animatons
-        animDown = new Animation(animation_speed, Assets.player_down);
-        animUp = new Animation(animation_speed, Assets.player_up);
+        animDown = new Animation(animation_speed, Assets.player_right);
+        animUp = new Animation(animation_speed, Assets.player_left);
         animLeft = new Animation(animation_speed, Assets.player_left);
         animRight = new Animation(animation_speed, Assets.player_right);
         //Animations for Asha when she's attacking
-        anim_attack_up = new Animation(animation_speed, Assets.attack_up);
-        anim_attack_down = new Animation(animation_speed, Assets.attack_down);
+        anim_attack_up = new Animation(animation_speed, Assets.attack_left);
+        anim_attack_down = new Animation(animation_speed, Assets.attack_right);
         anim_attack_left = new Animation(animation_speed, Assets.attack_left);
         anim_attack_right = new Animation(animation_speed, Assets.attack_right);
         //Shield
@@ -54,7 +54,6 @@ public class Player extends Creature {
         anim_shield_right = new Animation(75, Assets.shield_right);
 
         inventory = new Inventory(handler);
-     //  game = new Game("Ashas Quest", 1024, 768);
         commandList = new CommandList(handler);
     }
 
@@ -196,10 +195,9 @@ public class Player extends Creature {
             ar.y = cb.y + cb.height / 2 - arSize / 2;
             xAttacking = 2;
         }else{
-            //if none of the attack buttons are pressed and not attacking, check shield, but don't run the rest of the code.
-
+            //check shield if they are not attacking
             checkShield();
-            //check shield
+            //if none of the attack buttons are pressed and not attacking, don't run the rest of the code.
             return;
         }
 
@@ -242,9 +240,6 @@ public class Player extends Creature {
     @Override
     public void die(){
         dead = true;
-      //  dead_count++;
-        System.out.println("You lose");
-      //  System.exit(1);
     }
 
     private void getInput(){
@@ -273,10 +268,8 @@ public class Player extends Creature {
             xAttacking = 1;
         if(handler.getKeyManager().aRight)
             xAttacking = 2;
-
-
-
     }
+
     @Override
     public int getHealth(){
         return health;
@@ -364,6 +357,7 @@ public class Player extends Creature {
     public void setInventory(Inventory inventory) {
         this.inventory = inventory;
     }
+
     public void setCommandList(CommandList commandList){
         this.commandList = commandList;
     }

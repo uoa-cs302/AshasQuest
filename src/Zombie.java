@@ -70,7 +70,6 @@ public class Zombie extends Enemy {
                     this.pursuePlayer(this.handler.getWorld().getEntityManager().getPlayer());
                     attack_counter = 0;
                     count = false;
-                    System.out.println("Follow");
                 }
             }
             if (this.pursuitTimer >= 20) {
@@ -88,7 +87,6 @@ public class Zombie extends Enemy {
     }
 
     public void checkAttacks(){
-        System.out.println("Kill");
         attackTimer += System.currentTimeMillis() - lastAttackTimer;
         lastAttackTimer = System.currentTimeMillis();
 
@@ -106,30 +104,22 @@ public class Zombie extends Enemy {
         if(yMove<0){
             //the x of the attack rectangle gets us the centre point of the collision rectangle.
             ar.x = cb.x + cb.width / 2 - arSize / 2;
-            System.out.println(ar.x);
             //right above the collision bound.
             ar.y = cb.y - arSize;
-            System.out.println(ar.y);
 
         }else if(yMove>0){
             ar.x = cb.x + cb.width / 2 - arSize / 2;
-            System.out.println(ar.x);
             //now it will be just below the collision bound.
             ar.y = cb.y + cb.height;
-            System.out.println(ar.y);
             
         }else if(xMove<0){
             ar.x = cb.x - arSize;
-            System.out.println(ar.x);
             //must change y to centre it.
             ar.y = cb.y + cb.height / 2 - arSize / 2;
-            System.out.println(ar.y);
             
         }else if(xMove>0){
             ar.x = cb.x + cb.width;
-            System.out.println(ar.x);
             ar.y = cb.y + cb.height / 2 - arSize / 2;
-            System.out.println(ar.y);
         }else{
             //if none of the attack buttons are pressed and not attacking, don't run the rest of the code.
             return;
