@@ -20,6 +20,10 @@ import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 import javax.swing.Timer;
 
+//Base of game inspired by:
+//CodeNMore 2014 https://www.youtube.com/playlist?list=PLah6faXAgguMnTBs3JnEJY0shAc18XYQZ
+//RealTutsGML 25 May 2017 https://www.youtube.com/playlist?list=PLWms45O3n--5vDnNd6aiu1CSWX3JlCU1n
+//TheChernoProject 5 Oct 2012 https://www.youtube.com/playlist?list=PLlrATfBNZ98eOOCk2fOFg7Qg5yoQfFAdf
 
 public class Game extends Canvas implements Runnable {
 
@@ -30,7 +34,6 @@ public class Game extends Canvas implements Runnable {
     public boolean won = false;
     private static int sec = 0;
     private static int min = 0;
-    //private boolean exiting = false;
 
     public boolean running = false;
     public boolean paused = false;
@@ -55,7 +58,6 @@ public class Game extends Canvas implements Runnable {
 
     //Input
     private KeyManager keyManager;
-    //private MouseManager mouseManager;
     private MouseInput mouseInput;
     private Menu menu;
 
@@ -66,6 +68,7 @@ public class Game extends Canvas implements Runnable {
     //Handler
     private Handler handler;
 
+    //Sound
     private MediaPlayer mediaPlayer;
     private Thread soundThread;
     private Timer soundTimer;
