@@ -22,7 +22,7 @@ public class Exterminator extends Enemy {
     public Exterminator(Handler handler, float x, float y, int width, int height) {
         super(handler, x, y, 64, 64);
 
-        setHealth(1);
+        setHealth(3);
         speed = 1.0f;
 
         this.pursuitTimer= 0;
