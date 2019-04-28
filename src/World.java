@@ -451,4 +451,12 @@ public class World {
     public void setBoss3Alive(boolean boss_alive){
         this.boss3_alive = boss_alive;
     }
+
+    public void setBoss2Alive(boolean boss_alive){
+        this.boss2_alive = boss_alive;
+    }
+
+    public void setBoss1Alive(boolean boss_alive){
+        this.boss1_alive = boss_alive;
+    }
 }

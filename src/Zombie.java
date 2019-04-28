@@ -1,12 +1,15 @@
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Zombie extends Enemy {
     public Animation zomDown, zomUp, zomLeft, zomRight;
+    private BufferedImage texture;
     public boolean paused = false;
     private long lastAttackTimer, attackCooldown = 800, attackTimer = attackCooldown;
     public int attack_counter = 0;
+    private boolean count = true;
     public int pursuitTimer;
     private boolean isMoving;
     public Player player;
