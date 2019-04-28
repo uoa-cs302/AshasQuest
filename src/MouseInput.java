@@ -88,7 +88,7 @@ public class MouseInput implements MouseListener {
                     handler.getGame().changeSound("crawler");
                 }
             }
-            if (mx>=200 && mx<=300){
+            if (mx>=100 && mx<=200){
                 if (my>=650 && my<=700){
                     Game.States = Game.STATE.MENU;
                 }
