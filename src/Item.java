@@ -41,7 +41,6 @@ public class Item {
             if (this.id != 2) {
                 pickedUp = true;
                 //After picking up the item, they will add the item to their inventory
-
                 handler.getWorld().getEntityManager().getPlayer().getInventory().addItem(this);
             }
             else {

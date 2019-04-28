@@ -17,10 +17,6 @@ public class Handler {
         return game.getKeyManager();
     }
 
-  //  public MouseManager getMouseManager(){
-   //     return game.getMouseManager();
-  //  }
-
     public int getWidth(){
         return game.getWidth();
     }

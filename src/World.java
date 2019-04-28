@@ -47,7 +47,6 @@ public class World {
         room1_entities.add(new Rock(handler, 400, 645));
         room1_entities.add(new Tree(handler, 625, 795, -1));
         room1_entities.add(new Tree(handler, 800, 890, -1));
-        // room2_entities.add(new Zombie(handler, 900, 690, 64, 64));
         
         room2_entities = new ArrayList<Entity>();
         room2_entities.add(new Tree(handler, 100, 70, 14));
@@ -331,13 +330,12 @@ public class World {
 
     public Tile getTile(int x, int y){
         //gets x and y positions for the tile. It is going to look for the id in the tiles array at x,y.
-        //if
         if(x < 0 || y < 0 || x >= width || y >= height)
             return Tile.B_black;
 
         //accesses tiles array in Tile class.
         Tile t = Tile.tiles[tiles[x][y]];
-        //if th tile that we got is equal to nothing, we run a default black Tile.
+        //if the tile that we got is equal to nothing, we run a default black Tile.
         if(t == null)
             return Tile.B_black;
         return t;

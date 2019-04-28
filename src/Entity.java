@@ -27,14 +27,11 @@ public abstract class Entity {
         this.width = width;
         this.height = height;
         health = DEFAULT_HEALTH;
-
         bounds = new Rectangle(0, 0, width, height);
     }
 
     public abstract void tick();
-
     public abstract void render(Graphics g);
-
     public abstract void die();
 
     public void hurt(int amt){

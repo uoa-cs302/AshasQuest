@@ -19,7 +19,6 @@ public abstract class Creature extends Entity {
 
         xAttacking = 0;
         yAttacking = 0;
-
     }
 
     public void move(){
