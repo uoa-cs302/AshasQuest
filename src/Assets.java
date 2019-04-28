@@ -15,16 +15,12 @@ public class Assets {
 
     public static BufferedImage rock, wood, building, morning_star, heart;
     public static BufferedImage[] player_down, player_up, player_left, player_right, player_outfits;
-
     public static BufferedImage[] attack_down, attack_up, attack_left, attack_right;
     public static BufferedImage[] shield_right, shield_left;
-
     public static BufferedImage[] zombie_down, zombie_up, zombie_left, zombie_right;
     public static BufferedImage[] dalek_down,dalek_up,dalek_left,dalek_right;
     public static BufferedImage[] boss_down, boss_up, boss_left, boss_right;
-
     public static BufferedImage[] grim_down, grim_up, grim_left, grim_right;
-
     public static BufferedImage[] btn_start, button, tree, door, portal;
     public static BufferedImage inventoryScreen;
 
@@ -133,7 +129,7 @@ public class Assets {
         attack_left = new BufferedImage[24];
         attack_right = new BufferedImage[24];
 
-        //initAsha("blue");//tmp
+        
         //Shield animations
         shield_left = new BufferedImage[7];
         shield_right = new BufferedImage[7];
