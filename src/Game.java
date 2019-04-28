@@ -121,14 +121,18 @@ public class Game extends Canvas implements Runnable {
         keyManager.tick();
 
         if (won){
-            won = false;
-            try{
-                save_score(score);
+            if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_Q)){
+
+                won = false;
+                try{
+                    save_score(score);
+                }
+                catch (IOException e){
+                }
+                States = STATE.MENU;
+                restart();
             }
-            catch (IOException e){
-            }
-            States = STATE.MENU;
-            restart();
+        return;
         }
 
         //Below checks if we currently have a State that actually exists.
@@ -198,6 +202,16 @@ public class Game extends Canvas implements Runnable {
                 g.setFont(fnt4);
                 g.setColor(Color.white);
                 g.drawString("GAME      PAUSED", 240, 400);
+            }
+            if (won){
+                Font fnt9 = new Font("helvetica",Font.BOLD, 60);
+                g.setFont(fnt9);
+                g.setColor(Color.white);
+                g.drawString("You   WON!", 240, 400);
+                g.drawString("Press Q to continue!", 200, 500);
+
+
+
             }
         } else if (States==STATE.MENU){
             menu.paintComponent(g);

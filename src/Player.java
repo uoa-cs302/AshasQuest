@@ -285,9 +285,9 @@ public class Player extends Creature {
         commandList.render(g);
         if (exiting){
             g.setColor(Color.black);
-            g.fillRect(305, 307,350, 70);
+            g.fillRect(305, 307,400, 70);
             g.setColor(Color.LIGHT_GRAY);
-            g.drawRect(305, 307, 350, 70);
+            g.drawRect(305, 307, 400, 70);
             Font fnt3 = new Font("helvetica",Font.BOLD,20);
             g.setFont(fnt3);
             g.setColor(Color.white);
@@ -297,9 +297,9 @@ public class Player extends Creature {
         }
         if (return_to_menu){
             g.setColor(Color.black);
-            g.fillRect(305, 307,400, 100);
+            g.fillRect(305, 307,450, 100);
             g.setColor(Color.LIGHT_GRAY);
-            g.drawRect(305, 307, 400, 100);
+            g.drawRect(305, 307, 450, 100);
             Font fnt3 = new Font("helvetica",Font.BOLD,20);
             g.setFont(fnt3);
             g.setColor(Color.white);
