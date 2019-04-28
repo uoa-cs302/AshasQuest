@@ -114,6 +114,10 @@ public class Game extends Canvas implements Runnable {
         world = new World(handler);
         handler.setWorld(world);
         changeSound("title");
+        sec = 0;
+        min = 0;
+        time = "00:00";
+        score = 5 * 60;
     }
 
     private void tick() {
@@ -194,8 +198,8 @@ public class Game extends Canvas implements Runnable {
             g.setColor(Color.WHITE);
             g.drawString("Press C for Commands",5,50);
             g.drawString(time,5,90);
-            g.drawString(Integer.toString(score),50,70);
             g.drawString("Score",5,70);
+            g.drawString(Integer.toString(score),60,70);
 
             if (paused){
                 Font fnt4 = new Font("helvetica",Font.BOLD, 60);
