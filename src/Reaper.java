@@ -16,7 +16,7 @@ public class Reaper extends Enemy {
     public Reaper(Handler handler, float x, float y, int width, int height) {
         super(handler, x, y, 128, 128);
 
-        setHealth(24);
+        setHealth(60);
         speed = 1.0f;
 
         this.pursuitTimer= 0;

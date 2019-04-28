@@ -40,7 +40,7 @@ public class Tree extends StaticEntity {
     @Override
     public void die(){
         //The below line indicates that if this static entity dies, to drop the item that the player can pick up
-        handler.getWorld().getItemManager().addItem(Item.woodItem.createNew((int) x, (int) y));
+        handler.getWorld().getItemManager().addItem(Item.woodItem.createNew((int) x + width / 3, (int) y + height / 2));
     }
 
     @Override

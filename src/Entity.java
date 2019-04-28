@@ -10,7 +10,6 @@ public abstract class Entity {
     //and thus susceptible to item drops.
     //The Rectangle bounds is to be used in collisions. Each entity will have their own box, we will check when those
     //boxes intersect.
-    private static boolean solid = true;
     public static final int DEFAULT_HEALTH = 3;
     protected Handler handler;
     protected float x, y;
@@ -69,12 +68,12 @@ public abstract class Entity {
             if(e.equals(this))
                 continue;
             //if the entity can be passed through
-            if (! e.getSolid())
-                continue;
-            //if there is no offset of x and y between the two objects, that means they are colliding, and we
-            //return true to confirm that they are colliding.
-            if(e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset, yOffset)))
-                return true;
+            if (e.isSolid()){
+                //if there is no offset of x and y between the two objects, that means they are colliding, and we
+                //return true to confirm that they are colliding.
+                if(e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset, yOffset)))
+                    return true;
+            }
         }
         return false;
     }
@@ -139,12 +138,8 @@ public abstract class Entity {
         this.ontop = ontop;
     }
 
-    public boolean getSolid(){
-        return solid;
-    }
-
-    public void setSolid(boolean solid){
-        this.solid = solid;
+    public boolean isSolid(){
+        return true;
     }
 
 }

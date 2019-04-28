@@ -18,7 +18,7 @@ public class Exterminator extends Enemy {
         super(handler, x, y, 64, 96);
 
         setHealth(18);
-        speed = 1.0f;
+        speed = 2.0f;
 
         this.pursuitTimer= 0;
         this.handler = handler;

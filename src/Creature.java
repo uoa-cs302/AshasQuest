@@ -3,11 +3,8 @@ public abstract class Creature extends Entity {
     public static final float DEFAULT_SPEED = 3.0f;
     public static final int DEFAULT_CREATURE_WIDTH = 64,
     DEFAULT_CREATURE_HEIGHT = 64;
-
     protected float speed;
     protected float xMove, yMove;
-
-
     protected float xAttacking, yAttacking;
 
     //This is for Enemies and Players, which are able to move around.
@@ -19,8 +16,6 @@ public abstract class Creature extends Entity {
 
         xAttacking = 0;
         yAttacking = 0;
-
-        setSolid(false);
     }
 
     public void move(){
@@ -141,4 +136,8 @@ public abstract class Creature extends Entity {
         this.speed = speed;
     }
 
+    @Override
+    public boolean isSolid(){
+        return false;
+    }
 }
