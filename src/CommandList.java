@@ -19,9 +19,9 @@ public class CommandList {
             return;
         if (exit_menu_active){
             g.setColor(Color.black);
-            g.fillRect(305, 307,380, 210);
+            g.fillRect(305, 307,400, 210);
             g.setColor(Color.LIGHT_GRAY);
-            g.drawRect(305, 307, 380, 210);
+            g.drawRect(305, 307, 400, 210);
             Font fnt3 = new Font("helvetica",Font.BOLD,20);
             g.setFont(fnt3);
             g.setColor(Color.white);
@@ -37,15 +37,15 @@ public class CommandList {
             g.drawString("Esc: Exit Game", 320, 437);
             g.drawString("M: Exit to Menu", 320, 457);
             g.drawString("I: Call Inventory", 320, 477);
-            g.drawString("P:Pause Game", 320, 497);
+        //    g.drawString("P:Pause Game", 320, 497);
             //Right column
             g.drawString("Shift: Use Alucard Shield",470, 357);
-            g.drawString("P: Use Power Up",470,377);
+            g.drawString("P: Pause Game",470,377);
             g.drawString("Down Arrow: Attack Down",470,397);
             g.drawString("Up Arrow: Attack Up", 470, 417);
             g.drawString("Left Arrow: Attack Left", 470, 437);
             g.drawString("Right Arrow: Attack Right", 470, 457);
-            g.drawString("Space: Shadowpiercer Slash", 470, 477);
+        //    g.drawString("Space: Shadowpiercer Slash", 470, 477);
         }
     }
 
